@@ -1,9 +1,10 @@
 package com.training.reportsystem;
 
+import com.training.reportsystem.command.ChangeLanguage;
 import com.training.reportsystem.command.Command;
-import com.training.reportsystem.command.HomePage;
-import com.training.reportsystem.command.LoginPage;
-import com.training.reportsystem.command.RegistrationPage;
+import com.training.reportsystem.command.pages.HomePage;
+import com.training.reportsystem.command.pages.LoginPage;
+import com.training.reportsystem.command.pages.RegistrationPage;
 import com.training.reportsystem.util.constants.CommandConstants;
 import com.training.reportsystem.util.constants.GlobalConstants;
 
@@ -27,6 +28,7 @@ public class Servlet extends HttpServlet {
         commandMap.put(CommandConstants.HOME_PAGE, new HomePage());
         commandMap.put(CommandConstants.LOGIN_PAGE, new LoginPage());
         commandMap.put(CommandConstants.REGISTRATION_PAGE, new RegistrationPage());
+        commandMap.put(CommandConstants.CHANGE_LANGUAGE, new ChangeLanguage());
     }
 
     @Override
