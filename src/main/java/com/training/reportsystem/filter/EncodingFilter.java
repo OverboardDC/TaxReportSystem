@@ -1,7 +1,8 @@
-package com.training.audiomanager.filter;
+package com.training.reportsystem.filter;
 
 
-import com.training.audiomanager.util.constants.GlobalConstants;
+
+import com.training.reportsystem.util.constants.GlobalConstants;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,6 +10,7 @@ import java.io.IOException;
 
 @WebFilter(value = "/*")
 public class EncodingFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }

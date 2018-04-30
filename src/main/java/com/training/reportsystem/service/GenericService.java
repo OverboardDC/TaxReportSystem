@@ -8,10 +8,10 @@ public interface GenericService<T> {
 
     T getById(Long id);
 
-    void add(T t);
+    void create(T t);
 
-    void remove(Long id);
+    void update(Long id);
 
-    void edit(Long id);
+    void delete(Long id);
 
 }

@@ -1,4 +1,14 @@
 package com.training.reportsystem.command;
 
-public class HomePage {
+import com.training.reportsystem.util.constants.PageConstants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HomePage implements Command {
+
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        return PageConstants.INDEX;
+    }
 }
