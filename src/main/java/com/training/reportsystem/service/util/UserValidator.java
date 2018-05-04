@@ -28,7 +28,7 @@ public class UserValidator {
 
     public String inputPassword(HttpServletRequest request) {
         String value = request.getParameter(Parameters.PASSWORD);
-        if (!value.matches(RegexConstants.USERNAME_REGEX)) {
+        if (!value.matches(RegexConstants.PASSWORD_REGEX)) {
             isValid = validationFailed(request, Attributes.PASSWORD_ERROR, ErrorMessages.INCORRECT_PASSWORD);
         }
         return value;
@@ -43,7 +43,7 @@ public class UserValidator {
 
     public String inputFirsName(HttpServletRequest request) {
         String value = request.getParameter(Parameters.FIRST_NAME);
-        if (!value.matches(RegexConstants.USERNAME_REGEX)) {
+        if (!value.matches(RegexConstants.FIRST_NAME_REGEX)) {
             isValid = validationFailed(request, Attributes.FIRST_NAME_ERROR, ErrorMessages.INCORRECT_FIRST_NAME);
         }
         return value;
@@ -51,7 +51,7 @@ public class UserValidator {
 
     public String inputLastName(HttpServletRequest request) {
         String value = request.getParameter(Parameters.LAST_NAME);
-        if (!value.matches(RegexConstants.USERNAME_REGEX)) {
+        if (!value.matches(RegexConstants.LAST_NAME_REGEX)) {
             isValid = validationFailed(request, Attributes.LAST_NAME_ERROR, ErrorMessages.INCORRECT_LAST_NAME);
         }
         return value;
@@ -59,7 +59,7 @@ public class UserValidator {
 
     public String inputIdentificationCode(HttpServletRequest request) {
         String value = request.getParameter(Parameters.IDENTIFICATION_CODE);
-        if (!value.matches(RegexConstants.USERNAME_REGEX)) {
+        if (!value.matches(RegexConstants.IDENTIFICATION_CODE_REGEX)) {
             isValid = validationFailed(request, Attributes.IDENTIFICATION_CODE_ERROR, ErrorMessages.INCORRECT_IDENTIFICATION_CODE);
         }
         return value;
@@ -67,7 +67,7 @@ public class UserValidator {
 
     public String inputName(HttpServletRequest request) {
         String value = request.getParameter(Parameters.NAME);
-        if (!value.matches(RegexConstants.USERNAME_REGEX)) {
+        if (!value.matches(RegexConstants.NAME_REGEX)) {
             isValid = validationFailed(request, Attributes.NAME_ERROR, ErrorMessages.INCORRECT_NAME);
         }
         return value;

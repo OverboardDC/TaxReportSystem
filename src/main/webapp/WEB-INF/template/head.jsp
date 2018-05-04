@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>AudioManager</title>
+    <title>TaxSubmissionSystem</title>
     <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" type="text/css"/>
     <link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet" type="text/css"/>
 </head>

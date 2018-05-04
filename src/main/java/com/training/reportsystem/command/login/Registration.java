@@ -47,8 +47,6 @@ public class Registration implements Command {
             return Pages.REGISTRATION_REDIRECT;
         }
         userService.create(taxPayer);
-
-
         return Pages.LOGIN_REDIRECT;
     }
 

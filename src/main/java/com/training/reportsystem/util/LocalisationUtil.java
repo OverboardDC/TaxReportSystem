@@ -7,8 +7,8 @@ public class LocalisationUtil {
 
     public static final Locale ENGLISH = new Locale("en", "US");
     public static final Locale RUSSIAN = new Locale("ru", "RU");
-
     private static final String BUNDLE_NAME = "/messages";
+
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, ENGLISH);
 
     public static void setLocale(Locale locale) {
