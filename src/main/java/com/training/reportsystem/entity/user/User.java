@@ -41,7 +41,7 @@ public class User {
                 '}';
     }
 
-    protected static class GenericUserBuilder<T> implements Builder<User> {
+    protected static abstract class GenericUserBuilder<T extends GenericUserBuilder<T>> implements Builder<User> {
 
         private final Class<T> builderClass;
         protected Long id;

@@ -19,17 +19,19 @@ public class Company extends TaxPayer {
                 "} " + super.toString();
     }
 
-    public static final class CompanyBuilder extends GenericTaxPayerBuilder<CompanyBuilder> {
+    public abstract static class GenericCompanyBuilder<T extends GenericCompanyBuilder<T>> extends GenericTaxPayerBuilder<T> {
 
+        private final Class<T> builderClass;
         private String name;
 
-        public CompanyBuilder() {
-            super(CompanyBuilder.class);
+        public GenericCompanyBuilder(Class<T> builderClass) {
+            super(builderClass);
+            this.builderClass = builderClass;
         }
 
-        public CompanyBuilder setName(String name) {
+        public T setName(String name) {
             this.name = name;
-            return this;
+            return builderClass.cast(this);
         }
 
         @Override
@@ -44,5 +46,13 @@ public class Company extends TaxPayer {
             company.setName(name);
             return company;
         }
+    }
+
+    public static final class CompanyBuilder extends GenericCompanyBuilder<CompanyBuilder> {
+
+        public CompanyBuilder() {
+            super(CompanyBuilder.class);
+        }
+
     }
 }

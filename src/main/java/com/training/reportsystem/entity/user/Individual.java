@@ -39,29 +39,33 @@ public class Individual extends TaxPayer implements Person {
                 "} " + super.toString();
     }
 
-    public static final class IndividualBuilder extends GenericTaxPayerBuilder<IndividualBuilder>{
 
+
+    public static abstract class GenericIndividualBuilder<T extends GenericIndividualBuilder<T>> extends GenericTaxPayerBuilder<T>{
+
+        private final Class<T> builderClass;
         private String firstName;
         private String lastName;
         private String identificationCode;
 
-        public IndividualBuilder() {
-            super(IndividualBuilder.class);
+        public GenericIndividualBuilder(Class<T> builderClass) {
+            super(builderClass);
+            this.builderClass = builderClass;
         }
 
-        public IndividualBuilder setFirstName(String firstName) {
+        public T setFirstName(String firstName) {
             this.firstName = firstName;
-            return this;
+            return builderClass.cast(this);
         }
 
-        public IndividualBuilder setLastName(String lastName) {
+        public T setLastName(String lastName) {
             this.lastName = lastName;
-            return this;
+            return builderClass.cast(this);
         }
 
-        public IndividualBuilder setIdentificationCode(String identificationCode) {
+        public T setIdentificationCode(String identificationCode) {
             this.identificationCode = identificationCode;
-            return this;
+            return builderClass.cast(this);
         }
 
         @Override
@@ -77,6 +81,14 @@ public class Individual extends TaxPayer implements Person {
             individual.setLastName(lastName);
             individual.setIdentificationCode(identificationCode);
             return individual;
+        }
+
+    }
+
+    public static final class IndividualBuilder extends GenericIndividualBuilder<IndividualBuilder> {
+
+        public IndividualBuilder() {
+            super(IndividualBuilder.class);
         }
     }
 }

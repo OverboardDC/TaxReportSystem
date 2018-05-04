@@ -12,15 +12,21 @@
                 <fmt:message key="tax.reporting.system" bundle="${bundle}"/></h1>
             </a>
             <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link text-light">
+                <a href="<c:url value="/app/client/testClientPage"/>" class="nav-item nav-link text-light">
                     <fmt:message key="create.report" bundle="${bundle}"/></a>
-                <a href="#" class="nav-item nav-link text-light">
+                <a href="<c:url value="/app/client/testClientPage"/>" class="nav-item nav-link text-light">
                     <fmt:message key="my.reports" bundle="${bundle}"/></a>
+                <a href="<c:url value="/app/admin/testAdminPage"/>" class="nav-item nav-link text-light">
+                    Admin page</a>
+                <a href="<c:url value="/app/inspector/testInspectorPage"/>" class="nav-item nav-link text-light">
+                    Inspector page</a>
                 <a href="#" class="nav-item nav-link text-light">
                     <fmt:message key="help" bundle="${bundle}"/></a>
                 <a href="<c:url value="/app/loginPage"/>" class="nav-item nav-link text-light">
                     <fmt:message key="login" bundle="${bundle}"/></a>
-                <form action="<c:url value="/app/changeLanguage"/>">
+                <a href="<c:url value="/app/redirect/logout"/>" class="nav-item nav-link text-light">
+                    <fmt:message key="logout" bundle="${bundle}"/></a>
+                <form action="<c:url value="/app/redirect/changeLanguage"/>">
                     <select class="nav-item" name="lang" onchange="this.form.submit()">
                         <option value="en" ${sessionScope.lang == 'en' ? 'selected="selected"' : ''}>English</option>
                         <option value="ru" ${sessionScope.lang == 'ru' ? 'selected="selected"' : ''}>Russian</option>

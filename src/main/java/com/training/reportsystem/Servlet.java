@@ -2,10 +2,13 @@ package com.training.reportsystem;
 
 import com.training.reportsystem.command.ChangeLanguage;
 import com.training.reportsystem.command.Command;
-import com.training.reportsystem.command.pages.HomePage;
-import com.training.reportsystem.command.pages.LoginPage;
-import com.training.reportsystem.command.pages.RegistrationPage;
-import com.training.reportsystem.util.constants.CommandConstants;
+import com.training.reportsystem.command.login.Login;
+import com.training.reportsystem.command.login.Logout;
+import com.training.reportsystem.command.login.Registration;
+import com.training.reportsystem.command.pages.*;
+import com.training.reportsystem.service.UserService;
+import com.training.reportsystem.service.impl.UserServiceImpl;
+import com.training.reportsystem.util.constants.Commands;
 import com.training.reportsystem.util.constants.GlobalConstants;
 
 import javax.servlet.ServletException;
@@ -25,10 +28,17 @@ public class Servlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         commandMap = new HashMap<>();
-        commandMap.put(CommandConstants.HOME_PAGE, new HomePage());
-        commandMap.put(CommandConstants.LOGIN_PAGE, new LoginPage());
-        commandMap.put(CommandConstants.REGISTRATION_PAGE, new RegistrationPage());
-        commandMap.put(CommandConstants.CHANGE_LANGUAGE, new ChangeLanguage());
+        UserService userService = new UserServiceImpl();
+        commandMap.put(Commands.HOME_PAGE, new HomePage());
+        commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
+        commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
+        commandMap.put(Commands.CHANGE_LANGUAGE, new ChangeLanguage());
+        commandMap.put(Commands.LOGIN, new Login(userService));
+        commandMap.put(Commands.TEST_ADMIN_PAGE, new TestAdminPage());
+        commandMap.put(Commands.TEST_CLIENT_PAGE, new TestClientPage());
+        commandMap.put(Commands.TEST_INSPECTOR_PAGE, new TestInspectorPage());
+        commandMap.put(Commands.REGISTRATION, new Registration(userService));
+        commandMap.put(Commands.LOGOUT, new Logout());
     }
 
     @Override
@@ -44,7 +54,7 @@ public class Servlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = request.getRequestURI().replaceAll(".*" + "/app/", "");
         System.out.println("URL: " + url);
-        Command command = commandMap.getOrDefault(url, commandMap.get(CommandConstants.HOME_PAGE));
+        Command command = commandMap.getOrDefault(url, commandMap.get(Commands.HOME_PAGE));
 
         if (url.contains(GlobalConstants.REDIRECT_URL_PATTERN)) {
             response.sendRedirect(command.execute(request, response));

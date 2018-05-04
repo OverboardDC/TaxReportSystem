@@ -4,7 +4,7 @@ import com.training.reportsystem.entity.user.User;
 
 public interface UserService extends GenericService<User> {
 
-    User login(String login, String password);
+    User login(String username, String password);
 
     boolean isUsernameUnique(String username);
 }

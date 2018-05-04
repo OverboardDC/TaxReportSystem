@@ -43,7 +43,7 @@ public class TaxPayer extends User{
                 "} " + super.toString();
     }
 
-    public static class GenericTaxPayerBuilder<T> extends GenericUserBuilder<T> {
+    public abstract static class GenericTaxPayerBuilder<T extends GenericTaxPayerBuilder<T>> extends GenericUserBuilder<T> {
 
         private final Class<T> builderClass;
         protected List<Request> requests;
@@ -83,10 +83,10 @@ public class TaxPayer extends User{
         }
     }
 
-    public static final class TaxPayerBuilder extends GenericTaxPayerBuilder<TaxPayer>{
+    public static final class TaxPayerBuilder extends GenericTaxPayerBuilder<TaxPayerBuilder>{
 
         public TaxPayerBuilder() {
-            super(TaxPayer.class);
+            super(TaxPayerBuilder.class);
         }
     }
 }

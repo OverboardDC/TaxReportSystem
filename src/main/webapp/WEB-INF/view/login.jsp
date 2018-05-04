@@ -10,10 +10,12 @@
     <section>
         <div class="row justify-content-center">
 
-            <form class="form-group col-md-4">
+            <form action="<c:url value="/app/redirect/login"/>" class="form-group col-md-4">
                 <h1 class="text-center"><fmt:message key="login" bundle="${bundle}"/></h1>
+                <label class="text-danger">${sessionScope.login_error}</label>
+                <c:remove var="login_error" scope="session"/>
                 <input placeholder="<fmt:message key="username" bundle="${bundle}"/>" name="username" class="input-group">
-                <input placeholder="<fmt:message key="password" bundle="${bundle}"/>"class="input-group">
+                <input type="password" placeholder="<fmt:message key="password" bundle="${bundle}"/>" name="password" class="input-group">
                 <a href="<c:url value="/app/registrationPage"/>" class="input-group">
                     <fmt:message key="create.account" bundle="${bundle}"/></a>
                 <button class="btn btn-success"><fmt:message key="to.login" bundle="${bundle}"/></button>

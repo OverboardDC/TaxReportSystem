@@ -13,6 +13,10 @@ public class Inspector extends User implements Person {
     private String firstName;
     private String lastName;
 
+    public boolean isAdmin(){
+        return this.role != null && this.role.equals(Role.ADMIN);
+    }
+
     public Role getRole() {
         return role;
     }
