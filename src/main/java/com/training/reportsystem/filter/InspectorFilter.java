@@ -2,7 +2,7 @@ package com.training.reportsystem.filter;
 
 
 import com.training.reportsystem.entity.user.Inspector;
-import com.training.reportsystem.entity.user.TaxPayer;
+import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.Pages;
 
 import javax.servlet.*;
@@ -24,7 +24,7 @@ public class InspectorFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        Optional<Inspector> inspector = Optional.ofNullable((Inspector) request.getSession().getAttribute("inspector"));
+        Optional<Inspector> inspector = Optional.ofNullable((Inspector) request.getSession().getAttribute(Attributes.INSPECTOR));
         if (!inspector.isPresent()) {
             response.sendRedirect(Pages.LOGIN_REDIRECT);
             return;

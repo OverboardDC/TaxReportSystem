@@ -1,7 +1,6 @@
 package com.training.reportsystem.command.login;
 
 import com.training.reportsystem.command.Command;
-import com.training.reportsystem.entity.user.Inspector;
 import com.training.reportsystem.entity.user.TaxPayer;
 import com.training.reportsystem.entity.user.User;
 import com.training.reportsystem.service.UserService;

@@ -4,7 +4,6 @@ import com.training.reportsystem.util.LocalisationUtil;
 import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 public class UserValidator {
 

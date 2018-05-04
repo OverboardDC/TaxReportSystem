@@ -1,15 +1,25 @@
 package com.training.reportsystem.dao.impl;
 
 import com.training.reportsystem.dao.UserDao;
+import com.training.reportsystem.dao.util.ConnectionPool;
 import com.training.reportsystem.entity.user.User;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 //TODO implement
 public class UserDaoImpl implements UserDao {
 
     @Override
+    //Test
     public User login(String username, String password) {
+        try {
+            Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            System.out.println("Connection: " + connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

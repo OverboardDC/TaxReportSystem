@@ -1,6 +1,7 @@
 package com.training.reportsystem.filter;
 
 import com.training.reportsystem.entity.user.TaxPayer;
+import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.Pages;
 
 import javax.servlet.*;
@@ -22,7 +23,7 @@ public class ClientFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        Optional<TaxPayer> taxPayer = Optional.ofNullable((TaxPayer) request.getSession().getAttribute("client"));
+        Optional<TaxPayer> taxPayer = Optional.ofNullable((TaxPayer) request.getSession().getAttribute(Attributes.CLIENT));
         if (!taxPayer.isPresent()) {
             response.sendRedirect(Pages.LOGIN_REDIRECT);
             return;
