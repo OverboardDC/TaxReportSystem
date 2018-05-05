@@ -2,7 +2,7 @@ package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.user.TaxPayer;
-import com.training.reportsystem.model.service.UserService;
+import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.UserValidator;
 import com.training.reportsystem.util.constants.Pages;
 
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Registration implements Command {
 
-    private UserService userService;
+    private TaxPayerService taxPayerService;
 
-    public Registration(UserService userService) {
-        this.userService = userService;
+    public Registration(TaxPayerService taxPayerService) {
+        this.taxPayerService = taxPayerService;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Registration implements Command {
 
         TaxPayer taxPayer = new TaxPayer.TaxPayerBuilder().setUsername(username).setPassword(password)
                 .setFirstName(firstName).setLastName(lastName).setIdentificationCode(identificationCode).build();
-        userService.create(taxPayer);
+        taxPayerService.create(taxPayer);
         return Pages.LOGIN_REDIRECT;
     }
 }

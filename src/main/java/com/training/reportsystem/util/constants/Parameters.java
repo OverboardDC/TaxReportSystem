@@ -14,4 +14,6 @@ public interface Parameters {
     String PASSWORD_REPEAT = "password_repeat";
 
 
+    String USER_TYPE = "user_type";
+    String CLIENT = "client";
 }

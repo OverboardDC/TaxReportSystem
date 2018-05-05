@@ -2,9 +2,9 @@ package com.training.reportsystem.model.dao;
 
 import com.training.reportsystem.model.entity.user.User;
 
-public interface UserDao extends GenericDao<User> {
+public interface UserDao<T extends User> extends GenericDao<T>{
 
-    User login(String username, String password);
+    T login(String username, String password);
 
     boolean isUsernameUnique(String username);
 }

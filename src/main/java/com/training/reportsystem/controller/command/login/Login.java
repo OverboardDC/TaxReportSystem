@@ -1,8 +1,10 @@
 package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
+import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.entity.user.User;
-import com.training.reportsystem.model.service.UserService;
+import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LocalisationUtil;
 import com.training.reportsystem.util.LoginUtil;
 import com.training.reportsystem.util.constants.Attributes;
@@ -16,17 +18,26 @@ import java.util.Optional;
 
 public class Login implements Command {
 
-    private UserService userService;
+    private TaxPayerService taxPayerService;
+    private InspectorService inspectorService;
 
-    public Login(UserService userService) {
-        this.userService = userService;
+    public Login(TaxPayerService taxPayerService, InspectorService inspectorService) {
+        this.taxPayerService = taxPayerService;
+        this.inspectorService = inspectorService;
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter(Parameters.USERNAME);
         String password = request.getParameter(Parameters.PASSWORD);
-        Optional<User> user = Optional.ofNullable(userService.login(username, password));
+        String userType = request.getParameter(Parameters.USER_TYPE);
+        Optional<User> user;
+        if(userType.equals(Parameters.CLIENT)) {
+            user = Optional.ofNullable(taxPayerService.login(username, password));
+        } else {
+            user = Optional.ofNullable(inspectorService.login(username, password));
+        }
+        System.out.println("User: " + user);
         if (user.isPresent()) {
             LoginUtil.logout(request);
             request.getSession().setAttribute(Attributes.USER, user.get());

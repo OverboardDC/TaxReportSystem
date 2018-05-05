@@ -6,8 +6,11 @@ import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
-import com.training.reportsystem.model.service.UserService;
-import com.training.reportsystem.model.service.impl.UserServiceImpl;
+import com.training.reportsystem.model.entity.user.User;
+import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
+import com.training.reportsystem.model.service.impl.TaxPayerServiceImpl;
 import com.training.reportsystem.util.constants.Commands;
 import com.training.reportsystem.util.constants.GlobalConstants;
 
@@ -28,16 +31,17 @@ public class Servlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         commandMap = new HashMap<>();
-        UserService userService = new UserServiceImpl();
+        TaxPayerService taxPayerService = new TaxPayerServiceImpl();
+        InspectorService inspectorService = new InspectorServiceImpl();
         commandMap.put(Commands.HOME_PAGE, new HomePage());
         commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
         commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
         commandMap.put(Commands.CHANGE_LANGUAGE, new ChangeLanguage());
-        commandMap.put(Commands.LOGIN, new Login(userService));
+        commandMap.put(Commands.LOGIN, new Login(taxPayerService, inspectorService));
         commandMap.put(Commands.TEST_ADMIN_PAGE, new TestAdminPage());
         commandMap.put(Commands.TEST_CLIENT_PAGE, new TestClientPage());
         commandMap.put(Commands.TEST_INSPECTOR_PAGE, new TestInspectorPage());
-        commandMap.put(Commands.REGISTRATION, new Registration(userService));
+        commandMap.put(Commands.REGISTRATION, new Registration(taxPayerService));
         commandMap.put(Commands.LOGOUT, new Logout());
     }
 

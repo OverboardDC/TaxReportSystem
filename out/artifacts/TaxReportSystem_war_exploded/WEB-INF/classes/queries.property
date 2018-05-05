@@ -1,0 +1,3 @@
+tax.payer.login=SELECT * FROM taxPayer AS t LEFT JOIN inspector i on t.inspector_id = i.id WHERE t.username = ? AND t.password = ?
+inspector.login=SELECT * FROM inspector as i LEFT JOIN taxpayer t on i.id = t.inspector_id WHERE i.username = ? AND i.password = ?
+create.tax.payer=INSERT INTO taxPayer VALUES(?,?,?,?,?)

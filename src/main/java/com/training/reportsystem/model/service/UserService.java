@@ -2,10 +2,9 @@ package com.training.reportsystem.model.service;
 
 import com.training.reportsystem.model.entity.user.User;
 
-public interface UserService extends GenericService<User> {
+public interface UserService<T extends User> extends GenericService<T>{
 
-    User login(String username, String password);
+    T login(String username, String password);
 
     boolean isUsernameUnique(String username);
-
 }
