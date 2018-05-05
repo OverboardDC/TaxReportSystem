@@ -10,4 +10,5 @@ public interface ErrorMessages {
     String INCORRECT_FIRST_NAME = "incorrect.first.name";
     String INCORRECT_LAST_NAME = "incorrect.last.name";
     String INCORRECT_IDENTIFICATION_CODE = "incorrect.identification.code";
+    String USERNAME_ALREADY_EXITS = "username.already.exist";
 }

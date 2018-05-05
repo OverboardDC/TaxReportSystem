@@ -4,7 +4,10 @@ import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.UserValidator;
+import com.training.reportsystem.util.LocalisationUtil;
 import com.training.reportsystem.util.Md5Encryptor;
+import com.training.reportsystem.util.constants.Attributes;
+import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.Pages;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +32,11 @@ public class Registration implements Command {
         String identificationCode = validator.inputIdentificationCode(request);
 
         if (!validator.isValid()) {
+            return Pages.REGISTRATION_REDIRECT;
+        }
+
+        if(!taxPayerService.isUsernameUnique(username)){
+            request.getSession().setAttribute(Attributes.USERNAME_ERROR, LocalisationUtil.getMessage(ErrorMessages.USERNAME_ALREADY_EXITS));
             return Pages.REGISTRATION_REDIRECT;
         }
 
