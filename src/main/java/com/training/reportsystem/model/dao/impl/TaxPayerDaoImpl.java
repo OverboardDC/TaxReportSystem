@@ -7,7 +7,6 @@ import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.user.Inspector;
 import com.training.reportsystem.model.entity.user.Role;
 import com.training.reportsystem.model.entity.user.TaxPayer;
-import com.training.reportsystem.model.entity.user.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,7 +75,17 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override
     public void create(TaxPayer taxPayer) {
-
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_TAX_PAYER))) {
+            preparedStatement.setString(1, taxPayer.getUsername());
+            preparedStatement.setString(2, taxPayer.getPassword());
+            preparedStatement.setString(3, taxPayer.getFirstName());
+            preparedStatement.setString(4, taxPayer.getLastName());
+            preparedStatement.setString(5, taxPayer.getIdentificationCode());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
