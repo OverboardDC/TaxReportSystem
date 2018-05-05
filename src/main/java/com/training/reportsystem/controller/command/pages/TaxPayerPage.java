@@ -6,10 +6,10 @@ import com.training.reportsystem.util.constants.Pages;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TestClientPage implements Command {
+public class TaxPayerPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return Pages.TEST_CLIENT;
+        return Pages.TAX_PAYER;
     }
 }

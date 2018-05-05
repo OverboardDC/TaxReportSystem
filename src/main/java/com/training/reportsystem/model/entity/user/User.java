@@ -9,6 +9,8 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
     private Role role;
 
     public Long getId() {
@@ -35,6 +37,22 @@ public class User {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public Optional<Role> getRole() {
         return Optional.ofNullable(role);
     }
@@ -49,6 +67,8 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", role=" + role +
                 '}';
     }
@@ -59,6 +79,8 @@ public class User {
         protected Long id;
         protected String username;
         protected String password;
+        protected String firstName;
+        protected String lastName;
         protected Role role;
 
 
@@ -81,10 +103,21 @@ public class User {
             return builderClass.cast(this);
         }
 
+        public T setFirstName(String firstName) {
+            this.firstName = firstName;
+            return builderClass.cast(this);
+        }
+
+        public T setLastName(String lastName) {
+            this.lastName = lastName;
+            return builderClass.cast(this);
+        }
+
         public T setRole(Role role) {
             this.role = role;
             return builderClass.cast(this);
         }
+
 
         @Override
         public User build() {
@@ -92,6 +125,8 @@ public class User {
             user.setId(id);
             user.setUsername(username);
             user.setPassword(password);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
             user.setRole(role);
             return user;
         }

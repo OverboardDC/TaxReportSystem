@@ -7,7 +7,7 @@ public interface Commands {
     String LOGIN_PAGE = "loginPage";
     String REGISTRATION_PAGE = "registrationPage";
     String TEST_ADMIN_PAGE = "admin/testAdminPage";
-    String TEST_CLIENT_PAGE = "client/testClientPage";
+    String TAX_PAYER_PAGE = "client/taxPayerPage";
     String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
 
     String CHANGE_LANGUAGE = "redirect/changeLanguage";

@@ -1,11 +1,9 @@
 package com.training.reportsystem.model.dao.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-//TODO
 public class DaoUtil {
 
     private static final String FILE_NAME = "queries.property";

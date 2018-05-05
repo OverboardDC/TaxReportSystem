@@ -13,15 +13,17 @@
             <div class="text-center col-12">
                 <h1><fmt:message key="welcome" bundle="${bundle}"/></h1>
                 <img src="<c:url value="/resources/img/main_image.jpg"/>" class="main_image">
-                <h6><fmt:message key="in.order.to.create.report" bundle="${bundle}"/></h6>
-                <div class="text-center col">
-                    <a href="<c:url value="/app/loginPage"/>">
-                        <fmt:message key="i.have.account" bundle="${bundle}"/></a>
-                </div>
-                <div class="text-center col">
-                    <a href="<c:url value="/app/registrationPage"/>">
-                        <fmt:message key="i.am.new.user" bundle="${bundle}"/></a>
-                </div>
+                <c:if test="${empty sessionScope.user}">
+                    <h6><fmt:message key="in.order.to.create.report" bundle="${bundle}"/></h6>
+                    <div class="text-center col">
+                        <a href="<c:url value="/app/loginPage"/>">
+                            <fmt:message key="i.have.account" bundle="${bundle}"/></a>
+                    </div>
+                    <div class="text-center col">
+                        <a href="<c:url value="/app/registrationPage"/>">
+                            <fmt:message key="i.am.new.user" bundle="${bundle}"/></a>
+                    </div>
+                </c:if>
             </div>
             <div class="col">
 

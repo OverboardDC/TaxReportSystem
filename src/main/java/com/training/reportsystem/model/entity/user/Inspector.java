@@ -9,8 +9,6 @@ public class Inspector extends User {
     private List<TaxPayer> taxPayers;
     private List<Report> reports;
     private List<Request> requests;
-    private String firstName;
-    private String lastName;
 
     public List<TaxPayer> getTaxPayers() {
         return taxPayers;
@@ -36,30 +34,12 @@ public class Inspector extends User {
         this.requests = requests;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     @Override
     public String toString() {
         return "Inspector{" +
                 ", taxPayers=" + taxPayers +
                 ", reports=" + reports +
                 ", requests=" + requests +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 "} " + super.toString();
     }
 
@@ -68,8 +48,6 @@ public class Inspector extends User {
         private List<TaxPayer> taxPayers;
         private List<Report> reports;
         private List<Request> requests;
-        private String firstName;
-        private String lastName;
 
         public InspectorBuilder() {
             super(InspectorBuilder.class);
@@ -88,16 +66,6 @@ public class Inspector extends User {
 
         public InspectorBuilder setRequests(List<Request> requests) {
             this.requests = requests;
-            return this;
-        }
-
-        public InspectorBuilder setFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public InspectorBuilder setLastName(String lastName) {
-            this.lastName = lastName;
             return this;
         }
 

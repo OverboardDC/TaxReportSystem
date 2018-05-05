@@ -31,20 +31,24 @@ public class Login implements Command {
         String username = request.getParameter(Parameters.USERNAME);
         String password = request.getParameter(Parameters.PASSWORD);
         String userType = request.getParameter(Parameters.USER_TYPE);
+        Optional<User> user = getUser(username, password, userType);
+        System.out.println("User: " + user);
+        if (user.isPresent()) {
+            request.getSession().setAttribute(Attributes.USER, user.get());
+            return Pages.INDEX_REDIRECT;
+        }
+        request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
+        return Pages.LOGIN_REDIRECT;
+    }
+
+    private Optional<User> getUser(String username, String password, String userType) {
         Optional<User> user;
         if(userType.equals(Parameters.CLIENT)) {
             user = Optional.ofNullable(taxPayerService.login(username, password));
         } else {
             user = Optional.ofNullable(inspectorService.login(username, password));
         }
-        System.out.println("User: " + user);
-        if (user.isPresent()) {
-            LoginUtil.logout(request);
-            request.getSession().setAttribute(Attributes.USER, user.get());
-            return Pages.INDEX_REDIRECT;
-        }
-        request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
-        return Pages.LOGIN_REDIRECT;
+        return user;
     }
 }
 

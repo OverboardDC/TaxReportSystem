@@ -6,7 +6,6 @@ import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
-import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
@@ -39,7 +38,7 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.CHANGE_LANGUAGE, new ChangeLanguage());
         commandMap.put(Commands.LOGIN, new Login(taxPayerService, inspectorService));
         commandMap.put(Commands.TEST_ADMIN_PAGE, new TestAdminPage());
-        commandMap.put(Commands.TEST_CLIENT_PAGE, new TestClientPage());
+        commandMap.put(Commands.TAX_PAYER_PAGE, new TaxPayerPage());
         commandMap.put(Commands.TEST_INSPECTOR_PAGE, new TestInspectorPage());
         commandMap.put(Commands.REGISTRATION, new Registration(taxPayerService));
         commandMap.put(Commands.LOGOUT, new Logout());

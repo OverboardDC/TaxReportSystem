@@ -9,7 +9,6 @@ import com.training.reportsystem.util.Md5Encryptor;
 
 import java.util.List;
 
-//TODO This implementation is temporary
 public class TaxPayerServiceImpl implements TaxPayerService {
 
     private TaxPayerDao taxPayerDao;

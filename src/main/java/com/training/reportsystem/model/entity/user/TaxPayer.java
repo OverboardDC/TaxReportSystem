@@ -9,8 +9,6 @@ public class TaxPayer extends User{
     private List<Request> requests;
     private List<Report> reports;
     private Inspector inspector;
-    private String firstName;
-    private String lastName;
     private String identificationCode;
 
     public List<Request> getRequests() {
@@ -37,22 +35,6 @@ public class TaxPayer extends User{
         this.inspector = inspector;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getIdentificationCode() {
         return identificationCode;
     }
@@ -67,8 +49,6 @@ public class TaxPayer extends User{
                 "requests=" + requests +
                 ", reports=" + reports +
                 ", inspector=" + inspector +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", identificationCode='" + identificationCode + '\'' +
                 "} " + super.toString();
     }
@@ -78,8 +58,6 @@ public class TaxPayer extends User{
         protected List<Request> requests;
         protected List<Report> reports;
         protected Inspector inspector;
-        protected String firstName;
-        protected String lastName;
         protected String identificationCode;
 
         public TaxPayerBuilder() {
@@ -102,15 +80,6 @@ public class TaxPayer extends User{
             return this;
         }
 
-        public TaxPayerBuilder setFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public TaxPayerBuilder setLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
 
         public TaxPayerBuilder setIdentificationCode(String identificationCode) {
             this.identificationCode = identificationCode;
