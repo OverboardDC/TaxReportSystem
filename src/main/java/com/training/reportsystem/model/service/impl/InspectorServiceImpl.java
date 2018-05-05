@@ -5,6 +5,7 @@ import com.training.reportsystem.model.dao.impl.InspectorDaoImpl;
 import com.training.reportsystem.model.entity.user.Inspector;
 import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.util.Md5Encryptor;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class InspectorServiceImpl implements InspectorService {
 
     @Override
     public Inspector login(String username, String password) {
-        return inspectorDao.login(username, password);
+        return inspectorDao.login(username, Md5Encryptor.encrypt(password));
     }
 
     @Override

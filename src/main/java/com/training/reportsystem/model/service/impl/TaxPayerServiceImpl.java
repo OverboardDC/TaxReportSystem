@@ -5,6 +5,7 @@ import com.training.reportsystem.model.dao.impl.TaxPayerDaoImpl;
 import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.util.Md5Encryptor;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class TaxPayerServiceImpl implements TaxPayerService {
 
     @Override
     public TaxPayer login(String username, String password) {
-        return taxPayerDao.login(username, password);
+        return taxPayerDao.login(username, Md5Encryptor.encrypt(password));
     }
 
     @Override

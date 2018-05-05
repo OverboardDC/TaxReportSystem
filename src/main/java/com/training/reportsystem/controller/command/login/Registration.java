@@ -4,6 +4,7 @@ import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.UserValidator;
+import com.training.reportsystem.util.Md5Encryptor;
 import com.training.reportsystem.util.constants.Pages;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class Registration implements Command {
             return Pages.REGISTRATION_REDIRECT;
         }
 
-        TaxPayer taxPayer = new TaxPayer.TaxPayerBuilder().setUsername(username).setPassword(password)
+        TaxPayer taxPayer = new TaxPayer.TaxPayerBuilder().setUsername(username).setPassword(Md5Encryptor.encrypt(password))
                 .setFirstName(firstName).setLastName(lastName).setIdentificationCode(identificationCode).build();
         taxPayerService.create(taxPayer);
         return Pages.LOGIN_REDIRECT;
