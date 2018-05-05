@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginUtil {
 
     public static void logout(HttpServletRequest request){
-        request.getSession().removeAttribute(Attributes.CLIENT);
-        request.getSession().removeAttribute(Attributes.INSPECTOR);
+        request.getSession().removeAttribute(Attributes.USER);
     }
 }

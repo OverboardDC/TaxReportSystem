@@ -11,10 +11,6 @@ public class LocalisationUtil {
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, ENGLISH);
 
-    public static Locale getCurrentLocale(){
-        return resourceBundle.getLocale();
-    }
-
     public static void setLocale(Locale locale) {
         resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
     }

@@ -9,5 +9,4 @@ public interface RegexConstants {
     String LAST_NAME_REGEX = "[a-zA-Z0-9`-]{1,24}+";
     String IDENTIFICATION_CODE_REGEX = "[0-9]{9}";
 
-    String NAME_REGEX = "[a-zA-Z0-9]{2,20}+";
 }
