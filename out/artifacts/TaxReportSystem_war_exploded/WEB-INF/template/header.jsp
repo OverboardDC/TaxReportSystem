@@ -14,8 +14,8 @@
             </a>
 
             <c:if test="${not empty sessionScope.user}">
-            <h6 class="nav-item text-light"><fmt:message key="welcome.user" bundle="${bundle}"/>
-                    ${sessionScope.user.firstName}</h6>
+                <h6 class="nav-item text-light"><fmt:message key="welcome.user" bundle="${bundle}"/>
+                        ${sessionScope.user.firstName}</h6>
             </c:if>
             <div class="navbar-nav">
 
@@ -48,13 +48,16 @@
                     <a href="<c:url value="/app/redirect/logout"/>" class="nav-item nav-link text-light">
                         <fmt:message key="logout" bundle="${bundle}"/></a>
                 </c:if>
-
-                <form action="<c:url value="/app/redirect/changeLanguage"/>">
-                    <select class="nav-item" name="lang" onchange="this.form.submit()">
-                        <option value="en" ${sessionScope.lang == 'en' ? 'selected="selected"' : ''}>English</option>
-                        <option value="ru" ${sessionScope.lang == 'ru' ? 'selected="selected"' : ''}>Russian</option>
-                    </select>
-                </form>
+                <div class="nav-item">
+                    <form action="<c:url value="/app/redirect/changeLanguage"/>">
+                        <select class="input-group" name="lang" onchange="this.form.submit()">
+                            <option value="en" ${sessionScope.lang == 'en' ? 'selected="selected"' : ''}>English
+                            </option>
+                            <option value="ru" ${sessionScope.lang == 'ru' ? 'selected="selected"' : ''}>Russian
+                            </option>
+                        </select>
+                    </form>
+                </div>
 
             </div>
         </nav>

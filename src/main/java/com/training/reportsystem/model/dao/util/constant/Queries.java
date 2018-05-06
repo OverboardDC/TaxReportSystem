@@ -10,4 +10,5 @@ public interface Queries {
     String FIND_ALL_INSPECTORS = "find.all.inspectors";
     String ASSIGN_INSPECTOR = "assign.inspector";
     String CREATE_REQUEST = "create.request";
+    String FIND_ALL_REQUESTS = "find.all.requests";
 }

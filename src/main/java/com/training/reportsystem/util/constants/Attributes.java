@@ -16,4 +16,5 @@ public interface Attributes {
     String LOGIN_ERROR ="login_error" ;
 
     String REASON_ERROR = "reason_error";
+    String REQUESTS = "requests";
 }

@@ -9,7 +9,6 @@
 <div class="wrapper">
     <jsp:include page="../template/header.jsp"/>
     <section>
-
         <div class="row justify-content-center">
             <form class="form-group col-4" method="post" action="<c:url value="/app/redirect/client/sendRequest"/>">
                 <h1 class="text-center"><fmt:message key="request" bundle="${bundle}"/></h1>

@@ -15,4 +15,5 @@ public interface Pages {
     String TAX_PAYER_REDIRECT = "/app/client/taxPagerPage";
     String REQUEST = "/WEB-INF/view/request.jsp";
     String REQUEST_REDIRECT = "/app/client/requestPage";
+    String ALL_REQUESTS = "/WEB-INF/view/allRequests.jsp";
 }

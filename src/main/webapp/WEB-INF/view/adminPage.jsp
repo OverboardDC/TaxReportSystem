@@ -14,7 +14,7 @@
         </div>
         <div class="row justify-content-between">
             <div class="col-md-3">
-                <a href="#" class="btn btn-success"><fmt:message key="view.requests" bundle="${bundle}"/></a>
+                <a href="<c:url value="/app/admin/allRequests"/>" class="btn btn-success"><fmt:message key="view.requests" bundle="${bundle}"/></a>
             </div>
         </div>
         <h3 class="text-center"><fmt:message key="new.users" bundle="${bundle}"/></h3>

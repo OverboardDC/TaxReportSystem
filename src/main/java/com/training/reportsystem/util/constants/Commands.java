@@ -10,6 +10,7 @@ public interface Commands {
     String TAX_PAYER_PAGE = "client/taxPayerPage";
     String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
     String REQUEST_PAGE = "client/requestPage";
+    String ALL_REQUESTS_PAGE = "admin/allRequests";
 
     String CHANGE_LANGUAGE = "redirect/changeLanguage";
 

@@ -50,6 +50,7 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.ASSIGN_INSPECTOR, new AssignInspector(taxPayerService));
         commandMap.put(Commands.REQUEST_PAGE, new RequestPage());
         commandMap.put(Commands.SEND_REQUEST, new SendRequest(requestService));
+        commandMap.put(Commands.ALL_REQUESTS_PAGE, new AllRequestsPage(requestService, inspectorService));
     }
 
     @Override
