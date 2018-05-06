@@ -37,7 +37,7 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
         commandMap.put(Commands.CHANGE_LANGUAGE, new ChangeLanguage());
         commandMap.put(Commands.LOGIN, new Login(taxPayerService, inspectorService));
-        commandMap.put(Commands.TEST_ADMIN_PAGE, new TestAdminPage());
+        commandMap.put(Commands.ADMIN_PAGE, new AdminPage(taxPayerService));
         commandMap.put(Commands.TAX_PAYER_PAGE, new TaxPayerPage());
         commandMap.put(Commands.TEST_INSPECTOR_PAGE, new TestInspectorPage());
         commandMap.put(Commands.REGISTRATION, new Registration(taxPayerService));

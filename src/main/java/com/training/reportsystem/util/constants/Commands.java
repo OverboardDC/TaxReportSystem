@@ -6,7 +6,7 @@ public interface Commands {
     String HOME_PAGE = "homePage";
     String LOGIN_PAGE = "loginPage";
     String REGISTRATION_PAGE = "registrationPage";
-    String TEST_ADMIN_PAGE = "admin/testAdminPage";
+    String ADMIN_PAGE = "admin/adminPage";
     String TAX_PAYER_PAGE = "client/taxPayerPage";
     String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
 

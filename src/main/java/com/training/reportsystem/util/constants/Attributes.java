@@ -2,7 +2,8 @@ package com.training.reportsystem.util.constants;
 
 public interface Attributes {
 
-    String LOGIN_ERROR ="login_error" ;
+    String USER = "user";
+    String TAX_PAYERS = "tax_payers";
 
     //Error attributes
     String USERNAME_ERROR = "username_error";
@@ -11,5 +12,5 @@ public interface Attributes {
     String LAST_NAME_ERROR = "last_name_error";
     String IDENTIFICATION_CODE_ERROR = "identification_code_error";
     String PASSWORD_REPEAT_ERROR = "password_repeat_error";
-    String USER = "user";
+    String LOGIN_ERROR ="login_error" ;
 }

@@ -6,7 +6,7 @@ public interface Pages {
     String LOGIN = "/WEB-INF/view/login.jsp";
     String LOGIN_REDIRECT = "/app/loginPage";
     String REGISTRATION = "/WEB-INF/view/registration.jsp";
-    String TEST_ADMIN = "/WEB-INF/view/testAdminPage.jsp";
+    String ADMIN = "/WEB-INF/view/adminPage.jsp";
     String REGISTRATION_REDIRECT = "app/registrationPage";
     String TAX_PAYER = "/WEB-INF/view/taxPayerPage.jsp";
     String TEST_INSPECTOR = "/WEB-INF/view/testInspectorPage.jsp";

@@ -52,4 +52,9 @@ public class TaxPayerServiceImpl implements TaxPayerService {
     public void delete(Long id) {
         taxPayerDao.delete(id);
     }
+
+    @Override
+    public List<TaxPayer> findAllWithoutInspector() {
+        return taxPayerDao.findAllWithoutInspector();
+    }
 }

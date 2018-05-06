@@ -12,7 +12,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //TODO implement
 public class TaxPayerDaoImpl implements TaxPayerDao {
@@ -31,37 +33,10 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
         return null;
     }
 
-    private TaxPayer extractFromResultSet(ResultSet rs) throws SQLException {
-        TaxPayer taxPayer = null;
-        while (rs.next()){
-            Long id = rs.getLong(1);
-            Inspector inspector = extractInspector(rs);
-            String username = rs.getString(3);
-            String password = rs.getString(4);
-            String firstName = rs.getString(5);
-            String lastName = rs.getString(6);
-            String identification_code = rs.getString(7);
-            taxPayer = new TaxPayer.TaxPayerBuilder().setId(id).setInspector(inspector).setUsername(username)
-                    .setPassword(password).setFirstName(firstName).setLastName(lastName).
-                    setIdentificationCode(identification_code).setRole(Role.CLIENT).build();
-        }
-        return taxPayer;
-    }
-
-    private Inspector extractInspector(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("i.id");
-        if(!rs.wasNull()) {
-            String firstName = rs.getString("i.firstname");
-            String lastName = rs.getString("i.lastname");
-            return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
-        }
-        return null;
-    }
-
     @Override
     public boolean isUsernameUnique(String username) {
         try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT id from taxpayer where username = ?")){
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_USERNAME_UNIQUE))){
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()){
@@ -106,5 +81,58 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public List<TaxPayer> findAllWithoutInspector() {
+        List<TaxPayer> taxPayers = new ArrayList<>();
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR))){
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                taxPayers.add(extractLazyFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return taxPayers;
+    }
+
+    private TaxPayer extractFromResultSet(ResultSet rs) throws SQLException {
+        TaxPayer taxPayer = null;
+        while (rs.next()){
+            Long id = rs.getLong(1);
+            Inspector inspector = extractInspector(rs);
+            String username = rs.getString(3);
+            String password = rs.getString(4);
+            String firstName = rs.getString(5);
+            String lastName = rs.getString(6);
+            String identification_code = rs.getString(7);
+            taxPayer = new TaxPayer.TaxPayerBuilder().setId(id).setInspector(inspector).setUsername(username)
+                    .setPassword(password).setFirstName(firstName).setLastName(lastName).
+                            setIdentificationCode(identification_code).setRole(Role.CLIENT).build();
+        }
+        return taxPayer;
+    }
+
+    private Inspector extractInspector(ResultSet rs) throws SQLException {
+        Long id = rs.getLong("i.id");
+        if(!rs.wasNull()) {
+            String firstName = rs.getString("i.firstname");
+            String lastName = rs.getString("i.lastname");
+            return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
+        }
+        return null;
+    }
+
+    private TaxPayer extractLazyFromResultSet(ResultSet rs) throws SQLException {
+        Long id = rs.getLong(1);
+        String username = rs.getString(2);
+        String firstName = rs.getString(3);
+        String lastName = rs.getString(4);
+        String identificationCode = rs.getString(5);
+        return new TaxPayer.TaxPayerBuilder().setId(id).setUsername(username).setFirstName(firstName).setLastName(lastName)
+                .setIdentificationCode(identificationCode).build();
     }
 }

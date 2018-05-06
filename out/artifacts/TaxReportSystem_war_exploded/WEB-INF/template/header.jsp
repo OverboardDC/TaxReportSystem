@@ -27,13 +27,13 @@
                 </c:if>
 
                 <c:if test="${sessionScope.user.role.get() == 'ADMIN'}">
-                    <a href="<c:url value="/app/admin/testAdminPage"/>" class="nav-item nav-link text-light">
-                        Admin page</a>
+                    <a href="<c:url value="/app/admin/adminPage"/>" class="nav-item nav-link text-light">
+                        <fmt:message key="admin.page" bundle="${bundle}"/></a>
                 </c:if>
 
                 <c:if test="${sessionScope.user.role.get() == 'INSPECTOR'}">
                     <a href="<c:url value="/app/inspector/testInspectorPage"/>" class="nav-item nav-link text-light">
-                        Inspector page</a>
+                        <fmt:message key="inspector.page" bundle="${bundle}"/></a>
                 </c:if>
 
                 <c:if test="${empty sessionScope.user}">
