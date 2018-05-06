@@ -11,8 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+//TODO create mappers!
 public class InspectorDaoImpl implements InspectorDao {
 
     @Override
@@ -50,8 +52,24 @@ public class InspectorDaoImpl implements InspectorDao {
     }
 
     @Override
+    //TODO Temporary
     public List<Inspector> findAll() {
-        return null;
+        List<Inspector> inspectors = new ArrayList<>();
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_INSPECTORS))) {
+            preparedStatement.setString(1, Role.INSPECTOR.toString());
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                Long id = rs.getLong(1);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                Inspector inspector = new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
+                inspectors.add(inspector);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return inspectors;
     }
 
     @Override

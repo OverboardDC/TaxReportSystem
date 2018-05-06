@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 //TODO implement
+//TODO create mappers!
 public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override

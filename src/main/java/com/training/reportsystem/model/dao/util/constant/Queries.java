@@ -7,4 +7,5 @@ public interface Queries {
     String CREATE_TAX_PAYER = "create.tax.payer";
     String IS_USERNAME_UNIQUE = "is.username.unique";
     String FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR = "find.all.taxpayers.without.inspector";
+    String FIND_ALL_INSPECTORS = "find.all.inspectors";
 }

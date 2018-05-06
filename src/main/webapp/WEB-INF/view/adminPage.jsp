@@ -26,8 +26,10 @@
                     <h6>Identification_code: ${tax_payer.identificationCode}</h6>
                     <form>
                         <select>
-                            <option>Bill Clinton</option>
-                            <option>Donald Trump</option>
+                            <option selected disabled class="hidden">Select</option>
+                            <c:forEach var="inspector" items="${requestScope.inspectors}">
+                                <option>${inspector.firstName} ${inspector.lastName}</option>
+                            </c:forEach>
                         </select>
                         <button class="btn bg-primary text-light">Pick</button>
                     </form>
