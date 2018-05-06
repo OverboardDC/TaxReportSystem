@@ -1,7 +1,6 @@
 package com.training.reportsystem.controller.filter;
 
 import com.training.reportsystem.model.entity.user.Role;
-import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.Pages;

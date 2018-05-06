@@ -14,24 +14,30 @@
         </div>
         <div class="row justify-content-between">
             <div class="col-md-3">
-                <a href="#" class="btn btn-success">View requests</a>
+                <a href="#" class="btn btn-success"><fmt:message key="view.requests" bundle="${bundle}"/></a>
             </div>
         </div>
-        <h3 class="text-center">New users</h3>
+        <h3 class="text-center"><fmt:message key="new.users" bundle="${bundle}"/></h3>
         <div class="row justify-content-start">
             <c:forEach var="tax_payer" items="${requestScope.tax_payers}">
                 <div class="bg-light admin_page_item">
-                    <h4>${tax_payer.firstName} ${tax_payer.lastName}</h4>
-                    <h6>Username: ${tax_payer.username}</h6>
-                    <h6>Identification_code: ${tax_payer.identificationCode}</h6>
-                    <form>
-                        <select>
-                            <option selected disabled class="hidden">Select</option>
+                    <form method="post" action="<c:url value="/app/redirect/admin/assignInspector"/>">
+                        <h4>${tax_payer.firstName} ${tax_payer.lastName}</h4>
+                        <h6><fmt:message key="username.in" bundle="${bundle}"/> ${tax_payer.username}</h6>
+                        <h6><fmt:message key="identification.code.in"
+                                         bundle="${bundle}"/> ${tax_payer.identificationCode}</h6>
+
+                        <label><fmt:message key="assign.inspector" bundle="${bundle}"/></label>
+                        <select name="inspector_id">
+                            <option selected disabled class="hidden"><fmt:message key="select"
+                                                                                  bundle="${bundle}"/></option>
                             <c:forEach var="inspector" items="${requestScope.inspectors}">
-                                <option>${inspector.firstName} ${inspector.lastName}</option>
+                                <option value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
                             </c:forEach>
                         </select>
-                        <button class="btn bg-primary text-light">Pick</button>
+                        <input value="${tax_payer.id}" type="hidden" name="tax_payer_id">
+                        <button class="btn bg-primary text-light"><fmt:message key="assign"
+                                                                               bundle="${bundle}"/></button>
                     </form>
                 </div>
             </c:forEach>

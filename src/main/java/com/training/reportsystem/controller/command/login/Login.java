@@ -1,12 +1,10 @@
 package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
-import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LocalisationUtil;
-import com.training.reportsystem.util.LoginUtil;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.Pages;

@@ -1,6 +1,5 @@
 package com.training.reportsystem.controller.filter;
 
-import com.training.reportsystem.model.entity.user.Inspector;
 import com.training.reportsystem.model.entity.user.Role;
 import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.util.constants.Attributes;

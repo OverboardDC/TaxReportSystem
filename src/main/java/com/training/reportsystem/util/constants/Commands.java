@@ -16,4 +16,6 @@ public interface Commands {
     String REGISTRATION = "redirect/registration";
     String LOGOUT = "redirect/logout";
 
+    String ASSIGN_INSPECTOR = "redirect/admin/assignInspector";
+
 }

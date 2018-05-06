@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 //TODO implement
 //TODO create mappers!
@@ -98,6 +97,19 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
             e.printStackTrace();
         }
         return taxPayers;
+    }
+
+    @Override
+    public void assignInspector(Long taxPayer_id, Long inspectorId) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ASSIGN_INSPECTOR))) {
+
+            preparedStatement.setLong(1, inspectorId);
+            preparedStatement.setLong(2, taxPayer_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private TaxPayer extractFromResultSet(ResultSet rs) throws SQLException {

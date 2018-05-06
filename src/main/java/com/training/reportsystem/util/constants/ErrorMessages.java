@@ -11,4 +11,5 @@ public interface ErrorMessages {
     String INCORRECT_LAST_NAME = "incorrect.last.name";
     String INCORRECT_IDENTIFICATION_CODE = "incorrect.identification.code";
     String USERNAME_ALREADY_EXITS = "username.already.exist";
+    String INSPECTOR_WASNT_CHOSEN = "inspector.was.not.chosen";
 }

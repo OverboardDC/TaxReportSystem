@@ -17,7 +17,7 @@
             <div class="col-md-9">
                 <c:if test="${not empty sessionScope.user.inspector}">
                     <h4><fmt:message key="inspector.is" bundle="${bundle}"/>
-                            ${sessionScope.user.inspector.firstName} ${sessionScope.user.inspector.firstName}</h4>
+                            ${sessionScope.user.inspector.firstName} ${sessionScope.user.inspector.lastName}</h4>
                 </c:if>
                 <c:if test="${empty sessionScope.user.inspector}">
                     <h4 class="text-danger"><fmt:message key="inspector.was.not.assigned" bundle="${bundle}"/></h4>

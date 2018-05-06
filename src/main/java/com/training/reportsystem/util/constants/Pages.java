@@ -11,4 +11,5 @@ public interface Pages {
     String TAX_PAYER = "/WEB-INF/view/taxPayerPage.jsp";
     String TEST_INSPECTOR = "/WEB-INF/view/testInspectorPage.jsp";
     String INDEX_REDIRECT = "/app";
+    String ADMIN_REDIRECT = "/app/admin/adminPage";
 }

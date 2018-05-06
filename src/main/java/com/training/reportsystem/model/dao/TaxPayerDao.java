@@ -8,4 +8,5 @@ public interface TaxPayerDao extends UserDao<TaxPayer> {
 
     List<TaxPayer> findAllWithoutInspector();
 
+    void assignInspector(Long taxPayer_id, Long inspectorId);
 }

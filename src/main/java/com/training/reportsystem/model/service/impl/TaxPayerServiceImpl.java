@@ -3,7 +3,6 @@ package com.training.reportsystem.model.service.impl;
 import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.impl.TaxPayerDaoImpl;
 import com.training.reportsystem.model.entity.user.TaxPayer;
-import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.Md5Encryptor;
 
@@ -56,5 +55,10 @@ public class TaxPayerServiceImpl implements TaxPayerService {
     @Override
     public List<TaxPayer> findAllWithoutInspector() {
         return taxPayerDao.findAllWithoutInspector();
+    }
+
+    @Override
+    public void assignInspector(Long taxPayer_id, Long inspectorId) {
+        taxPayerDao.assignInspector(taxPayer_id, inspectorId);
     }
 }

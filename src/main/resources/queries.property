@@ -4,3 +4,4 @@ create.tax.payer=INSERT INTO taxPayer (username, password, firstname, lastname, 
 is.username.unique=SELECT id from taxpayer where username = ?
 find.all.taxpayers.without.inspector=SELECT id, username, firstname, lastname, identification_code FROM taxpayer WHERE inspector_id IS NULL
 find.all.inspectors=SELECT id, firstname, lastName FROM inspector WHERE role = ?
+assign.inspector=UPDATE taxpayer SET inspector_id = ? WHERE id = ?
