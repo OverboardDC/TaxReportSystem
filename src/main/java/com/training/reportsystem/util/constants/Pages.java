@@ -12,4 +12,7 @@ public interface Pages {
     String TEST_INSPECTOR = "/WEB-INF/view/testInspectorPage.jsp";
     String INDEX_REDIRECT = "/app";
     String ADMIN_REDIRECT = "/app/admin/adminPage";
+    String TAX_PAYER_REDIRECT = "/app/client/taxPagerPage";
+    String REQUEST = "/WEB-INF/view/request.jsp";
+    String REQUEST_REDIRECT = "/app/client/requestPage";
 }

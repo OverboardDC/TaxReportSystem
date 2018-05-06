@@ -15,5 +15,5 @@ public interface Attributes {
     String PASSWORD_REPEAT_ERROR = "password_repeat_error";
     String LOGIN_ERROR ="login_error" ;
 
-    String INSPECTOR_ERROR = "inspector_error";
+    String REASON_ERROR = "reason_error";
 }

@@ -9,6 +9,7 @@ public interface Commands {
     String ADMIN_PAGE = "admin/adminPage";
     String TAX_PAYER_PAGE = "client/taxPayerPage";
     String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
+    String REQUEST_PAGE = "client/requestPage";
 
     String CHANGE_LANGUAGE = "redirect/changeLanguage";
 
@@ -17,5 +18,6 @@ public interface Commands {
     String LOGOUT = "redirect/logout";
 
     String ASSIGN_INSPECTOR = "redirect/admin/assignInspector";
+    String SEND_REQUEST = "redirect/client/sendRequest";
 
 }

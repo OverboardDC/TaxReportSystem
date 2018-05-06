@@ -3,13 +3,16 @@ package com.training.reportsystem.controller;
 import com.training.reportsystem.controller.command.AssignInspector;
 import com.training.reportsystem.controller.command.ChangeLanguage;
 import com.training.reportsystem.controller.command.Command;
+import com.training.reportsystem.controller.command.SendRequest;
 import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
 import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
+import com.training.reportsystem.model.service.impl.RequestServiceImpl;
 import com.training.reportsystem.model.service.impl.TaxPayerServiceImpl;
 import com.training.reportsystem.util.constants.Commands;
 import com.training.reportsystem.util.constants.GlobalConstants;
@@ -33,6 +36,7 @@ public class Servlet extends HttpServlet {
         commandMap = new HashMap<>();
         TaxPayerService taxPayerService = new TaxPayerServiceImpl();
         InspectorService inspectorService = new InspectorServiceImpl();
+        RequestService requestService = new RequestServiceImpl();
         commandMap.put(Commands.HOME_PAGE, new HomePage());
         commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
         commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
@@ -44,6 +48,8 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.REGISTRATION, new Registration(taxPayerService));
         commandMap.put(Commands.LOGOUT, new Logout());
         commandMap.put(Commands.ASSIGN_INSPECTOR, new AssignInspector(taxPayerService));
+        commandMap.put(Commands.REQUEST_PAGE, new RequestPage());
+        commandMap.put(Commands.SEND_REQUEST, new SendRequest(requestService));
     }
 
     @Override

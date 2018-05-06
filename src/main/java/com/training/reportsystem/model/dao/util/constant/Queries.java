@@ -9,4 +9,5 @@ public interface Queries {
     String FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR = "find.all.taxpayers.without.inspector";
     String FIND_ALL_INSPECTORS = "find.all.inspectors";
     String ASSIGN_INSPECTOR = "assign.inspector";
+    String CREATE_REQUEST = "create.request";
 }
