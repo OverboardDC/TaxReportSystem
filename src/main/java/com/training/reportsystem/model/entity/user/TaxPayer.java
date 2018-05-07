@@ -64,7 +64,6 @@ public class TaxPayer extends User{
             super(TaxPayerBuilder.class);
         }
 
-
         public TaxPayerBuilder setRequests(List<Request> requests) {
             this.requests = requests;
             return this;

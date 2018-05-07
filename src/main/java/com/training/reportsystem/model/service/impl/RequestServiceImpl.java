@@ -39,4 +39,9 @@ public class RequestServiceImpl implements RequestService {
     public void delete(Long id) {
         requestDao.delete(id);
     }
+
+    @Override
+    public List<Request> findByTaxPayerId(Long taxPayerId) {
+        return requestDao.findByTaxPayerId(taxPayerId);
+    }
 }

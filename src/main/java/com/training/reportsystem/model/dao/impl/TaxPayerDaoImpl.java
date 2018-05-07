@@ -4,7 +4,9 @@ import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
+import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.user.Inspector;
+import com.training.reportsystem.model.entity.user.Request;
 import com.training.reportsystem.model.entity.user.Role;
 import com.training.reportsystem.model.entity.user.TaxPayer;
 
@@ -14,18 +16,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //TODO implement
 //TODO create mappers!
 public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override
+    //TODO refactor
     public TaxPayer login(String username, String password) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.TAX_PAYER_LOGIN))){
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet rs = preparedStatement.executeQuery();
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement taxPayerStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.TAX_PAYER_LOGIN));
+            taxPayerStatement.setString(1, username);
+            taxPayerStatement.setString(2, password);
+            ResultSet rs = taxPayerStatement.executeQuery();
             return extractFromResultSet(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,11 +39,11 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override
     public boolean isUsernameUnique(String username) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_USERNAME_UNIQUE))){
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_USERNAME_UNIQUE))) {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return false;
             }
         } catch (SQLException e) {
@@ -60,8 +64,8 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override
     public void create(TaxPayer taxPayer) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_TAX_PAYER))) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_TAX_PAYER))) {
             preparedStatement.setString(1, taxPayer.getUsername());
             preparedStatement.setString(2, taxPayer.getPassword());
             preparedStatement.setString(3, taxPayer.getFirstName());
@@ -86,11 +90,11 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
     @Override
     public List<TaxPayer> findAllWithoutInspector() {
         List<TaxPayer> taxPayers = new ArrayList<>();
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR))){
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR))) {
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 taxPayers.add(extractLazyFromResultSet(rs));
             }
         } catch (SQLException e) {
@@ -114,7 +118,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
     private TaxPayer extractFromResultSet(ResultSet rs) throws SQLException {
         TaxPayer taxPayer = null;
-        while (rs.next()){
+        while (rs.next()) {
             Long id = rs.getLong(1);
             Inspector inspector = extractInspector(rs);
             String username = rs.getString(3);
@@ -131,7 +135,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
     private Inspector extractInspector(ResultSet rs) throws SQLException {
         Long id = rs.getLong("i.id");
-        if(!rs.wasNull()) {
+        if (!rs.wasNull()) {
             String firstName = rs.getString("i.firstname");
             String lastName = rs.getString("i.lastname");
             return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();

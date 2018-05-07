@@ -7,3 +7,4 @@ find.all.inspectors=SELECT id, firstname, lastName FROM inspector WHERE role = ?
 assign.inspector=UPDATE taxpayer SET inspector_id = ? WHERE id = ?
 create.request=INSERT INTO request (taxpayer_id, inspector_id, reason, status) VALUES (?,?,?,?)
 find.all.requests=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id
+find.requests.by.tax.payer=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.taxpayer_id = ?

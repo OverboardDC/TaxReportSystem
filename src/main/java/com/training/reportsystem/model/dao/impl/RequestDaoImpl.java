@@ -25,7 +25,56 @@ public class RequestDaoImpl implements RequestDao {
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS))) {
 
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
+                requests.add(extractRequestFromRs(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return requests;
+    }
+
+    @Override
+    public Request getById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void create(Request request) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_REQUEST));
+
+            preparedStatement.setLong(1, request.getTaxPayer().getId());
+            preparedStatement.setLong(2, request.getInspector().getId());
+            preparedStatement.setString(3, request.getReason());
+            preparedStatement.setString(4, String.valueOf(request.getStatus()));
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Long id) {
+
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
+
+    @Override
+    public List<Request> findByTaxPayerId(Long taxPayerId) {
+        List<Request> requests = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_REQUESTS_BY_TAX_PAYER))) {
+
+            preparedStatement.setLong(1, taxPayerId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
                 requests.add(extractRequestFromRs(rs));
             }
 
@@ -60,36 +109,5 @@ public class RequestDaoImpl implements RequestDao {
         return new TaxPayer.TaxPayerBuilder().setId(id).setFirstName(firstName)
                 .setLastName(lastName).setUsername(username)
                 .setIdentificationCode(identificationCode).build();
-    }
-
-    @Override
-    public Request getById(Long id) {
-        return null;
-    }
-
-    @Override
-    public void create(Request request) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_REQUEST))) {
-
-            preparedStatement.setLong(1, request.getTaxPayer().getId());
-            preparedStatement.setLong(2, request.getInspector().getId());
-            preparedStatement.setString(3, request.getReason());
-            preparedStatement.setString(4, String.valueOf(request.getStatus()));
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void update(Long id) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
     }
 }
