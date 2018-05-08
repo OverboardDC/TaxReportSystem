@@ -50,8 +50,8 @@
                                 <textarea placeholder="Reason" name="reject_reason" class="input-group"></textarea>
                             </div>
                             <input hidden name="request_id" value="${request.id}">
-                            <button class="btn bg-danger text-light"><fmt:message key="reject"
-                                                                                  bundle="${bundle}"/></button>
+                            <button class="btn bg-danger text-light">
+                                <fmt:message key="reject" bundle="${bundle}"/></button>
                         </form>
                     </div>
                 </div>
