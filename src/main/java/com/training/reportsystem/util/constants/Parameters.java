@@ -19,4 +19,5 @@ public interface Parameters {
     String TAX_PAYER_ID = "tax_payer_id";
     String INSPECTOR_ID = "inspector_id";
     String REASON = "reason";
+    String REQUEST_ID = "request_id";
 }

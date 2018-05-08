@@ -12,4 +12,5 @@ public interface ErrorMessages {
     String INCORRECT_IDENTIFICATION_CODE = "incorrect.identification.code";
     String USERNAME_ALREADY_EXITS = "username.already.exist";
     String INCORRECT_REASON = "incorrect.reason";
+    String INCORRECT_INSPECTOR = "incorrect.inspector";
 }

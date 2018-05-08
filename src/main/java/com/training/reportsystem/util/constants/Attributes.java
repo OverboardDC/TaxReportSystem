@@ -18,4 +18,5 @@ public interface Attributes {
     String REASON_ERROR = "reason_error";
     String REQUESTS = "requests";
     String ARE_THERE_REQUESTS_PENDING = "are_there_requests_pending";
+    String INSPECTOR_ERROR = "inspector_error";
 }

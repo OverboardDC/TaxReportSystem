@@ -16,4 +16,5 @@ public interface Pages {
     String REQUEST = "/WEB-INF/view/request.jsp";
     String REQUEST_REDIRECT = "/app/client/requestPage";
     String ALL_REQUESTS = "/WEB-INF/view/allRequests.jsp";
+    String ALL_REQUESTS_REDIRECT = "/app/admin/allRequests";
 }

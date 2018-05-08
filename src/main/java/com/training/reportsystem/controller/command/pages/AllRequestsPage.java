@@ -1,6 +1,7 @@
 package com.training.reportsystem.controller.command.pages;
 
 import com.training.reportsystem.controller.command.Command;
+import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.constants.Attributes;
@@ -21,7 +22,7 @@ public class AllRequestsPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        request.setAttribute(Attributes.REQUESTS, requestService.findAll());
+        request.setAttribute(Attributes.REQUESTS, requestService.findByStatus(Status.PENDING));
         request.setAttribute(Attributes.INSPECTORS, inspectorService.findAll());
         return Pages.ALL_REQUESTS;
     }

@@ -84,6 +84,38 @@ public class RequestDaoImpl implements RequestDao {
         return requests;
     }
 
+    @Override
+    public List<Request> findByStatus(Status status) {
+        List<Request> requests = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS_BY_STATUS))) {
+
+            preparedStatement.setString(1, status.toString());
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                requests.add(extractRequestFromRs(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return requests;
+    }
+
+    @Override
+    public void accept(Long requestId) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ACCEPT_REQUEST))) {
+
+            preparedStatement.setString(1, Status.APPROVED.toString().toUpperCase());
+            preparedStatement.setLong(2, requestId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Request extractRequestFromRs(ResultSet rs) throws SQLException {
         Long id = rs.getLong(1);
         String reason = rs.getString(4);

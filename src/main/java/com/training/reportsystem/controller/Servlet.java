@@ -1,9 +1,6 @@
 package com.training.reportsystem.controller;
 
-import com.training.reportsystem.controller.command.AssignInspector;
-import com.training.reportsystem.controller.command.ChangeLanguage;
-import com.training.reportsystem.controller.command.Command;
-import com.training.reportsystem.controller.command.SendRequest;
+import com.training.reportsystem.controller.command.*;
 import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
@@ -51,6 +48,7 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.REQUEST_PAGE, new RequestPage(requestService));
         commandMap.put(Commands.SEND_REQUEST, new SendRequest(requestService));
         commandMap.put(Commands.ALL_REQUESTS_PAGE, new AllRequestsPage(requestService, inspectorService));
+        commandMap.put(Commands.ACCEPT_REQUEST, new AcceptRequest(requestService, taxPayerService));
     }
 
     @Override

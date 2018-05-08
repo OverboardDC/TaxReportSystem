@@ -20,5 +20,6 @@ public interface Commands {
 
     String ASSIGN_INSPECTOR = "redirect/admin/assignInspector";
     String SEND_REQUEST = "redirect/client/sendRequest";
+    String ACCEPT_REQUEST = "redirect/admin/acceptRequest";
 
 }

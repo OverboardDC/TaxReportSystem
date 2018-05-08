@@ -2,6 +2,7 @@ package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.RequestDao;
 import com.training.reportsystem.model.dao.impl.RequestDaoImpl;
+import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.user.Request;
 import com.training.reportsystem.model.service.RequestService;
 
@@ -43,5 +44,15 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> findByTaxPayerId(Long taxPayerId) {
         return requestDao.findByTaxPayerId(taxPayerId);
+    }
+
+    @Override
+    public List<Request> findByStatus(Status status) {
+        return requestDao.findByStatus(status);
+    }
+
+    @Override
+    public void accept(Long requestId) {
+        requestDao.accept(requestId);
     }
 }

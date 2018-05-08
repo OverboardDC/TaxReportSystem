@@ -12,6 +12,8 @@
         <div class="row justify-content-center text-center">
             <h1><fmt:message key="requests" bundle="${bundle}"/></h1>
         </div>
+        <h4 class="text-danger">${sessionScope.inspector_error}</h4>
+        <c:remove var="inspector_error" scope="session"/>
         <div class="row justify-content-start">
             <c:forEach var="request" items="${requestScope.requests}">
                 <div class="bg-light admin_page_item col-md-3">
@@ -24,17 +26,20 @@
                                          bundle="${bundle}"/> ${request.inspector.firstName} ${request.inspector.lastName}</h6>
                         <h6><fmt:message key="reason.in" bundle="${bundle}"/></h6>
                         <p>${request.reason}</p>
-                        <form>
+                        <form action="<c:url value="/app/redirect/admin/acceptRequest"/>" method="post">
                             <div class="form-group">
+
                                 <label><fmt:message key="choose.new.inspector" bundle="${bundle}"/></label>
-                                <select class="input-group">
+                                <select class="input-group" name="inspector_id">
                                     <option selected disabled class="hidden"><fmt:message key="select"
                                                                                           bundle="${bundle}"/></option>
                                     <c:forEach items="${requestScope.inspectors}" var="inspector">
-                                        <option>${inspector.firstName} ${inspector.lastName}</option>
+                                        <option value="${inspector.id}">${inspector.firstName} ${inspector.lastName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
+                            <input hidden name="request_id" value="${request.id}">
+                            <input hidden name="tax_payer_id" value="${request.taxPayer.id}">
                             <button class="btn bg-success text-light"><fmt:message key="accept"
                                                                                    bundle="${bundle}"/></button>
                         </form>
