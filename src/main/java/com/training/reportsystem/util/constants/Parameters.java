@@ -20,4 +20,5 @@ public interface Parameters {
     String INSPECTOR_ID = "inspector_id";
     String REASON = "reason";
     String REQUEST_ID = "request_id";
+    String REJECT_REASON = "reject_reason";
 }

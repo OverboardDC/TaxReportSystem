@@ -3,6 +3,7 @@ package com.training.reportsystem.model.entity.user;
 import com.training.reportsystem.model.entity.Builder;
 import com.training.reportsystem.model.entity.Status;
 
+//TODO add dates
 public class Request {
 
     private Long id;
@@ -10,6 +11,7 @@ public class Request {
     private Inspector inspector;
     private Status status;
     private String reason;
+    private String rejectReason;
 
     public Long getId() {
         return id;
@@ -51,6 +53,14 @@ public class Request {
         this.reason = reason;
     }
 
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+    }
+
     public static final class RequestBuilder implements Builder<Request> {
 
         private Long id;
@@ -58,6 +68,7 @@ public class Request {
         private Inspector inspector;
         private Status status;
         private String reason;
+        private String rejectReason;
 
         public RequestBuilder setId(Long id) {
             this.id = id;
@@ -84,6 +95,11 @@ public class Request {
             return this;
         }
 
+        public RequestBuilder setRejectReason(String rejectReason) {
+            this.rejectReason = rejectReason;
+            return this;
+        }
+
         @Override
         public Request build() {
             Request request = new Request();
@@ -92,6 +108,7 @@ public class Request {
             request.setInspector(inspector);
             request.setStatus(status);
             request.setReason(reason);
+            request.setRejectReason(rejectReason);
             return request;
         }
     }

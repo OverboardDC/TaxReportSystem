@@ -107,8 +107,23 @@ public class RequestDaoImpl implements RequestDao {
         try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ACCEPT_REQUEST))) {
 
-            preparedStatement.setString(1, Status.APPROVED.toString().toUpperCase());
+            preparedStatement.setString(1, Status.APPROVED.toString());
             preparedStatement.setLong(2, requestId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void reject(Long requestId, String rejectReason) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.REJECT_REQUEST))) {
+
+            preparedStatement.setString(1, Status.REJECTED.toString());
+            preparedStatement.setString(2, rejectReason);
+            preparedStatement.setLong(3, requestId);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -120,8 +135,9 @@ public class RequestDaoImpl implements RequestDao {
         Long id = rs.getLong(1);
         String reason = rs.getString(4);
         Status status = Status.valueOf(rs.getString(5).toUpperCase());
+        String rejectReason = rs.getString(6);
         return new Request.RequestBuilder().setId(id).setReason(reason)
-                .setStatus(status).setTaxPayer(extractTaxPayerFromRs(rs))
+                .setStatus(status).setRejectReason(rejectReason).setTaxPayer(extractTaxPayerFromRs(rs))
                 .setInspector(extractInspectorFromRs(rs)).build();
     }
 

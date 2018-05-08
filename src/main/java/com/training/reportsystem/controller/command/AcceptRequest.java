@@ -23,6 +23,7 @@ public class AcceptRequest implements Command{
     }
 
     @Override
+    //TODO ?
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Optional<String> inspectorId = Optional.ofNullable(request.getParameter(Parameters.INSPECTOR_ID));
         Long requestId = Long.valueOf(request.getParameter(Parameters.REQUEST_ID));

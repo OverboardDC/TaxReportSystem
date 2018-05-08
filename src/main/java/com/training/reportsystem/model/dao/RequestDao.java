@@ -13,4 +13,6 @@ public interface RequestDao extends GenericDao<Request> {
 
     void accept(Long requestId);
 
+    void reject(Long requestId, String rejectReason);
+
 }

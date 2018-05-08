@@ -55,4 +55,9 @@ public class RequestServiceImpl implements RequestService {
     public void accept(Long requestId) {
         requestDao.accept(requestId);
     }
+
+    @Override
+    public void reject(Long requestId, String rejectReason) {
+        requestDao.reject(requestId, rejectReason);
+    }
 }

@@ -14,4 +14,5 @@ public interface Queries {
     String FIND_ALL_REQUESTS_BY_STATUS = "find.all.requests.by.status";
     String FIND_REQUESTS_BY_TAX_PAYER = "find.requests.by.tax.payer";
     String ACCEPT_REQUEST = "accept.request";
+    String REJECT_REQUEST = "reject.request";
 }

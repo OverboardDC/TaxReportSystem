@@ -40,14 +40,16 @@
                             </div>
                             <input hidden name="request_id" value="${request.id}">
                             <input hidden name="tax_payer_id" value="${request.taxPayer.id}">
-                            <button class="btn bg-success text-light"><fmt:message key="accept" bundle="${bundle}"/></button>
+                            <button class="btn bg-success text-light"><fmt:message key="accept"
+                                                                                   bundle="${bundle}"/></button>
                         </form>
 
-                        <form>
+                        <form action="<c:url value="/app/redirect/admin/rejectRequest"/>">
                             <div class="form-group">
                                 <label><fmt:message key="reason.in" bundle="${bundle}"/></label>
-                                <textarea placeholder="Reason" name="reason" class="input-group"></textarea>
+                                <textarea placeholder="Reason" name="reject_reason" class="input-group"></textarea>
                             </div>
+                            <input hidden name="request_id" value="${request.id}">
                             <button class="btn bg-danger text-light"><fmt:message key="reject"
                                                                                   bundle="${bundle}"/></button>
                         </form>

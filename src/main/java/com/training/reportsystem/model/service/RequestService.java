@@ -12,4 +12,6 @@ public interface RequestService extends GenericService<Request> {
     List<Request> findByStatus(Status status);
 
     void accept(Long requestId);
+
+    void reject(Long requestId, String rejectReason);
 }

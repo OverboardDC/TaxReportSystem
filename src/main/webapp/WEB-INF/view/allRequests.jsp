@@ -44,13 +44,14 @@
                                                                                    bundle="${bundle}"/></button>
                         </form>
 
-                        <form>
+                        <form action="<c:url value="/app/redirect/admin/rejectRequest"/>">
                             <div class="form-group">
                                 <label><fmt:message key="reason.in" bundle="${bundle}"/></label>
-                                <textarea placeholder="Reason" name="reason" class="input-group"></textarea>
+                                <textarea placeholder="Reason" name="reject_reason" class="input-group"></textarea>
                             </div>
-                            <button class="btn bg-danger text-light"><fmt:message key="reject"
-                                                                                  bundle="${bundle}"/></button>
+                            <input hidden name="request_id" value="${request.id}">
+                            <button class="btn bg-danger text-light">
+                                <fmt:message key="reject" bundle="${bundle}"/></button>
                         </form>
                     </div>
                 </div>

@@ -43,6 +43,10 @@
                                      bundle="${bundle}"/> ${request.inspector.firstName} ${request.inspector.lastName}</h6>
                     <h6><fmt:message key="reason.in" bundle="${bundle}"/></h6>
                     <p>${request.reason}</p>
+                    <c:if test="${not empty request.rejectReason}">
+                        <h6><fmt:message key="reject.reason.in" bundle="${bundle}"/></h6>
+                        <p>${request.rejectReason}</p>
+                    </c:if>
                 </div>
             </c:forEach>
         </div>
