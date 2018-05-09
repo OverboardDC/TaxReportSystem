@@ -123,27 +123,16 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
         TaxPayer taxPayer = null;
         while (rs.next()) {
             Long id = rs.getLong(1);
-            Inspector inspector = extractInspector(rs);
             String username = rs.getString(3);
             String password = rs.getString(4);
             String firstName = rs.getString(5);
             String lastName = rs.getString(6);
             String identification_code = rs.getString(7);
-            taxPayer = new TaxPayer.TaxPayerBuilder().setId(id).setInspector(inspector).setUsername(username)
+            taxPayer = new TaxPayer.TaxPayerBuilder().setId(id).setUsername(username)
                     .setPassword(password).setFirstName(firstName).setLastName(lastName).
                             setIdentificationCode(identification_code).setRole(Role.CLIENT).build();
         }
         return taxPayer;
-    }
-
-    private Inspector extractInspector(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("i.id");
-        if (!rs.wasNull()) {
-            String firstName = rs.getString("i.firstname");
-            String lastName = rs.getString("i.lastname");
-            return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
-        }
-        return null;
     }
 
     private TaxPayer extractLazyFromResultSet(ResultSet rs) throws SQLException {

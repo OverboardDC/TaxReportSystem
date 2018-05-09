@@ -23,7 +23,7 @@
                     <h4 class="text-danger"><fmt:message key="inspector.was.not.assigned" bundle="${bundle}"/></h4>
                 </c:if>
             </div>
-            <c:if test="${not empty sessionScope.user.inspector}">
+            <c:if test="${not empty requestScope.inspector}">
                 <div class="col-md-4">
                     <a href="#" class="btn btn-success"><fmt:message key="create.report" bundle="${bundle}"/></a>
                     <a href="<c:url value="/app/client/requestPage"/>" class="btn btn-danger">

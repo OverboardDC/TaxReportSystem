@@ -20,7 +20,7 @@
                     <c:remove var="reason_error" scope="session"/>
                     <div class="form-group">
                         <input name="tax_payer_id" hidden value="${sessionScope.user.id}">
-                        <input name="inspector_id" hidden value="${sessionScope.user.inspector.id}">
+                        <input name="inspector_id" hidden value="${requestScope.inspector.id}">
                         <textarea class="input-group" name="reason"
                                   placeholder="<fmt:message key="reason.in" bundle="${bundle}"/>"></textarea>
                     </div>
