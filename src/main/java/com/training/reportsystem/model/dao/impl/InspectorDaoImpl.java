@@ -6,6 +6,7 @@ import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.user.Inspector;
 import com.training.reportsystem.model.entity.user.Role;
+import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +27,7 @@ public class InspectorDaoImpl implements InspectorDao {
             ResultSet rs = preparedStatement.executeQuery();
             return extractFromResultSet(rs);
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return null;
@@ -67,6 +69,7 @@ public class InspectorDaoImpl implements InspectorDao {
                 inspectors.add(inspector);
             }
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return inspectors;

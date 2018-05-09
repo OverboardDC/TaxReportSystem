@@ -13,6 +13,6 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        httpSessionEvent.getSession().invalidate();
+
     }
 }

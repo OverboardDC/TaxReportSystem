@@ -6,10 +6,8 @@ import com.training.reportsystem.model.entity.user.Request;
 import com.training.reportsystem.model.entity.user.TaxPayer;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LocalisationUtil;
-import com.training.reportsystem.util.constants.Attributes;
-import com.training.reportsystem.util.constants.ErrorMessages;
-import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.constants.Parameters;
+import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +34,7 @@ public class SendRequest implements Command {
                 .setInspector(new Inspector.InspectorBuilder().setId(inspectorId).build())
                 .setReason(reason).setStatus(Status.PENDING).build();
         requestService.create(taxPayerRequest);
+        logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_WAS_SENT));
         return Pages.TAX_PAYER_REDIRECT;
     }
 }

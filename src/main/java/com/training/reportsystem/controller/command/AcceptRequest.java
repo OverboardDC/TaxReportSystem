@@ -3,10 +3,8 @@ package com.training.reportsystem.controller.command;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LocalisationUtil;
-import com.training.reportsystem.util.constants.Attributes;
-import com.training.reportsystem.util.constants.ErrorMessages;
-import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.constants.Parameters;
+import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +33,7 @@ public class AcceptRequest implements Command{
         Long taxPayerId = Long.valueOf(request.getParameter(Parameters.TAX_PAYER_ID));
         requestService.accept(requestId);
         taxPayerService.assignInspector(taxPayerId, Long.valueOf(inspectorId.get()));
+        logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_ACCEPTED));
         return Pages.ALL_REQUESTS_REDIRECT;
     }
 }

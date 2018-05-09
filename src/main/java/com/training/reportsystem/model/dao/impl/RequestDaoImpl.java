@@ -8,6 +8,7 @@ import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.user.Inspector;
 import com.training.reportsystem.model.entity.user.Request;
 import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +31,7 @@ public class RequestDaoImpl implements RequestDao {
             }
 
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return requests;
@@ -52,6 +54,7 @@ public class RequestDaoImpl implements RequestDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
     }
@@ -79,6 +82,7 @@ public class RequestDaoImpl implements RequestDao {
             }
 
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return requests;
@@ -97,6 +101,7 @@ public class RequestDaoImpl implements RequestDao {
             }
 
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return requests;
@@ -112,6 +117,7 @@ public class RequestDaoImpl implements RequestDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
     }
@@ -127,6 +133,7 @@ public class RequestDaoImpl implements RequestDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
     }

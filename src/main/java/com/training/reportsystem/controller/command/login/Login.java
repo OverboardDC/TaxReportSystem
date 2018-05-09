@@ -5,14 +5,15 @@ import com.training.reportsystem.model.entity.user.User;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LocalisationUtil;
-import com.training.reportsystem.util.constants.Attributes;
-import com.training.reportsystem.util.constants.ErrorMessages;
-import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.constants.Parameters;
+import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
+
+import static com.training.reportsystem.util.constants.LoggerMessages.*;
+
 
 public class Login implements Command {
 
@@ -33,20 +34,23 @@ public class Login implements Command {
         System.out.println("User: " + user);
         if (user.isPresent()) {
             request.getSession().setAttribute(Attributes.USER, user.get());
+            logger.info(LoggerUtil.formMessage(LOGIN_SUCCESS, USER, user.get().getUsername()));
             return Pages.INDEX_REDIRECT;
         }
         request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
+        logger.info(LoggerUtil.formMessage(LOGIN_FAILED, username));
         return Pages.LOGIN_REDIRECT;
     }
 
     private Optional<User> getUser(String username, String password, String userType) {
         Optional<User> user;
-        if(userType.equals(Parameters.CLIENT)) {
+        if (userType.equals(Parameters.CLIENT)) {
             user = Optional.ofNullable(taxPayerService.login(username, password));
         } else {
             user = Optional.ofNullable(inspectorService.login(username, password));
         }
         return user;
     }
+
 }
 

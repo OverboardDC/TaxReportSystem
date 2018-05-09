@@ -1,6 +1,8 @@
 package com.training.reportsystem.controller.command;
 
 import com.training.reportsystem.model.service.RequestService;
+import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.constants.LoggerMessages;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
 
@@ -23,6 +25,7 @@ public class RejectRequest implements Command {
         }
         Long requestId = Long.valueOf(request.getParameter(Parameters.REQUEST_ID));
         requestService.reject(requestId,rejectReason);
+        logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_WAS_REJECTED));
         return Pages.ALL_REQUESTS_REDIRECT;
     }
 }

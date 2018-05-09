@@ -9,6 +9,7 @@ import com.training.reportsystem.model.entity.user.Inspector;
 import com.training.reportsystem.model.entity.user.Request;
 import com.training.reportsystem.model.entity.user.Role;
 import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +33,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
             ResultSet rs = taxPayerStatement.executeQuery();
             return extractFromResultSet(rs);
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return null;
@@ -47,6 +49,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
                 return false;
             }
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return true;
@@ -73,6 +76,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
             preparedStatement.setString(5, taxPayer.getIdentificationCode());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
     }
@@ -98,6 +102,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
                 taxPayers.add(extractLazyFromResultSet(rs));
             }
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return taxPayers;
@@ -112,6 +117,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
             preparedStatement.setLong(2, taxPayer_id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
     }

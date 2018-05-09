@@ -1,6 +1,8 @@
 package com.training.reportsystem.controller.command;
 
 import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.constants.LoggerMessages;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
 
@@ -21,6 +23,7 @@ public class AssignInspector implements Command{
         Long taxPayerId = Long.valueOf(request.getParameter(Parameters.TAX_PAYER_ID));
         Optional<String> inspectorId = Optional.ofNullable(request.getParameter(Parameters.INSPECTOR_ID));
         inspectorId.ifPresent(s -> taxPayerService.assignInspector(taxPayerId, Long.valueOf(s)));
+        logger.info(LoggerUtil.formMessage(LoggerMessages.INSPECTOR_ASSIGNED));
         return Pages.ADMIN_REDIRECT;
     }
 }
