@@ -1,6 +1,4 @@
-package com.training.reportsystem.model.entity.user;
-
-import com.training.reportsystem.model.entity.Builder;
+package com.training.reportsystem.model.entity;
 
 import java.util.Optional;
 

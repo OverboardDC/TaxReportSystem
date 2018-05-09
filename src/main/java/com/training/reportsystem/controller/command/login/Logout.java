@@ -1,7 +1,7 @@
 package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
-import com.training.reportsystem.model.entity.user.User;
+import com.training.reportsystem.model.entity.User;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.LoginUtil;
 import com.training.reportsystem.util.constants.Attributes;

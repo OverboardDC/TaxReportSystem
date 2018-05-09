@@ -15,11 +15,11 @@
         </div>
         <div class="row justify-content-between">
             <div class="col-md-9">
-                <c:if test="${not empty sessionScope.user.inspector}">
+                <c:if test="${not empty requestScope.inspector}">
                     <h4><fmt:message key="inspector.is" bundle="${bundle}"/>
-                            ${sessionScope.user.inspector.firstName} ${sessionScope.user.inspector.lastName}</h4>
+                            ${requestScope.inspector.firstName} ${requestScope.inspector.lastName}</h4>
                 </c:if>
-                <c:if test="${empty sessionScope.user.inspector}">
+                <c:if test="${empty requestScope.inspector}">
                     <h4 class="text-danger"><fmt:message key="inspector.was.not.assigned" bundle="${bundle}"/></h4>
                 </c:if>
             </div>

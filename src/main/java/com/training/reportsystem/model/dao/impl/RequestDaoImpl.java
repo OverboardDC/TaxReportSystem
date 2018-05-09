@@ -5,9 +5,9 @@ import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.user.Inspector;
-import com.training.reportsystem.model.entity.user.Request;
-import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.model.entity.Inspector;
+import com.training.reportsystem.model.entity.Request;
+import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;

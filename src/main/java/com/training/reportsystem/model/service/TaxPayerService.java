@@ -1,6 +1,6 @@
 package com.training.reportsystem.model.service;
 
-import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.model.entity.TaxPayer;
 
 import java.util.List;
 

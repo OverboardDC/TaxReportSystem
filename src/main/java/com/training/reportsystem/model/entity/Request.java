@@ -1,7 +1,4 @@
-package com.training.reportsystem.model.entity.user;
-
-import com.training.reportsystem.model.entity.Builder;
-import com.training.reportsystem.model.entity.Status;
+package com.training.reportsystem.model.entity;
 
 //TODO add dates
 public class Request {

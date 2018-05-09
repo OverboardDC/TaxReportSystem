@@ -11,3 +11,4 @@ find.all.requests.by.status=SELECT * FROM request AS r INNER JOIN inspector i ON
 find.requests.by.tax.payer=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.taxpayer_id = ?
 accept.request=UPDATE request SET status = ? WHERE id = ?
 reject.request=UPDATE request SET status = ?, reject_reason = ? WHERE id = ?
+get.inspector.by.user=SELECT t.inspector_id, i.firstname, i.lastname FROM taxpayer AS t INNER JOIN inspector i ON i.id = t.inspector_id WHERE t.id = ?

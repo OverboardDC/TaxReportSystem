@@ -4,11 +4,9 @@ import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
-import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.user.Inspector;
-import com.training.reportsystem.model.entity.user.Request;
-import com.training.reportsystem.model.entity.user.Role;
-import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.model.entity.Inspector;
+import com.training.reportsystem.model.entity.Role;
+import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
@@ -17,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 //TODO implement
 //TODO create mappers!

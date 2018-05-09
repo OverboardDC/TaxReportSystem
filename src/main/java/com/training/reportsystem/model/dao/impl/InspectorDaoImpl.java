@@ -4,8 +4,8 @@ import com.training.reportsystem.model.dao.InspectorDao;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
-import com.training.reportsystem.model.entity.user.Inspector;
-import com.training.reportsystem.model.entity.user.Role;
+import com.training.reportsystem.model.entity.Inspector;
+import com.training.reportsystem.model.entity.Role;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
@@ -62,11 +62,7 @@ public class InspectorDaoImpl implements InspectorDao {
             preparedStatement.setString(1, Role.INSPECTOR.toString());
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
-                Long id = rs.getLong(1);
-                String firstName = rs.getString(2);
-                String lastName = rs.getString(3);
-                Inspector inspector = new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
-                inspectors.add(inspector);
+                inspectors.add(buildLazyFromRs(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -78,6 +74,13 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public Inspector getById(Long id) {
         return null;
+    }
+
+    private Inspector buildLazyFromRs(ResultSet rs) throws SQLException {
+        Long id = rs.getLong(1);
+        String firstName = rs.getString(2);
+        String lastName = rs.getString(3);
+        return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
     }
 
     @Override
@@ -93,5 +96,25 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public Inspector getByUserId(Long userId) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_USER))) {
+
+            preparedStatement.setLong(1, userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            Inspector inspector = null;
+            while (rs.next()){
+                inspector = buildLazyFromRs(rs);
+            }
+            return inspector;
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return null;
     }
 }

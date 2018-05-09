@@ -2,7 +2,7 @@ package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.InspectorDao;
 import com.training.reportsystem.model.dao.impl.InspectorDaoImpl;
-import com.training.reportsystem.model.entity.user.Inspector;
+import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.util.Md5Encryptor;
 
@@ -50,5 +50,10 @@ public class InspectorServiceImpl implements InspectorService {
     @Override
     public void delete(Long id) {
         inspectorDao.delete(id);
+    }
+
+    @Override
+    public Inspector getByUserId(Long userId) {
+        return inspectorDao.getByUserId(userId);
     }
 }

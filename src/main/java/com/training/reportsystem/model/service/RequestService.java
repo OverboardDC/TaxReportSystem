@@ -1,7 +1,7 @@
 package com.training.reportsystem.model.service;
 
 import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.user.Request;
+import com.training.reportsystem.model.entity.Request;
 
 import java.util.List;
 

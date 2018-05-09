@@ -1,25 +1,16 @@
-package com.training.reportsystem.model.entity.report;
-
-import com.training.reportsystem.model.entity.Builder;
-import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.user.Inspector;
-import com.training.reportsystem.model.entity.user.TaxPayer;
+package com.training.reportsystem.model.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Report {
 
     private Long id;
     private TaxPayer taxPayer;
     private Inspector inspector;
-    private ReportType reportType;
-    private List<Revenue> revenues;
     private Status status;
     private LocalDate periodFrom;
     private LocalDate periodTo;
-    private String message;
     private String commentary;
     private String rejectReason;
     private LocalDateTime submissionDate;
@@ -49,22 +40,6 @@ public class Report {
         this.inspector = inspector;
     }
 
-    public ReportType getReportType() {
-        return reportType;
-    }
-
-    public void setReportType(ReportType reportType) {
-        this.reportType = reportType;
-    }
-
-    public List<Revenue> getRevenues() {
-        return revenues;
-    }
-
-    public void setRevenues(List<Revenue> revenues) {
-        this.revenues = revenues;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -87,14 +62,6 @@ public class Report {
 
     public void setPeriodTo(LocalDate periodTo) {
         this.periodTo = periodTo;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public String getCommentary() {
@@ -135,12 +102,9 @@ public class Report {
                 "id=" + id +
                 ", taxPayer=" + taxPayer +
                 ", inspector=" + inspector +
-                ", reportType=" + reportType +
-                ", revenues=" + revenues +
                 ", status=" + status +
                 ", periodFrom=" + periodFrom +
                 ", periodTo=" + periodTo +
-                ", message='" + message + '\'' +
                 ", commentary='" + commentary + '\'' +
                 ", rejectReason='" + rejectReason + '\'' +
                 ", submissionDate=" + submissionDate +
@@ -153,12 +117,9 @@ public class Report {
         private Long id;
         private TaxPayer taxPayer;
         private Inspector inspector;
-        private ReportType reportType;
-        private List<Revenue> revenues;
         private Status status;
         private LocalDate periodFrom;
         private LocalDate periodTo;
-        private String message;
         private String commentary;
         private String rejectReason;
         private LocalDateTime submissionDate;
@@ -179,16 +140,6 @@ public class Report {
             return this;
         }
 
-        public ReportBuilder setReportType(ReportType reportType) {
-            this.reportType = reportType;
-            return this;
-        }
-
-        public ReportBuilder setRevenues(List<Revenue> revenues) {
-            this.revenues = revenues;
-            return this;
-        }
-
         public ReportBuilder setStatus(Status status) {
             this.status = status;
             return this;
@@ -201,11 +152,6 @@ public class Report {
 
         public ReportBuilder setPeriodTo(LocalDate periodTo) {
             this.periodTo = periodTo;
-            return this;
-        }
-
-        public ReportBuilder setMessage(String message) {
-            this.message = message;
             return this;
         }
 
@@ -235,12 +181,9 @@ public class Report {
             report.setId(id);
             report.setTaxPayer(taxPayer);
             report.setInspector(inspector);
-            report.setReportType(reportType);
-            report.setRevenues(revenues);
             report.setStatus(status);
             report.setPeriodFrom(periodFrom);
             report.setPeriodTo(periodTo);
-            report.setMessage(message);
             report.setCommentary(commentary);
             report.setRejectReason(rejectReason);
             report.setSubmissionDate(submissionDate);

@@ -1,9 +1,9 @@
 package com.training.reportsystem.controller.command;
 
 import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.user.Inspector;
-import com.training.reportsystem.model.entity.user.Request;
-import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.model.entity.Inspector;
+import com.training.reportsystem.model.entity.Request;
+import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LocalisationUtil;
 import com.training.reportsystem.util.LoggerUtil;

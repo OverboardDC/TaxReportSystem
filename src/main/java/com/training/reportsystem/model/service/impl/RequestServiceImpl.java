@@ -3,7 +3,7 @@ package com.training.reportsystem.model.service.impl;
 import com.training.reportsystem.model.dao.RequestDao;
 import com.training.reportsystem.model.dao.impl.RequestDaoImpl;
 import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.user.Request;
+import com.training.reportsystem.model.entity.Request;
 import com.training.reportsystem.model.service.RequestService;
 
 import java.util.List;

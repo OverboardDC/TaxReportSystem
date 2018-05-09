@@ -1,4 +1,4 @@
-package com.training.reportsystem.model.entity.user;
+package com.training.reportsystem.model.entity;
 
 public enum Role {
 

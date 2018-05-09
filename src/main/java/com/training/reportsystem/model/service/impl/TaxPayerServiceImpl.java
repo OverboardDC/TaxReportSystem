@@ -2,7 +2,7 @@ package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.impl.TaxPayerDaoImpl;
-import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.Md5Encryptor;
 

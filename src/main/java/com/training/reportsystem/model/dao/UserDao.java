@@ -1,6 +1,6 @@
 package com.training.reportsystem.model.dao;
 
-import com.training.reportsystem.model.entity.user.User;
+import com.training.reportsystem.model.entity.User;
 
 public interface UserDao<T extends User> extends GenericDao<T>{
 

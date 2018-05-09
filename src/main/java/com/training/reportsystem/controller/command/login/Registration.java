@@ -1,7 +1,7 @@
 package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
-import com.training.reportsystem.model.entity.user.TaxPayer;
+import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.UserValidator;
 import com.training.reportsystem.util.LocalisationUtil;

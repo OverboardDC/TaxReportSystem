@@ -1,6 +1,6 @@
 package com.training.reportsystem.model.service;
 
-import com.training.reportsystem.model.entity.report.Report;
+import com.training.reportsystem.model.entity.Report;
 
 import java.util.List;
 
