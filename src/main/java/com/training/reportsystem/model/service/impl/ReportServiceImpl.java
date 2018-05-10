@@ -16,8 +16,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> findByUser(Long userId) {
-        return null;
+    public List<Report> findAllByUser(Long userId) {
+        return reportDao.findAllByUser(userId);
     }
 
     @Override

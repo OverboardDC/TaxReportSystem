@@ -25,4 +25,5 @@ public interface Attributes {
     String REQUESTS = "requests";
     String ARE_THERE_REQUESTS_PENDING = "are_there_requests_pending";
     String INSPECTOR = "inspector";
+    String REPORTS = "reports";
 }

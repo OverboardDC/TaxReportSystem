@@ -32,97 +32,36 @@
             </c:if>
         </div>
         <div class="row justify-content-start">
-            <div class="bg-light col-md-3 report_div">
-                <h4>Declaration</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-info">Pending</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
-            <div class="bg-light col-md-3 report_div">
-                <h4>Message</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-success">Approved</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
-            <div class="bg-light col-md-3 report_div">
-                <h4>Declaration</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-danger">Rejected</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
-            <div class="bg-light col-md-3 report_div">
-                <h4>Declaration</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-info">Pending</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
-            <div class="bg-light col-md-3 report_div">
-                <h4>Declaration</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-info">Pending</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
-            <div class="bg-light col-md-3 report_div">
-                <h4>Declaration</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-info">Pending</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
-            <div class="bg-light col-md-3 report_div">
-                <h4>Declaration</h4>
-                <h6>Inspector: </h6>
-                <p>Bill Clinton</p>
-                <h6>Status: </h6>
-                <p class="text-info">Pending</p>
-                <h6>Period from: </h6>
-                <p>03 06 2018</p>
-                <h6>Period to: </h6>
-                <p>03 06 2018</p>
-                <h6>Submission date </h6>
-                <p>03 06 2018</p>
-            </div>
+            <c:forEach var="report" items="${requestScope.reports}">
+                <div class="bg-light col-md-3 report_div">
+                    <h6>Inspector: </h6>
+                    <p>${report.inspector.firstName} ${report.inspector.lastName}</p>
+                    <h6>Status: </h6>
+                    <p class="text-info">${report.status}</p>
+                    <h6>Period from: </h6>
+                    <p>${report.periodFrom}</p>
+                    <h6>Period to: </h6>
+                    <p>${report.periodTo}</p>
+                    <h6>Submission date </h6>
+                    <fmt:parseDate value="${report.submissionDate}"
+                                   var="parsedDate" type="both" pattern="yyyy-MM-dd'T'HH:mm"/>
+                    <fmt:formatDate value="${parsedDate}" var="stdDatum"
+                                    type="date" pattern="dd-MM-yyyy HH:mm"/>
+                    <p>${stdDatum}</p>
+                    <c:if test="${not empty report.commentary}">
+                        <h6>Commentary: </h6>
+                        <p>${report.commentary}</p>
+                    </c:if>
+                    <c:if test="${not empty report.rejectReason}">
+                        <h6>Reject reason: </h6>
+                        <p>${report.rejectReason}</p>
+                    </c:if>
+                    <c:if test="${not empty report.editionDate}">
+                        <h6>Last edit date: </h6>
+                        <p>${report.editionDate}</p>
+                    </c:if>
+                </div>
+            </c:forEach>
         </div>
     </section>
 </div>

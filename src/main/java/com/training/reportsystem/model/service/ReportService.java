@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ReportService extends GenericService<Report> {
 
-    List<Report> findByUser(Long userId);
+    List<Report> findAllByUser(Long userId);
 
 }
