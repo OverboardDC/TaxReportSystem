@@ -11,6 +11,7 @@ public interface Commands {
     String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
     String REQUEST_PAGE = "client/requestPage";
     String ALL_REQUESTS_PAGE = "admin/allRequests";
+    String NEW_REPORT_PAGE = "client/newReportPage";
 
     String CHANGE_LANGUAGE = "redirect/changeLanguage";
 
@@ -22,5 +23,6 @@ public interface Commands {
     String SEND_REQUEST = "redirect/client/sendRequest";
     String ACCEPT_REQUEST = "redirect/admin/acceptRequest";
     String REJECT_REQUEST = "redirect/admin/rejectRequest";
+    String SEND_REPORT = "redirect/client/sendReport";
 
 }

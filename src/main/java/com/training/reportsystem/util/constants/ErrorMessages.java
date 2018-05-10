@@ -13,4 +13,8 @@ public interface ErrorMessages {
     String USERNAME_ALREADY_EXITS = "username.already.exist";
     String INCORRECT_REASON = "incorrect.reason";
     String INCORRECT_INSPECTOR = "incorrect.inspector";
+    String INCORRECT_DATE_FORMAT = "incorrect.date.format";
+    String INCORRECT_REVENUE = "incorrect.revenue";
+    String INCORRECT_TAX = "incorrect.tax";
+    String INCORRECT_COMMENTARY = "incorrect.commentary";
 }

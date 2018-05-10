@@ -6,9 +6,11 @@ import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
 import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.model.service.ReportService;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
+import com.training.reportsystem.model.service.impl.ReportServiceImpl;
 import com.training.reportsystem.model.service.impl.RequestServiceImpl;
 import com.training.reportsystem.model.service.impl.TaxPayerServiceImpl;
 import com.training.reportsystem.util.constants.Commands;
@@ -34,6 +36,7 @@ public class Servlet extends HttpServlet {
         TaxPayerService taxPayerService = new TaxPayerServiceImpl();
         InspectorService inspectorService = new InspectorServiceImpl();
         RequestService requestService = new RequestServiceImpl();
+        ReportService reportService = new ReportServiceImpl();
         commandMap.put(Commands.HOME_PAGE, new HomePage());
         commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
         commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
@@ -50,6 +53,8 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.ALL_REQUESTS_PAGE, new AllRequestsPage(requestService, inspectorService));
         commandMap.put(Commands.ACCEPT_REQUEST, new AcceptRequest(requestService, taxPayerService));
         commandMap.put(Commands.REJECT_REQUEST, new RejectRequest(requestService));
+        commandMap.put(Commands.NEW_REPORT_PAGE, new NewReportPage(inspectorService));
+        commandMap.put(Commands.SEND_REPORT, new SendReport(reportService));
     }
 
     @Override

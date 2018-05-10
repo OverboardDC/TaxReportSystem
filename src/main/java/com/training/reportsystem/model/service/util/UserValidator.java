@@ -8,7 +8,7 @@ import com.training.reportsystem.util.constants.RegexConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class UserValidator {
+public class UserValidator implements Validator{
 
     private boolean isValid = true;
 
@@ -64,6 +64,7 @@ public class UserValidator {
         return false;
     }
 
+    @Override
     public boolean isValid() {
         return isValid;
     }

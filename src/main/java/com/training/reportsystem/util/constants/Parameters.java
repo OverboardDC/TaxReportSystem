@@ -21,4 +21,9 @@ public interface Parameters {
     String REASON = "reason";
     String REQUEST_ID = "request_id";
     String REJECT_REASON = "reject_reason";
+    String PERIOD_FROM = "period_from";
+    String PERIOD_TO = "period_to";
+    String REVENUE = "revenue";
+    String TAX = "tax";
+    String COMMENTARY = "commentary";
 }

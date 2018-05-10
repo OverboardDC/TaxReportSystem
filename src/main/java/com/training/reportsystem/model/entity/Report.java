@@ -11,6 +11,8 @@ public class Report {
     private Status status;
     private LocalDate periodFrom;
     private LocalDate periodTo;
+    private Long revenue;
+    private Double tax;
     private String commentary;
     private String rejectReason;
     private LocalDateTime submissionDate;
@@ -64,6 +66,22 @@ public class Report {
         this.periodTo = periodTo;
     }
 
+    public Long getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(Long revenue) {
+        this.revenue = revenue;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
+    }
+
     public String getCommentary() {
         return commentary;
     }
@@ -105,6 +123,8 @@ public class Report {
                 ", status=" + status +
                 ", periodFrom=" + periodFrom +
                 ", periodTo=" + periodTo +
+                ", revenue=" + revenue +
+                ", tax=" + tax +
                 ", commentary='" + commentary + '\'' +
                 ", rejectReason='" + rejectReason + '\'' +
                 ", submissionDate=" + submissionDate +
@@ -120,6 +140,8 @@ public class Report {
         private Status status;
         private LocalDate periodFrom;
         private LocalDate periodTo;
+        private Long revenue;
+        private Double tax;
         private String commentary;
         private String rejectReason;
         private LocalDateTime submissionDate;
@@ -155,6 +177,16 @@ public class Report {
             return this;
         }
 
+        public ReportBuilder setRevenue(Long revenue) {
+            this.revenue = revenue;
+            return this;
+        }
+
+        public ReportBuilder setTax(Double tax) {
+            this.tax = tax;
+            return this;
+        }
+
         public ReportBuilder setCommentary(String commentary) {
             this.commentary = commentary;
             return this;
@@ -184,6 +216,8 @@ public class Report {
             report.setStatus(status);
             report.setPeriodFrom(periodFrom);
             report.setPeriodTo(periodTo);
+            report.setRevenue(revenue);
+            report.setTax(tax);
             report.setCommentary(commentary);
             report.setRejectReason(rejectReason);
             report.setSubmissionDate(submissionDate);

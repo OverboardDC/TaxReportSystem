@@ -20,7 +20,7 @@
             <div class="navbar-nav">
 
                 <c:if test="${sessionScope.user.role.get() == 'CLIENT'}">
-                    <a href="<c:url value="/app/client/testClientPage"/>" class="nav-item nav-link text-light">
+                    <a href="<c:url value="/app/client/newReportPage"/>" class="nav-item nav-link text-light">
                         <fmt:message key="create.report" bundle="${bundle}"/></a>
                     <a href="<c:url value="/app/client/taxPayerPage"/>" class="nav-item nav-link text-light">
                         <fmt:message key="my.reports" bundle="${bundle}"/></a>

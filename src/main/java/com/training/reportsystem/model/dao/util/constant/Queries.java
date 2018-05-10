@@ -16,4 +16,5 @@ public interface Queries {
     String ACCEPT_REQUEST = "accept.request";
     String REJECT_REQUEST = "reject.request";
     String GET_INSPECTOR_BY_USER = "get.inspector.by.user";
+    String CREATE_REPORT = "create.report";
 }

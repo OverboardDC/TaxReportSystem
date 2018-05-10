@@ -25,7 +25,7 @@
             </div>
             <c:if test="${not empty requestScope.inspector}">
                 <div class="col-md-4">
-                    <a href="#" class="btn btn-success"><fmt:message key="create.report" bundle="${bundle}"/></a>
+                    <a href="<c:url value="/app/client/newReportPage"/>" class="btn btn-success"><fmt:message key="create.report" bundle="${bundle}"/></a>
                     <a href="<c:url value="/app/client/requestPage"/>" class="btn btn-danger">
                         <fmt:message key="change.inspector" bundle="${bundle}"/></a>
                 </div>

@@ -12,3 +12,4 @@ find.requests.by.tax.payer=SELECT * FROM request AS r INNER JOIN inspector i ON 
 accept.request=UPDATE request SET status = ? WHERE id = ?
 reject.request=UPDATE request SET status = ?, reject_reason = ? WHERE id = ?
 get.inspector.by.user=SELECT t.inspector_id, i.firstname, i.lastname FROM taxpayer AS t INNER JOIN inspector i ON i.id = t.inspector_id WHERE t.id = ?
+create.report=INSERT INTO report (taxpayer_id, inspector_id, status, period_from, period_to, revenue, tax, commentary, submission_date) VALUES (?,?,?,?,?,?,?,?,?)

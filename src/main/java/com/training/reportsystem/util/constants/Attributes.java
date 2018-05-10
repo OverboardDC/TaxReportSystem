@@ -14,10 +14,15 @@ public interface Attributes {
     String IDENTIFICATION_CODE_ERROR = "identification_code_error";
     String PASSWORD_REPEAT_ERROR = "password_repeat_error";
     String LOGIN_ERROR ="login_error" ;
-
     String REASON_ERROR = "reason_error";
+    String PERIOD_FROM_ERROR = "period_from_error";
+    String PERIOD_TO_ERROR = "period_to_error";
+    String REVENUE_ERROR = "revenue_error";
+    String TAX_ERROR = "tax_error";
+    String INSPECTOR_ERROR = "inspector_error";
+    String COMMENTARY_ERROR = "commentary_error";
+
     String REQUESTS = "requests";
     String ARE_THERE_REQUESTS_PENDING = "are_there_requests_pending";
-    String INSPECTOR_ERROR = "inspector_error";
     String INSPECTOR = "inspector";
 }

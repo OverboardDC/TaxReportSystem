@@ -16,4 +16,5 @@ public interface LoggerMessages {
     String REQUEST_WAS_REJECTED = "Request was rejected";
     String REQUEST_WAS_SENT = "Request was sent";
     String SQL_EXCEPTION = "Sql exception";
+    Object REPORT_WAS_CREATED = "Report was created";
 }
