@@ -7,4 +7,6 @@ import java.util.List;
 public interface ReportDao extends GenericDao<Report> {
 
     List<Report> findAllByUser(Long userId);
+
+    List<Report> findAllByInspector(Long inspectorId);
 }

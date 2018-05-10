@@ -8,7 +8,7 @@ public interface Commands {
     String REGISTRATION_PAGE = "registrationPage";
     String ADMIN_PAGE = "admin/adminPage";
     String TAX_PAYER_PAGE = "client/taxPayerPage";
-    String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
+    String INSPECTOR_PAGE = "inspector/inspectorPage";
     String REQUEST_PAGE = "client/requestPage";
     String ALL_REQUESTS_PAGE = "admin/allRequests";
     String NEW_REPORT_PAGE = "client/newReportPage";

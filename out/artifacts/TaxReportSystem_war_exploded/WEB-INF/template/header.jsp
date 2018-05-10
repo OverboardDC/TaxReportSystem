@@ -32,7 +32,7 @@
                 </c:if>
 
                 <c:if test="${sessionScope.user.role.get() == 'INSPECTOR'}">
-                    <a href="<c:url value="/app/inspector/testInspectorPage"/>" class="nav-item nav-link text-light">
+                    <a href="<c:url value="/app/inspector/inspectorPage"/>" class="nav-item nav-link text-light">
                         <fmt:message key="inspector.page" bundle="${bundle}"/></a>
                 </c:if>
 

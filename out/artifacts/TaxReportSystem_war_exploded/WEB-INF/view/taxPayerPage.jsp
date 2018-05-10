@@ -45,7 +45,6 @@
                     <h6>Submission date </h6>
                     <fmt:parseDate value="${report.submissionDate}"
                                    var="parsedDate" type="both" pattern="yyyy-MM-dd'T'HH:mm"/>
-
                     <fmt:formatDate value="${parsedDate}" var="stdDatum"
                                     type="date" pattern="dd-MM-yyyy HH:mm"/>
                     <p>${stdDatum}</p>

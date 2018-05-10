@@ -9,7 +9,7 @@ public interface Pages {
     String ADMIN = "/WEB-INF/view/adminPage.jsp";
     String REGISTRATION_REDIRECT = "app/registrationPage";
     String TAX_PAYER = "/WEB-INF/view/taxPayerPage.jsp";
-    String TEST_INSPECTOR = "/WEB-INF/view/testInspectorPage.jsp";
+    String INSPECTOR = "/WEB-INF/view/inspectorPage.jsp";
     String INDEX_REDIRECT = "/app";
     String ADMIN_REDIRECT = "/app/admin/adminPage";
     String TAX_PAYER_REDIRECT = "/app/client/taxPayerPage";

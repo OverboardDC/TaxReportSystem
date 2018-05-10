@@ -8,4 +8,6 @@ public interface ReportService extends GenericService<Report> {
 
     List<Report> findAllByUser(Long userId);
 
+    List<Report> findAllByInspector(Long inspectorId);
+
 }
