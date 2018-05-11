@@ -6,9 +6,13 @@ public interface Commands {
     String HOME_PAGE = "homePage";
     String LOGIN_PAGE = "loginPage";
     String REGISTRATION_PAGE = "registrationPage";
-    String TEST_ADMIN_PAGE = "admin/testAdminPage";
-    String TEST_CLIENT_PAGE = "client/testClientPage";
-    String TEST_INSPECTOR_PAGE = "inspector/testInspectorPage";
+    String ADMIN_PAGE = "admin/adminPage";
+    String TAX_PAYER_PAGE = "client/taxPayerPage";
+    String INSPECTOR_PAGE = "inspector/inspectorPage";
+    String REQUEST_PAGE = "client/requestPage";
+    String ALL_REQUESTS_PAGE = "admin/allRequests";
+    String NEW_REPORT_PAGE = "client/newReportPage";
+    String EDIT_REPORT_PAGE = "client/editReportPage";
 
     String CHANGE_LANGUAGE = "redirect/changeLanguage";
 
@@ -16,4 +20,13 @@ public interface Commands {
     String REGISTRATION = "redirect/registration";
     String LOGOUT = "redirect/logout";
 
+    String ASSIGN_INSPECTOR = "redirect/admin/assignInspector";
+    String SEND_REQUEST = "redirect/client/sendRequest";
+    String ACCEPT_REQUEST = "redirect/admin/acceptRequest";
+    String REJECT_REQUEST = "redirect/admin/rejectRequest";
+    String SEND_REPORT = "redirect/client/sendReport";
+    String APPROVE_REPORT = "redirect/inspector/approveReport";
+    String REJECT_REPORT = "redirect/inspector/rejectReport";
+
+    String EDIT_REPORT = "redirect/client/editReport";
 }

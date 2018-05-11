@@ -16,6 +16,8 @@
                 <c:remove var="login_error" scope="session"/>
                 <input placeholder="<fmt:message key="username" bundle="${bundle}"/>" name="username" class="input-group">
                 <input type="password" placeholder="<fmt:message key="password" bundle="${bundle}"/>" name="password" class="input-group">
+                <h6><input type="radio" name="user_type" value="client" checked><fmt:message key="i.am.tax.payer" bundle="${bundle}"/></h6>
+                <h6><input type="radio" name="user_type" value="inspector"><fmt:message key="i.am.inspector" bundle="${bundle}"/></h6>
                 <a href="<c:url value="/app/registrationPage"/>" class="input-group">
                     <fmt:message key="create.account" bundle="${bundle}"/></a>
                 <button class="btn btn-success"><fmt:message key="to.login" bundle="${bundle}"/></button>

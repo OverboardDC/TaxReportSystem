@@ -1,11 +1,17 @@
 package com.training.reportsystem.model.service;
 
-import com.training.reportsystem.model.entity.report.Report;
+import com.training.reportsystem.model.entity.Report;
 
 import java.util.List;
 
 public interface ReportService extends GenericService<Report> {
 
-    List<Report> findByUser(Long userId);
+    List<Report> findAllByUser(Long userId);
+
+    List<Report> findAllByInspector(Long inspectorId);
+
+    void approveReport(Long reportId);
+
+    void rejectReport(Long reportId, String rejectReason);
 
 }

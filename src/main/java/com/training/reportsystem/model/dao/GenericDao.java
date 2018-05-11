@@ -1,8 +1,12 @@
 package com.training.reportsystem.model.dao;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 public interface GenericDao<T> {
+
+    Logger logger = Logger.getRootLogger();
 
     List<T> findAll();
 
@@ -10,7 +14,7 @@ public interface GenericDao<T> {
 
     void create(T t);
 
-    void update(Long id);
+    void update(T t);
 
     void delete(Long id);
 }

@@ -1,39 +1,56 @@
 package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
-import com.training.reportsystem.model.entity.user.User;
-import com.training.reportsystem.model.service.UserService;
+import com.training.reportsystem.model.entity.User;
+import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LocalisationUtil;
-import com.training.reportsystem.util.LoginUtil;
-import com.training.reportsystem.util.constants.Attributes;
-import com.training.reportsystem.util.constants.ErrorMessages;
-import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.constants.Parameters;
+import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+import static com.training.reportsystem.util.constants.LoggerMessages.*;
+
+
 public class Login implements Command {
 
-    private UserService userService;
+    private TaxPayerService taxPayerService;
+    private InspectorService inspectorService;
 
-    public Login(UserService userService) {
-        this.userService = userService;
+    public Login(TaxPayerService taxPayerService, InspectorService inspectorService) {
+        this.taxPayerService = taxPayerService;
+        this.inspectorService = inspectorService;
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter(Parameters.USERNAME);
         String password = request.getParameter(Parameters.PASSWORD);
-        Optional<User> user = Optional.ofNullable(userService.login(username, password));
+        String userType = request.getParameter(Parameters.USER_TYPE);
+        Optional<User> user = getUser(username, password, userType);
+        System.out.println("User: " + user);
         if (user.isPresent()) {
-            LoginUtil.logout(request);
             request.getSession().setAttribute(Attributes.USER, user.get());
+            logger.info(LoggerUtil.formMessage(LOGIN_SUCCESS, USER, user.get().getUsername()));
             return Pages.INDEX_REDIRECT;
         }
         request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
+        logger.info(LoggerUtil.formMessage(LOGIN_FAILED, username));
         return Pages.LOGIN_REDIRECT;
     }
+
+    private Optional<User> getUser(String username, String password, String userType) {
+        Optional<User> user;
+        if (userType.equals(Parameters.CLIENT)) {
+            user = Optional.ofNullable(taxPayerService.login(username, password));
+        } else {
+            user = Optional.ofNullable(inspectorService.login(username, password));
+        }
+        return user;
+    }
+
 }
 

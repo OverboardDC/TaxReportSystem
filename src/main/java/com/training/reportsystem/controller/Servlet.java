@@ -1,13 +1,18 @@
 package com.training.reportsystem.controller;
 
-import com.training.reportsystem.controller.command.ChangeLanguage;
-import com.training.reportsystem.controller.command.Command;
+import com.training.reportsystem.controller.command.*;
 import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
-import com.training.reportsystem.model.service.UserService;
-import com.training.reportsystem.model.service.impl.UserServiceImpl;
+import com.training.reportsystem.model.service.InspectorService;
+import com.training.reportsystem.model.service.ReportService;
+import com.training.reportsystem.model.service.RequestService;
+import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
+import com.training.reportsystem.model.service.impl.ReportServiceImpl;
+import com.training.reportsystem.model.service.impl.RequestServiceImpl;
+import com.training.reportsystem.model.service.impl.TaxPayerServiceImpl;
 import com.training.reportsystem.util.constants.Commands;
 import com.training.reportsystem.util.constants.GlobalConstants;
 
@@ -28,17 +33,32 @@ public class Servlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         commandMap = new HashMap<>();
-        UserService userService = new UserServiceImpl();
+        TaxPayerService taxPayerService = new TaxPayerServiceImpl();
+        InspectorService inspectorService = new InspectorServiceImpl();
+        RequestService requestService = new RequestServiceImpl();
+        ReportService reportService = new ReportServiceImpl();
         commandMap.put(Commands.HOME_PAGE, new HomePage());
         commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
         commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
         commandMap.put(Commands.CHANGE_LANGUAGE, new ChangeLanguage());
-        commandMap.put(Commands.LOGIN, new Login(userService));
-        commandMap.put(Commands.TEST_ADMIN_PAGE, new TestAdminPage());
-        commandMap.put(Commands.TEST_CLIENT_PAGE, new TestClientPage());
-        commandMap.put(Commands.TEST_INSPECTOR_PAGE, new TestInspectorPage());
-        commandMap.put(Commands.REGISTRATION, new Registration(userService));
+        commandMap.put(Commands.LOGIN, new Login(taxPayerService, inspectorService));
+        commandMap.put(Commands.ADMIN_PAGE, new AdminPage(taxPayerService, inspectorService));
+        commandMap.put(Commands.TAX_PAYER_PAGE, new TaxPayerPage(inspectorService, reportService));
+        commandMap.put(Commands.INSPECTOR_PAGE, new InspectorPage(reportService));
+        commandMap.put(Commands.REGISTRATION, new Registration(taxPayerService));
         commandMap.put(Commands.LOGOUT, new Logout());
+        commandMap.put(Commands.ASSIGN_INSPECTOR, new AssignInspector(taxPayerService));
+        commandMap.put(Commands.REQUEST_PAGE, new RequestPage(requestService, inspectorService));
+        commandMap.put(Commands.SEND_REQUEST, new SendRequest(requestService));
+        commandMap.put(Commands.ALL_REQUESTS_PAGE, new AllRequestsPage(requestService, inspectorService));
+        commandMap.put(Commands.ACCEPT_REQUEST, new AcceptRequest(requestService, taxPayerService));
+        commandMap.put(Commands.REJECT_REQUEST, new RejectRequest(requestService));
+        commandMap.put(Commands.NEW_REPORT_PAGE, new NewReportPage(inspectorService));
+        commandMap.put(Commands.SEND_REPORT, new SendReport(reportService));
+        commandMap.put(Commands.APPROVE_REPORT, new ApproveReport(reportService));
+        commandMap.put(Commands.REJECT_REPORT, new RejectReport(reportService));
+        commandMap.put(Commands.EDIT_REPORT_PAGE, new EditReportPage(reportService));
+        commandMap.put(Commands.EDIT_REPORT, new EditReport(reportService));
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.training.reportsystem.controller.command;
 
 import com.training.reportsystem.controller.command.login.Logout;
-import com.training.reportsystem.model.entity.user.Inspector;
-import com.training.reportsystem.model.entity.user.TaxPayer;
-import com.training.reportsystem.model.entity.user.User;
+import com.training.reportsystem.model.entity.User;
 import com.training.reportsystem.util.constants.Attributes;
 import org.junit.Before;
 import org.junit.Test;
