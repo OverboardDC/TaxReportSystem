@@ -17,4 +17,8 @@ public interface LoggerMessages {
     String REQUEST_WAS_SENT = "Request was sent";
     String SQL_EXCEPTION = "Sql exception";
     Object REPORT_WAS_CREATED = "Report was created";
+    Object SESSION_WAS_CREATED = "Session was created";
+    Object SESSION_WAS_DESTROYED = "Session was destroyed";
+    Object CONTEXT_WAS_INITIALIZED = "Context was initialized";
+    Object CONTEXT_WAS_DESTROYED = "Context was destroyed";
 }
