@@ -6,10 +6,12 @@ import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LocalisationUtil;
 import com.training.reportsystem.util.LoggerUtil;
+import com.training.reportsystem.util.LoginUtil;
 import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
 import java.util.Optional;
 
 import static com.training.reportsystem.util.constants.LoggerMessages.*;
@@ -33,9 +35,7 @@ public class Login implements Command {
         Optional<User> user = getUser(username, password, userType);
         System.out.println("User: " + user);
         if (user.isPresent()) {
-            request.getSession().setAttribute(Attributes.USER, user.get());
-            logger.info(LoggerUtil.formMessage(LOGIN_SUCCESS, USER, user.get().getUsername()));
-            return Pages.INDEX_REDIRECT;
+            return LoginUtil.authorizeUser(user.get(), request);
         }
         request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
         logger.info(LoggerUtil.formMessage(LOGIN_FAILED, username));
@@ -51,6 +51,7 @@ public class Login implements Command {
         }
         return user;
     }
+
 
 }
 

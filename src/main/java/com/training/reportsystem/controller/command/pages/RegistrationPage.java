@@ -11,7 +11,7 @@ public class RegistrationPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        LoginUtil.logout(request);
+        LoginUtil.logout(request.getSession());
         return Pages.REGISTRATION;
     }
 }

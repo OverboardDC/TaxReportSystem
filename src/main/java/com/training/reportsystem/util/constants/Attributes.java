@@ -29,4 +29,5 @@ public interface Attributes {
     String REPORTS = "reports";
 
     String REPORT = "report";
+    String USERS_IN_SYSTEM = "users_in_system";
 }

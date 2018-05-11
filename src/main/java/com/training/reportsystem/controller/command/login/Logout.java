@@ -15,9 +15,9 @@ public class Logout implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute(Attributes.USER);
-        LoginUtil.logout(request);
-        logger.info(LoggerUtil.formMessage(LoggerMessages.USER, user.getUsername(), LoggerMessages.LOGOUT));
+        LoginUtil.logout(request.getSession());
         return request.getHeader(GlobalConstants.REFERER_HEADER);
     }
+
+
 }
