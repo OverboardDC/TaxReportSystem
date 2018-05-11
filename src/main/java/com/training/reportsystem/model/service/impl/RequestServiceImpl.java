@@ -32,8 +32,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void update(Long id) {
-        requestDao.update(id);
+    public void update(Request t) {
+        requestDao.update(t);
     }
 
     @Override

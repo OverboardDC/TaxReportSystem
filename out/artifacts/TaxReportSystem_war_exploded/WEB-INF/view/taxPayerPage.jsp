@@ -54,9 +54,13 @@
                         <h6><fmt:message key="commentary" bundle="${bundle}"/>: </h6>
                         <p>${report.commentary}</p>
                     </c:if>
-                    <c:if test="${not empty report.rejectReason}">
+                    <c:if test="${report.status == 'REJECTED'}">
                         <h6><fmt:message key="reject.reason" bundle="${bundle}"/>: </h6>
                         <p>${report.rejectReason}</p>
+                        <c:url value="/app/client/editReportPage" var="editReport">
+                            <c:param name="report_id" value="${report.id}"/>
+                        </c:url>
+                        <a href="${editReport}">Edit report</a>
                     </c:if>
                     <c:if test="${not empty report.editionDate}">
                         <h6><fmt:message key="last.edit.date" bundle="${bundle}"/>: </h6>

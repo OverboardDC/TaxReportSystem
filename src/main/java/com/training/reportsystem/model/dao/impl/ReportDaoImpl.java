@@ -25,6 +25,19 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public Report getById(Long id) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REPORT_BY_ID))) {
+            preparedStatement.setLong(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            Report report = null;
+            while (rs.next()) {
+                report = getBuilder(rs).build();
+            }
+            return report;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -50,8 +63,23 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
-    public void update(Long id) {
+    public void update(Report report) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_REPORT))) {
 
+            preparedStatement.setString(1, Status.PENDING.toString());
+            preparedStatement.setDate(2, Date.valueOf(report.getPeriodFrom()));
+            preparedStatement.setDate(3, Date.valueOf(report.getPeriodTo()));
+            preparedStatement.setLong(4, report.getRevenue());
+            preparedStatement.setDouble(5, report.getTax());
+            preparedStatement.setString(6, report.getCommentary());
+            preparedStatement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.setLong(8, report.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -68,7 +96,7 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setLong(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 reports.add(extractFromRsWithInspector(rs));
             }
         } catch (SQLException e) {
@@ -87,7 +115,7 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setLong(1, inspectorId);
 
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 reports.add(extractFromRsWithTaxPayer(rs));
             }
         } catch (SQLException e) {

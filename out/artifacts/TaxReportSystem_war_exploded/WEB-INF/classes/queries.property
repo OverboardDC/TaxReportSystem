@@ -17,3 +17,5 @@ find.all.reports.by.user=SELECT r.id, r.status, r.period_from, r.period_to, r.re
 find.all.reports.by.inspector=SELECT r.id, r.status, r.period_from, r.period_to, r.revenue, r.tax, r.commentary, r.reject_reason, r.submission_date, r.editing_date, t.id, t.firstname, t.lastname FROM report AS r INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.inspector_id = ? ORDER BY r.submission_date DESC
 approve.report=UPDATE report SET status = ? WHERE id = ?
 reject.report=UPDATE report SET status = ?, reject_reason = ? WHERE id = ?
+get.report.by.id=SELECT id, status, period_from, period_to, revenue, tax, commentary, reject_reason, submission_date, editing_date FROM report WHERE id = ?
+update.report=UPDATE report SET status = ?, period_from = ?, period_to = ?, revenue = ?, tax = ?, commentary = ?, editing_date = ? WHERE id = ?

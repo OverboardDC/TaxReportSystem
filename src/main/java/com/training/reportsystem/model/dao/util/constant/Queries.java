@@ -21,4 +21,6 @@ public interface Queries {
     String FIND_ALL_REPORTS_BY_INSPECTOR = "find.all.reports.by.inspector";
     String APPROVE_REPORT = "approve.report";
     String REJECT_REPORT = "reject.report";
+    String GET_REPORT_BY_ID = "get.report.by.id";
+    String UPDATE_REPORT = "update.report";
 }

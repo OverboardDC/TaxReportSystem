@@ -12,6 +12,7 @@ public interface Commands {
     String REQUEST_PAGE = "client/requestPage";
     String ALL_REQUESTS_PAGE = "admin/allRequests";
     String NEW_REPORT_PAGE = "client/newReportPage";
+    String EDIT_REPORT_PAGE = "client/editReportPage";
 
     String CHANGE_LANGUAGE = "redirect/changeLanguage";
 
@@ -27,4 +28,5 @@ public interface Commands {
     String APPROVE_REPORT = "redirect/inspector/approveReport";
     String REJECT_REPORT = "redirect/inspector/rejectReport";
 
+    String EDIT_REPORT = "redirect/client/editReport";
 }

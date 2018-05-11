@@ -14,7 +14,7 @@ public interface GenericDao<T> {
 
     void create(T t);
 
-    void update(Long id);
+    void update(T t);
 
     void delete(Long id);
 }

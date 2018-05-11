@@ -60,7 +60,7 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public void update(Long id) {
+    public void update(Request t) {
 
     }
 

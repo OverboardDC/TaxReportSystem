@@ -28,4 +28,5 @@ public interface Attributes {
     String INSPECTOR = "inspector";
     String REPORTS = "reports";
 
+    String REPORT = "report";
 }

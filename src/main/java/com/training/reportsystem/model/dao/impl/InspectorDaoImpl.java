@@ -89,7 +89,7 @@ public class InspectorDaoImpl implements InspectorDao {
     }
 
     @Override
-    public void update(Long id) {
+    public void update(Inspector t) {
 
     }
 

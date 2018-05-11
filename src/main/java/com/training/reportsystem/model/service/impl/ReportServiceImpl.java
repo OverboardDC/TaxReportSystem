@@ -42,7 +42,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report getById(Long id) {
-        return null;
+        return reportDao.getById(id);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void update(Long id) {
-
+    public void update(Report report) {
+        reportDao.update(report);
     }
 
     @Override

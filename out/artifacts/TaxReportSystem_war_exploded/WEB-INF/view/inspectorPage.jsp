@@ -38,6 +38,10 @@
                     <h6><fmt:message key="reject.reason" bundle="${bundle}"/>: </h6>
                     <p>${report.rejectReason}</p>
                     </c:if>
+                    <c:if test="${not empty report.editionDate}">
+                        <h6><fmt:message key="last.edit.date" bundle="${bundle}"/>: </h6>
+                        <p>${report.editionDate}</p>
+                    </c:if>
                     <c:if test="${report.status == 'PENDING'}">
                         <div class="form-group">
                             <c:url value="/app/redirect/inspector/approveReport" var="approveReport">

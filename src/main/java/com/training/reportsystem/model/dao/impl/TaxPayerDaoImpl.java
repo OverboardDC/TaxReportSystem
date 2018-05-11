@@ -4,7 +4,6 @@ import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
-import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.Role;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.util.constants.LoggerMessages;
@@ -79,7 +78,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
     }
 
     @Override
-    public void update(Long id) {
+    public void update(TaxPayer t) {
 
     }
 

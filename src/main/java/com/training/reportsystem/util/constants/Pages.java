@@ -20,4 +20,6 @@ public interface Pages {
     String NEW_REPORT = "/WEB-INF/view/newReport.jsp";
     String NEW_REPORT_REDIRECT = "/app/client/newReportPage";
     String INSPECTOR_REDIRECT = "/app/inspector/inspectorPage";
+    String EDIT_REPORT = "/WEB-INF/view/editReport.jsp";
+    String EDIT_REPORT_REDIRECT = "/app/client/editReportPage";
 }
