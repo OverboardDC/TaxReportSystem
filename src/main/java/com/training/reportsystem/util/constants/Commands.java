@@ -24,5 +24,7 @@ public interface Commands {
     String ACCEPT_REQUEST = "redirect/admin/acceptRequest";
     String REJECT_REQUEST = "redirect/admin/rejectRequest";
     String SEND_REPORT = "redirect/client/sendReport";
+    String APPROVE_REPORT = "redirect/inspector/approveReport";
+    String REJECT_REPORT = "redirect/inspector/rejectReport";
 
 }

@@ -7,6 +7,7 @@ public interface Attributes {
     String INSPECTORS = "inspectors";
 
     //Error attributes
+    String ERROR = "error";
     String USERNAME_ERROR = "username_error";
     String PASSWORD_ERROR = "password_error";
     String FIRST_NAME_ERROR = "first_name_error";
@@ -26,4 +27,5 @@ public interface Attributes {
     String ARE_THERE_REQUESTS_PENDING = "are_there_requests_pending";
     String INSPECTOR = "inspector";
     String REPORTS = "reports";
+
 }

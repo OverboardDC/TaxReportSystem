@@ -11,7 +11,6 @@ import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.*;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -92,9 +91,39 @@ public class ReportDaoImpl implements ReportDao {
                 reports.add(extractFromRsWithTaxPayer(rs));
             }
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return reports;
+    }
+
+    @Override
+    public void approveReport(Long reportId) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.APPROVE_REPORT))) {
+
+            preparedStatement.setString(1, Status.APPROVED.toString());
+            preparedStatement.setLong(2, reportId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void rejectReport(Long reportId, String rejectReason) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.REJECT_REPORT))) {
+
+            preparedStatement.setString(1, Status.REJECTED.toString());
+            preparedStatement.setString(2, rejectReason);
+            preparedStatement.setLong(3, reportId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     private Report extractFromRsWithTaxPayer(ResultSet rs) throws SQLException {

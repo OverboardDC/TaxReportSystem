@@ -10,4 +10,8 @@ public interface ReportService extends GenericService<Report> {
 
     List<Report> findAllByInspector(Long inspectorId);
 
+    void approveReport(Long reportId);
+
+    void rejectReport(Long reportId, String rejectReason);
+
 }

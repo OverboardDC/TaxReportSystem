@@ -19,4 +19,5 @@ public interface Pages {
     String ALL_REQUESTS_REDIRECT = "/app/admin/allRequests";
     String NEW_REPORT = "/WEB-INF/view/newReport.jsp";
     String NEW_REPORT_REDIRECT = "/app/client/newReportPage";
+    String INSPECTOR_REDIRECT = "/app/inspector/inspectorPage";
 }

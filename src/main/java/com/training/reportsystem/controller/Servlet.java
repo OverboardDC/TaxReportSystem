@@ -55,6 +55,8 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.REJECT_REQUEST, new RejectRequest(requestService));
         commandMap.put(Commands.NEW_REPORT_PAGE, new NewReportPage(inspectorService));
         commandMap.put(Commands.SEND_REPORT, new SendReport(reportService));
+        commandMap.put(Commands.APPROVE_REPORT, new ApproveReport(reportService));
+        commandMap.put(Commands.REJECT_REPORT, new RejectReport(reportService));
     }
 
     @Override

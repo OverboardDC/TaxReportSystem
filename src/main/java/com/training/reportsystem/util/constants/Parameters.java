@@ -26,4 +26,5 @@ public interface Parameters {
     String REVENUE = "revenue";
     String TAX = "tax";
     String COMMENTARY = "commentary";
+    String REPORT_ID = "report_id";
 }

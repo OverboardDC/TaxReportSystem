@@ -26,6 +26,16 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public void approveReport(Long reportId) {
+        reportDao.approveReport(reportId);
+    }
+
+    @Override
+    public void rejectReport(Long reportId, String rejectReason) {
+        reportDao.rejectReport(reportId, rejectReason);
+    }
+
+    @Override
     public List<Report> findAll() {
         return null;
     }

@@ -19,4 +19,6 @@ public interface Queries {
     String CREATE_REPORT = "create.report";
     String FIND_ALL_REPORTS_BY_USER = "find.all.reports.by.user";
     String FIND_ALL_REPORTS_BY_INSPECTOR = "find.all.reports.by.inspector";
+    String APPROVE_REPORT = "approve.report";
+    String REJECT_REPORT = "reject.report";
 }
