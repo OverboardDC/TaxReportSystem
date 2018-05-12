@@ -7,13 +7,14 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.util.HashSet;
+import java.util.Set;
 
 @WebListener
 public class ContextListener implements ServletContextListener, Listener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        HashSet<String> usersInSystem = new HashSet<>();
+        Set<String> usersInSystem = new HashSet<>();
         servletContextEvent.getServletContext().setAttribute(Attributes.USERS_IN_SYSTEM, usersInSystem);
         logger.debug(LoggerMessages.CONTEXT_WAS_INITIALIZED);
     }

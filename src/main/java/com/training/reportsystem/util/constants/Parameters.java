@@ -13,9 +13,6 @@ public interface Parameters {
     String IDENTIFICATION_CODE = "identification_code";
     String PASSWORD_REPEAT = "password_repeat";
 
-
-    String USER_TYPE = "user_type";
-    String CLIENT = "client";
     String TAX_PAYER_ID = "tax_payer_id";
     String INSPECTOR_ID = "inspector_id";
     String REASON = "reason";

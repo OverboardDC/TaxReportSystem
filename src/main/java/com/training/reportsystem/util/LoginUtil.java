@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.training.reportsystem.util.constants.LoggerMessages.LOGIN_SUCCESS;
 import static com.training.reportsystem.util.constants.LoggerMessages.USER;
@@ -20,7 +21,7 @@ public class LoginUtil {
     private static Logger logger = Logger.getRootLogger();
 
     public static String authorizeUser(User user, HttpServletRequest request){
-        HashSet usersInSystem = getUsersFromContext(request.getSession());
+        Set usersInSystem = getUsersFromContext(request.getSession());
         if (usersInSystem.contains(user.getUsername())){
             request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.USER_ALREADY_LOGINED));
             return Pages.LOGIN_REDIRECT;
@@ -39,18 +40,18 @@ public class LoginUtil {
         if (user.isPresent()) {
             session.removeAttribute(Attributes.USER);
 
-            HashSet usersInSystem = getUsersFromContext(session);
+            Set usersInSystem = getUsersFromContext(session);
             usersInSystem.remove(user.get().getUsername());
             updateUsersAttribute(session, usersInSystem);
             logger.info(LoggerUtil.formMessage(LoggerMessages.USER, user.get().getUsername(), LoggerMessages.LOGOUT));
         }
     }
 
-    private static HashSet getUsersFromContext(HttpSession session){
-        return (HashSet) session.getServletContext().getAttribute(Attributes.USERS_IN_SYSTEM);
+    private static Set getUsersFromContext(HttpSession session){
+        return (Set) session.getServletContext().getAttribute(Attributes.USERS_IN_SYSTEM);
     }
 
-    private static void updateUsersAttribute(HttpSession session, HashSet usersInSystem){
+    private static void updateUsersAttribute(HttpSession session, Set usersInSystem){
         session.getServletContext().setAttribute(Attributes.USERS_IN_SYSTEM, usersInSystem);
     }
 }

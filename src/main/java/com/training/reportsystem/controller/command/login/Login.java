@@ -31,9 +31,7 @@ public class Login implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter(Parameters.USERNAME);
         String password = request.getParameter(Parameters.PASSWORD);
-        String userType = request.getParameter(Parameters.USER_TYPE);
-        Optional<User> user = getUser(username, password, userType);
-        System.out.println("User: " + user);
+        Optional<User> user = getUser(username, password);
         if (user.isPresent()) {
             return LoginUtil.authorizeUser(user.get(), request);
         }
@@ -42,16 +40,12 @@ public class Login implements Command {
         return Pages.LOGIN_REDIRECT;
     }
 
-    private Optional<User> getUser(String username, String password, String userType) {
-        Optional<User> user;
-        if (userType.equals(Parameters.CLIENT)) {
-            user = Optional.ofNullable(taxPayerService.login(username, password));
-        } else {
+    private Optional<User> getUser(String username, String password) {
+        Optional<User> user = Optional.ofNullable(taxPayerService.login(username, password));
+        if (!user.isPresent()) {
             user = Optional.ofNullable(inspectorService.login(username, password));
         }
         return user;
     }
-
-
 }
 
