@@ -12,8 +12,6 @@
 
         <div class="row justify-content-center text-center">
             <h1><fmt:message key="my.reports" bundle="${bundle}"/></h1>
-            <h6 class="text-danger">${sessionScope.reason_error}</h6>
-            <c:remove var="reason_error" scope="session"/>
         </div>
         <div class="row justify-content-between">
             <div class="col-md-9">

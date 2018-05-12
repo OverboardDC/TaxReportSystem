@@ -74,7 +74,8 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setDouble(5, report.getTax());
             preparedStatement.setString(6, report.getCommentary());
             preparedStatement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-            preparedStatement.setLong(8, report.getId());
+            preparedStatement.setLong(8, report.getInspector().getId());
+            preparedStatement.setLong(9, report.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);

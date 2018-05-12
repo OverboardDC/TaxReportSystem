@@ -18,4 +18,5 @@ find.all.reports.by.inspector=SELECT r.id, r.status, r.period_from, r.period_to,
 approve.report=UPDATE report SET status = ? WHERE id = ?
 reject.report=UPDATE report SET status = ?, reject_reason = ? WHERE id = ?
 get.report.by.id=SELECT id, status, period_from, period_to, revenue, tax, commentary, reject_reason, submission_date, editing_date FROM report WHERE id = ?
-update.report=UPDATE report SET status = ?, period_from = ?, period_to = ?, revenue = ?, tax = ?, commentary = ?, editing_date = ? WHERE id = ?
+update.report=UPDATE report SET status = ?, period_from = ?, period_to = ?, revenue = ?, tax = ?, commentary = ?, editing_date = ?, inspector_id = ? WHERE id = ?
+is.request.pending=SELECT null FROM request WHERE status = ? and taxpayer_id = ?

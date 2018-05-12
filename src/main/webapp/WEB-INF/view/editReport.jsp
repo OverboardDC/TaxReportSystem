@@ -44,6 +44,7 @@
                 </div>
 
                 <input hidden name="report_id" value="${requestScope.report.id}">
+                <input name="inspector_id" hidden value="${requestScope.inspector.id}">
                 <button class="btn btn-success"><fmt:message key="submit" bundle="${bundle}"/></button>
                 <button type="reset" class="btn btn-danger"><fmt:message key="reset" bundle="${bundle}"/></button>
             </form>

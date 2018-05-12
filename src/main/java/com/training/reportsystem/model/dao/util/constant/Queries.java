@@ -23,4 +23,5 @@ public interface Queries {
     String REJECT_REPORT = "reject.report";
     String GET_REPORT_BY_ID = "get.report.by.id";
     String UPDATE_REPORT = "update.report";
+    String IS_REQUEST_PENDING = "is.request.pending";
 }

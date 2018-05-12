@@ -60,4 +60,5 @@ public class RequestServiceImpl implements RequestService {
     public void reject(Long requestId, String rejectReason) {
         requestDao.reject(requestId, rejectReason);
     }
+
 }

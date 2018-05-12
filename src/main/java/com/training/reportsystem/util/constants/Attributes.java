@@ -30,4 +30,5 @@ public interface Attributes {
 
     String REPORT = "report";
     String USERS_IN_SYSTEM = "users_in_system";
+    String TAX_PAYER_ERROR = "tax_payer_error";
 }
