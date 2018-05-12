@@ -1,8 +1,10 @@
 package com.training.reportsystem.model.dao.impl;
 
 import com.training.reportsystem.model.dao.ReportDao;
+import com.training.reportsystem.model.dao.mapper.Mapper;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
+import com.training.reportsystem.model.dao.util.constant.Columns;
 import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.Report;
@@ -97,8 +99,9 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setLong(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
+            Mapper<Inspector> mapper = new Mapper<>();
             while (rs.next()) {
-                reports.add(extractFromRsWithInspector(rs));
+                reports.add(extractFromRsWithInspector(rs, mapper));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -116,8 +119,9 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setLong(1, inspectorId);
 
             ResultSet rs = preparedStatement.executeQuery();
+            Mapper<TaxPayer> mapper = new Mapper<>();
             while (rs.next()) {
-                reports.add(extractFromRsWithTaxPayer(rs));
+                reports.add(extractFromRsWithTaxPayer(rs, mapper));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -155,12 +159,20 @@ public class ReportDaoImpl implements ReportDao {
         }
     }
 
-    private Report extractFromRsWithTaxPayer(ResultSet rs) throws SQLException {
-        return getBuilder(rs).setTaxPayer(extractTaxPayer(rs)).build();
+    private Report extractFromRsWithTaxPayer(ResultSet rs, Mapper<TaxPayer> mapper) throws SQLException {
+        String userName = rs.getString(Columns.TAX_PAYER_USERNAME);
+        if (!mapper.getMap().containsKey(userName)){
+            mapper.getMap().put(userName, extractTaxPayer(rs));
+        }
+        return getBuilder(rs).setTaxPayer(mapper.get(userName)).build();
     }
 
-    private Report extractFromRsWithInspector(ResultSet rs) throws SQLException {
-        return getBuilder(rs).setInspector(extractInspector(rs)).build();
+    private Report extractFromRsWithInspector(ResultSet rs, Mapper<Inspector> mapper) throws SQLException {
+        String userName = rs.getString(Columns.INSPECTOR_USERNAME);
+        if (!mapper.getMap().containsKey(userName)){
+            mapper.getMap().put(userName, extractInspector(rs));
+        }
+        return getBuilder(rs).setInspector(mapper.get(userName)).build();
     }
 
     private Report.ReportBuilder getBuilder(ResultSet rs) throws SQLException {
@@ -181,16 +193,16 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     private Inspector extractInspector(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("i.id");
-        String firstName = rs.getString("i.firstname");
-        String lastName = rs.getString("i.lastname");
+        Long id = rs.getLong(Columns.INSPECTOR_ID);
+        String firstName = rs.getString(Columns.INSPECTOR_FIRST_NAME);
+        String lastName = rs.getString(Columns.INSPECTOR_LAST_NAME);
         return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
     }
 
     private TaxPayer extractTaxPayer(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("t.id");
-        String firstName = rs.getString("t.firstname");
-        String lastName = rs.getString("t.lastname");
+        Long id = rs.getLong(Columns.TAX_PAYER_ID);
+        String firstName = rs.getString(Columns.TAX_PAYER_FIRST_NAME);
+        String lastName = rs.getString(Columns.TAX_PAYER_LAST_NAME);
         return new TaxPayer.TaxPayerBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
     }
 }

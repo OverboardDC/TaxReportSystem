@@ -14,6 +14,7 @@ import com.training.reportsystem.util.constants.Parameters;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 public class EditReportPage implements Command {
 
@@ -30,7 +31,7 @@ public class EditReportPage implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Report report = reportService.getById(Long.valueOf(request.getParameter(Parameters.REPORT_ID)));
         TaxPayer taxPayer = (TaxPayer) request.getSession().getAttribute(Attributes.USER);
-        Inspector inspector = inspectorService.getByUserId(taxPayer.getId());
+        Optional<Inspector> inspector = Optional.of(inspectorService.getByUserId(taxPayer.getId()));
         request.setAttribute(Attributes.INSPECTOR, inspector);
         request.setAttribute(Attributes.REPORT, report);
         return Pages.EDIT_REPORT;

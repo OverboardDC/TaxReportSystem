@@ -1,8 +1,10 @@
 package com.training.reportsystem.model.dao.impl;
 
 import com.training.reportsystem.model.dao.RequestDao;
+import com.training.reportsystem.model.dao.mapper.Mapper;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
+import com.training.reportsystem.model.dao.util.constant.Columns;
 import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.Inspector;
@@ -26,8 +28,10 @@ public class RequestDaoImpl implements RequestDao {
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS))) {
 
             ResultSet rs = preparedStatement.executeQuery();
+            Mapper<Inspector> inspectorMapper = new Mapper<>();
+            Mapper<TaxPayer> taxPayerMapper = new Mapper<>();
             while (rs.next()) {
-                requests.add(extractRequestFromRs(rs));
+                requests.add(extractRequest(rs, inspectorMapper, taxPayerMapper));
             }
 
         } catch (SQLException e) {
@@ -77,8 +81,10 @@ public class RequestDaoImpl implements RequestDao {
 
             preparedStatement.setLong(1, taxPayerId);
             ResultSet rs = preparedStatement.executeQuery();
+            Mapper<Inspector> inspectorMapper = new Mapper<>();
+            Mapper<TaxPayer> taxPayerMapper = new Mapper<>();
             while (rs.next()) {
-                requests.add(extractRequestFromRs(rs));
+                requests.add(extractRequest(rs, inspectorMapper, taxPayerMapper));
             }
 
         } catch (SQLException e) {
@@ -96,8 +102,10 @@ public class RequestDaoImpl implements RequestDao {
 
             preparedStatement.setString(1, status.toString());
             ResultSet rs = preparedStatement.executeQuery();
+            Mapper<Inspector> inspectorMapper = new Mapper<>();
+            Mapper<TaxPayer> taxPayerMapper = new Mapper<>();
             while (rs.next()) {
-                requests.add(extractRequestFromRs(rs));
+                requests.add(extractRequest(rs, inspectorMapper, taxPayerMapper));
             }
 
         } catch (SQLException e) {
@@ -138,29 +146,41 @@ public class RequestDaoImpl implements RequestDao {
         }
     }
 
-    private Request extractRequestFromRs(ResultSet rs) throws SQLException {
+    private Request extractRequest(ResultSet rs, Mapper<Inspector> inspectorMapper, Mapper<TaxPayer> taxPayerMapper) throws SQLException {
+        String inspectorUserName = rs.getString(Columns.INSPECTOR_USERNAME);
+        if (!inspectorMapper.getMap().containsKey(inspectorUserName)){
+            inspectorMapper.getMap().put(inspectorUserName, extractInspectorFromRs(rs));
+        }
+        String taxPayerUserName = rs.getString(Columns.TAX_PAYER_USERNAME);
+        if (!taxPayerMapper.getMap().containsKey(taxPayerUserName)){
+            taxPayerMapper.getMap().put(taxPayerUserName, extractTaxPayerFromRs(rs));
+        }
+        return getBuilder(rs).setInspector(inspectorMapper.get(inspectorUserName))
+                .setTaxPayer(taxPayerMapper.get(taxPayerUserName)).build();
+    }
+
+    private Request.RequestBuilder getBuilder(ResultSet rs) throws SQLException {
         Long id = rs.getLong(1);
         String reason = rs.getString(4);
         Status status = Status.valueOf(rs.getString(5).toUpperCase());
         String rejectReason = rs.getString(6);
         return new Request.RequestBuilder().setId(id).setReason(reason)
-                .setStatus(status).setRejectReason(rejectReason).setTaxPayer(extractTaxPayerFromRs(rs))
-                .setInspector(extractInspectorFromRs(rs)).build();
+                .setStatus(status).setRejectReason(rejectReason);
     }
 
     private Inspector extractInspectorFromRs(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("i.id");
-        String firstName = rs.getString("i.firstname");
-        String lastName = rs.getString("i.lastname");
+        Long id = rs.getLong(Columns.INSPECTOR_ID);
+        String firstName = rs.getString(Columns.INSPECTOR_FIRST_NAME);
+        String lastName = rs.getString(Columns.INSPECTOR_LAST_NAME);
         return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
     }
 
     private TaxPayer extractTaxPayerFromRs(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("t.id");
-        String firstName = rs.getString("t.firstname");
-        String lastName = rs.getString("t.lastname");
-        String username = rs.getString("t.username");
-        String identificationCode = rs.getString("t.identification_code");
+        Long id = rs.getLong(Columns.TAX_PAYER_ID);
+        String firstName = rs.getString(Columns.TAX_PAYER_FIRST_NAME);
+        String lastName = rs.getString(Columns.TAX_PAYER_LAST_NAME);
+        String username = rs.getString(Columns.TAX_PAYER_USERNAME);
+        String identificationCode = rs.getString(Columns.TAX_PAYER_IDENTIFICATION_CODE);
         return new TaxPayer.TaxPayerBuilder().setId(id).setFirstName(firstName)
                 .setLastName(lastName).setUsername(username)
                 .setIdentificationCode(identificationCode).build();

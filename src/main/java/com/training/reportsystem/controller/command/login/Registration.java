@@ -2,6 +2,7 @@ package com.training.reportsystem.controller.command.login;
 
 import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.TaxPayer;
+import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.UserValidator;
 import com.training.reportsystem.util.LocalisationUtil;
@@ -19,9 +20,11 @@ import static com.training.reportsystem.util.constants.LoggerMessages.*;
 public class Registration implements Command {
 
     private TaxPayerService taxPayerService;
+    private InspectorService inspectorService;
 
-    public Registration(TaxPayerService taxPayerService) {
+    public Registration(TaxPayerService taxPayerService, InspectorService inspectorService) {
         this.taxPayerService = taxPayerService;
+        this.inspectorService = inspectorService;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class Registration implements Command {
             return Pages.REGISTRATION_REDIRECT;
         }
 
-        if(!taxPayerService.isUsernameUnique(username)){
+        if(!taxPayerService.isUsernameUnique(username) || !inspectorService.isUsernameUnique(username)){
             logger.info(LoggerUtil.formMessage(REGISTRATION_FAILED, REASON, DUPLICATED_USERNAME));
             request.getSession().setAttribute(Attributes.USERNAME_ERROR, LocalisationUtil.getMessage(ErrorMessages.USERNAME_ALREADY_EXITS));
             return Pages.REGISTRATION_REDIRECT;

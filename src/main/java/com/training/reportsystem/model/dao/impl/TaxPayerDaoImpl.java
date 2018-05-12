@@ -38,7 +38,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
     @Override
     public boolean isUsernameUnique(String username) {
         try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_USERNAME_UNIQUE))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_TAX_PAYER_USERNAME_UNIQUE))) {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {

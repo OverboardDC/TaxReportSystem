@@ -12,6 +12,7 @@ import com.training.reportsystem.util.constants.Pages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 public class NewReportPage implements Command {
 
@@ -24,7 +25,10 @@ public class NewReportPage implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TaxPayer taxPayer = (TaxPayer) request.getSession().getAttribute(Attributes.USER);
-        Inspector inspector = inspectorService.getByUserId(taxPayer.getId());
+        Optional<Inspector> inspector = Optional.ofNullable(inspectorService.getByUserId(taxPayer.getId()));
+        if(!inspector.isPresent()){
+            return Pages.TAX_PAYER_REDIRECT;
+        }
         request.setAttribute(Attributes.INSPECTOR, inspector);
         return Pages.NEW_REPORT;
     }

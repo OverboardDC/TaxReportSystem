@@ -50,7 +50,18 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public boolean isUsernameUnique(String username) {
-        return false;
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_INSPECTOR_USERNAME_UNIQUE))) {
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
