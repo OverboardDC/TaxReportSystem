@@ -1,6 +1,6 @@
 package com.training.reportsystem.controller.command;
 
-import com.training.reportsystem.util.LocalisationUtil;
+import com.training.reportsystem.util.i18n.LocalisationUtil;
 import com.training.reportsystem.util.constants.GlobalConstants;
 import com.training.reportsystem.util.constants.Parameters;
 

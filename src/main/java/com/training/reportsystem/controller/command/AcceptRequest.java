@@ -2,7 +2,7 @@ package com.training.reportsystem.controller.command;
 
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.model.service.TaxPayerService;
-import com.training.reportsystem.util.LocalisationUtil;
+import com.training.reportsystem.util.i18n.LocalisationUtil;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.constants.*;
 

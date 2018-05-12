@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/tag/dateFormatTag.tld" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -43,11 +44,7 @@
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>
                     <p>${report.periodTo}</p>
                     <h6><fmt:message key="submission.date" bundle="${bundle}"/>: </h6>
-                    <fmt:parseDate value="${report.submissionDate}"
-                                   var="parsedDate" type="both" pattern="yyyy-MM-dd'T'HH:mm"/>
-                    <fmt:formatDate value="${parsedDate}" var="stdDatum"
-                                    type="date" pattern="dd-MM-yyyy HH:mm"/>
-                    <p>${stdDatum}</p>
+                    <ct:formatDateTime dateTime="${report.submissionDate}"/>
                     <c:if test="${not empty report.commentary}">
                         <h6><fmt:message key="commentary" bundle="${bundle}"/>: </h6>
                         <p>${report.commentary}</p>
@@ -62,7 +59,7 @@
                     </c:if>
                     <c:if test="${not empty report.editionDate}">
                         <h6><fmt:message key="last.edit.date" bundle="${bundle}"/>: </h6>
-                        <p>${report.editionDate}</p>
+                        <ct:formatDateTime dateTime="${report.editionDate}"/>
                     </c:if>
                 </div>
             </c:forEach>

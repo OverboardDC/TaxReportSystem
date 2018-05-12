@@ -32,7 +32,7 @@ public class EditReportPage implements Command {
         Report report = reportService.getById(Long.valueOf(request.getParameter(Parameters.REPORT_ID)));
         TaxPayer taxPayer = (TaxPayer) request.getSession().getAttribute(Attributes.USER);
         Optional<Inspector> inspector = Optional.of(inspectorService.getByUserId(taxPayer.getId()));
-        request.setAttribute(Attributes.INSPECTOR, inspector);
+        request.setAttribute(Attributes.INSPECTOR, inspector.get());
         request.setAttribute(Attributes.REPORT, report);
         return Pages.EDIT_REPORT;
     }

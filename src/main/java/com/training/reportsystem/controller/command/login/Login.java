@@ -4,14 +4,13 @@ import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.User;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
-import com.training.reportsystem.util.LocalisationUtil;
+import com.training.reportsystem.util.i18n.LocalisationUtil;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.LoginUtil;
 import com.training.reportsystem.util.constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
 import java.util.Optional;
 
 import static com.training.reportsystem.util.constants.LoggerMessages.*;

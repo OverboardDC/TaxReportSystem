@@ -29,7 +29,7 @@ public class NewReportPage implements Command {
         if(!inspector.isPresent()){
             return Pages.TAX_PAYER_REDIRECT;
         }
-        request.setAttribute(Attributes.INSPECTOR, inspector);
+        request.setAttribute(Attributes.INSPECTOR, inspector.get());
         return Pages.NEW_REPORT;
     }
 }
