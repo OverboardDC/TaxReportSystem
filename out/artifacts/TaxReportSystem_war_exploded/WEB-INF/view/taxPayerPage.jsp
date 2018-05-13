@@ -26,7 +26,8 @@
             </div>
             <c:if test="${not empty requestScope.inspector}">
                 <div class="col-md-4">
-                    <a href="<c:url value="/app/client/newReportPage"/>" class="btn btn-success"><fmt:message key="create.report" bundle="${bundle}"/></a>
+                    <a href="<c:url value="/app/client/newReportPage"/>" class="btn btn-success"><fmt:message
+                            key="create.report" bundle="${bundle}"/></a>
                     <a href="<c:url value="/app/client/requestPage"/>" class="btn btn-danger">
                         <fmt:message key="change.inspector" bundle="${bundle}"/></a>
                 </div>
@@ -40,11 +41,11 @@
                     <h6><fmt:message key="status" bundle="${bundle}"/>: </h6>
                     <p class="text-info">${report.status}</p>
                     <h6><fmt:message key="period.from" bundle="${bundle}"/>: </h6>
-                    <p>${report.periodFrom}</p>
+                    <p><ct:formatDate date="${report.periodFrom}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>
-                    <p>${report.periodTo}</p>
+                    <p><ct:formatDate date="${report.periodTo}"/></p>
                     <h6><fmt:message key="submission.date" bundle="${bundle}"/>: </h6>
-                    <ct:formatDateTime dateTime="${report.submissionDate}"/>
+                    <p><ct:formatDateTime dateTime="${report.submissionDate}"/></p>
                     <c:if test="${not empty report.commentary}">
                         <h6><fmt:message key="commentary" bundle="${bundle}"/>: </h6>
                         <p>${report.commentary}</p>
@@ -59,7 +60,7 @@
                     </c:if>
                     <c:if test="${not empty report.editionDate}">
                         <h6><fmt:message key="last.edit.date" bundle="${bundle}"/>: </h6>
-                        <ct:formatDateTime dateTime="${report.editionDate}"/>
+                        <p><ct:formatDateTime dateTime="${report.editionDate}"/></p>
                     </c:if>
                 </div>
             </c:forEach>

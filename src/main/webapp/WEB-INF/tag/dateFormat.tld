@@ -21,4 +21,15 @@
         </attribute>
     </tag>
 
+    <tag>
+        <name>formatDate</name>
+        <tag-class>com.training.reportsystem.util.tag.DateFormatTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>date</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
 </taglib>

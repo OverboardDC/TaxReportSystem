@@ -22,35 +22,37 @@
                     <h6><fmt:message key="status" bundle="${bundle}"/>: </h6>
                     <p class="text-info">${report.status}</p>
                     <h6><fmt:message key="period.from" bundle="${bundle}"/>: </h6>
-                    <p>${report.periodFrom}</p>
+                    <p><ct:formatDate date="${report.periodFrom}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>
-                    <p>${report.periodTo}</p>
+                    <p><ct:formatDate date="${report.periodTo}"/></p>
                     <h6><fmt:message key="submission.date" bundle="${bundle}"/>: </h6>
-                    <ct:formatDateTime dateTime="${report.submissionDate}"/>
+                    <p><ct:formatDateTime dateTime="${report.submissionDate}"/></p>
                     <c:if test="${not empty report.commentary}">
                         <h6><fmt:message key="commentary" bundle="${bundle}"/>: </h6>
                         <p>${report.commentary}</p>
                     </c:if>
                     <c:if test="${not empty report.rejectReason}">
-                    <h6><fmt:message key="reject.reason" bundle="${bundle}"/>: </h6>
-                    <p>${report.rejectReason}</p>
+                        <h6><fmt:message key="reject.reason" bundle="${bundle}"/>: </h6>
+                        <p>${report.rejectReason}</p>
                     </c:if>
                     <c:if test="${not empty report.editionDate}">
                         <h6><fmt:message key="last.edit.date" bundle="${bundle}"/>: </h6>
-                        <ct:formatDateTime dateTime="${report.editionDate}"/>
+                        <p><ct:formatDateTime dateTime="${report.editionDate}"/></p>
                     </c:if>
                     <c:if test="${report.status == 'PENDING'}">
                         <div class="form-group">
                             <c:url value="/app/redirect/inspector/approveReport" var="approveReport">
                                 <c:param name="report_id" value="${report.id}"/>
                             </c:url>
-                            <a href="${approveReport}" class="btn btn-success"><fmt:message key="approve" bundle="${bundle}"/></a>
+                            <a href="${approveReport}" class="btn btn-success"><fmt:message key="approve"
+                                                                                            bundle="${bundle}"/></a>
                         </div>
                         <form method="post" action="<c:url value="/app/redirect/inspector/rejectReport"/>">
                             <input hidden name="report_id" value="${report.id}">
                             <div class="form-group">
                                 <label><fmt:message key="reject.reason" bundle="${bundle}"/>:</label>
-                                <textarea name="reject_reason" class="input-group" placeholder="<fmt:message key="reason" bundle="${bundle}"/>:"></textarea>
+                                <textarea name="reject_reason" class="input-group"
+                                          placeholder="<fmt:message key="reason" bundle="${bundle}"/>:"></textarea>
                             </div>
                             <button class="btn btn-danger"><fmt:message key="reject" bundle="${bundle}"/></button>
                         </form>
