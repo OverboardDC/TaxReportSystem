@@ -1,7 +1,6 @@
 package com.training.reportsystem.controller.listener;
 
 import com.training.reportsystem.util.LoginUtil;
-import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import javax.servlet.annotation.WebListener;

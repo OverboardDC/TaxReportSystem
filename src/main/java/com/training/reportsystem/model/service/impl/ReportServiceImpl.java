@@ -22,8 +22,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> findAllByInspector(Long inspectorId) {
-        return reportDao.findAllByInspector(inspectorId);
+    public List<Report> findAllByInspector(Long inspectorId, Pagination pagination) {
+        return reportDao.findAllByInspector(inspectorId, pagination);
     }
 
     @Override

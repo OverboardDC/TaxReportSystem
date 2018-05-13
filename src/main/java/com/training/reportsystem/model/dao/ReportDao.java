@@ -9,7 +9,7 @@ public interface ReportDao extends GenericDao<Report> {
 
     List<Report> findAllByUser(Long userId, Pagination pagination);
 
-    List<Report> findAllByInspector(Long inspectorId);
+    List<Report> findAllByInspector(Long inspectorId, Pagination pagination);
 
     void approveReport(Long reportId);
 

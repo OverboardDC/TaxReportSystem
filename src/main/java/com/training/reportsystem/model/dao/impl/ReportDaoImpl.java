@@ -116,10 +116,13 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
-    public List<Report> findAllByInspector(Long inspectorId) {
+    public List<Report> findAllByInspector(Long inspectorId, Pagination pagination) {
         List<Report> reports = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REPORTS_BY_INSPECTOR))) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            String query = DaoUtil.getQuery(Queries.FIND_ALL_REPORTS_BY_INSPECTOR);
+            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_REPORTS_BY_INSPECTOR), inspectorId));
+            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
 
             preparedStatement.setLong(1, inspectorId);
 

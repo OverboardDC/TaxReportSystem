@@ -38,7 +38,8 @@
             <c:forEach items="${requestScope.requests}" var="request">
                 <div class="col-md-3 bg-light item">
                     <h6><fmt:message key="status.in"
-                                     bundle="${bundle}"/> <fmt:message key="${request.status.toString().toLowerCase()}" bundle="${bundle}"/></h6>
+                                     bundle="${bundle}"/> <fmt:message key="${request.status.toString().toLowerCase()}"
+                                                                       bundle="${bundle}"/></h6>
                     <h6><fmt:message key="inspector.in"
                                      bundle="${bundle}"/> ${request.inspector.firstName} ${request.inspector.lastName}</h6>
                     <h6><fmt:message key="reason.in" bundle="${bundle}"/></h6>
@@ -50,7 +51,7 @@
                 </div>
             </c:forEach>
         </div>
-
+        <jsp:include page="../template/pagination.jsp"/>
     </section>
 </div>
 </body>

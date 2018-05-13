@@ -4,6 +4,7 @@ import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.impl.TaxPayerDaoImpl;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.Md5Encryptor;
 
 import java.util.List;
@@ -53,8 +54,8 @@ public class TaxPayerServiceImpl implements TaxPayerService {
     }
 
     @Override
-    public List<TaxPayer> findAllWithoutInspector() {
-        return taxPayerDao.findAllWithoutInspector();
+    public List<TaxPayer> findAllWithoutInspector(Pagination pagination) {
+        return taxPayerDao.findAllWithoutInspector(pagination);
     }
 
     @Override

@@ -4,12 +4,14 @@ import com.training.reportsystem.model.dao.RequestDao;
 import com.training.reportsystem.model.dao.mapper.Mapper;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
+import com.training.reportsystem.model.dao.util.PaginationDaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Columns;
 import com.training.reportsystem.model.dao.util.constant.Queries;
-import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.Request;
+import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.TaxPayer;
+import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
@@ -74,10 +76,13 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> findByTaxPayerId(Long taxPayerId) {
+    public List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination) {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_REQUESTS_BY_TAX_PAYER))) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            String query = DaoUtil.getQuery(Queries.FIND_REQUESTS_BY_TAX_PAYER);
+            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_TAX_PAYER), taxPayerId));
+            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
 
             preparedStatement.setLong(1, taxPayerId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -95,10 +100,13 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> findByStatus(Status status) {
+    public List<Request> findByStatus(Status status, Pagination pagination) {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS_BY_STATUS))) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            String query = DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS_BY_STATUS);
+            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_STATUS), status));
+            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
 
             preparedStatement.setString(1, status.toString());
             ResultSet rs = preparedStatement.executeQuery();

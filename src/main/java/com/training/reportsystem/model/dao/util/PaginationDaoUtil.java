@@ -1,5 +1,6 @@
 package com.training.reportsystem.model.dao.util;
 
+import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.service.util.Pagination;
 
 import java.sql.Connection;
@@ -25,6 +26,29 @@ public class PaginationDaoUtil {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
              preparedStatement.setLong(1, id);
              ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+        return count;
+    }
+
+    public static int getTotalItemsCount(Connection connection, String query) throws SQLException {
+        int count = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+        return count;
+    }
+
+    public static int getTotalItemsCount(Connection connection, String query, Status status) throws SQLException {
+        int count = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, status.toString());
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
             }

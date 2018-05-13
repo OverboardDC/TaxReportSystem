@@ -4,10 +4,7 @@ import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.InspectorService;
-import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.constants.Attributes;
-import com.training.reportsystem.util.constants.Commands;
-import com.training.reportsystem.util.constants.GlobalConstants;
 import com.training.reportsystem.util.constants.Pages;
 
 import javax.servlet.http.HttpServletRequest;

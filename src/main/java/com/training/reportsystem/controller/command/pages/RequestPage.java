@@ -1,11 +1,13 @@
 package com.training.reportsystem.controller.command.pages;
 
 import com.training.reportsystem.controller.command.Command;
-import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.Request;
+import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.RequestService;
+import com.training.reportsystem.model.service.util.Pagination;
+import com.training.reportsystem.util.PaginationUtil;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.Pages;
 
@@ -25,8 +27,14 @@ public class RequestPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        int page = PaginationUtil.getPageParameter(request);
+        Pagination pagination = new Pagination(page);
         TaxPayer taxPayer = (TaxPayer) request.getSession().getAttribute(Attributes.USER);
-        List<Request> requests = requestService.findByTaxPayerId(taxPayer.getId());
+        List<Request> requests = requestService.findByTaxPayerId(taxPayer.getId(), pagination);
+        PaginationUtil.setAttribute(pagination, request);
+        if (pagination.isPageEmpty(requests)) {
+            return Pages.REQUEST_WITH_PAGE + pagination.getLastPageNum();
+        }
         request.setAttribute(Attributes.INSPECTOR, inspectorService.getByUserId(taxPayer.getId()));
         request.setAttribute(Attributes.ARE_THERE_REQUESTS_PENDING, requests.stream().anyMatch(i -> i.getStatus().equals(Status.PENDING)));
         request.setAttribute(Attributes.REQUESTS, requests);

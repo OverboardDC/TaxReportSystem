@@ -26,4 +26,8 @@ public interface Queries {
     String UPDATE_REPORT = "update.report";
 
     String GET_COUNT_ALL_REPORTS_BY_USER = "get.count.all.reports.by.user";
+    String GET_COUNT_ALL_REPORTS_BY_INSPECTOR = "get.count.all.reports.by.inspector";
+    String GET_COUNT_ALL_REQUESTS_BY_STATUS = "get.count.all.requests.by.status";
+    String GET_COUNT_ALL_REQUESTS_BY_TAX_PAYER = "get.count.all.requests.by.tax.payer";
+    String GET_COUNT_ALL_TAX_PAYERS_WITHOUT_INSPECTOR = "get.count.all.tax.payers.without.inspector";
 }

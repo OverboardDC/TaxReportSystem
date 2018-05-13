@@ -3,9 +3,11 @@ package com.training.reportsystem.model.dao.impl;
 import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
+import com.training.reportsystem.model.dao.util.PaginationDaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.Role;
 import com.training.reportsystem.model.entity.TaxPayer;
+import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.Connection;
@@ -88,10 +90,13 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
     }
 
     @Override
-    public List<TaxPayer> findAllWithoutInspector() {
+    public List<TaxPayer> findAllWithoutInspector(Pagination pagination) {
         List<TaxPayer> taxPayers = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR))) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()){
+             String query = DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR);
+             pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                     DaoUtil.getQuery(Queries.GET_COUNT_ALL_TAX_PAYERS_WITHOUT_INSPECTOR)));
+             PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-//TODO refactor
 public class TaxPayerPage implements Command {
 
     private InspectorService inspectorService;

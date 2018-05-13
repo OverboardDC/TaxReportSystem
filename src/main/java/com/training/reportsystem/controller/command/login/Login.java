@@ -4,16 +4,19 @@ import com.training.reportsystem.controller.command.Command;
 import com.training.reportsystem.model.entity.User;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.LoginUtil;
-import com.training.reportsystem.util.constants.*;
+import com.training.reportsystem.util.constants.Attributes;
+import com.training.reportsystem.util.constants.ErrorMessages;
+import com.training.reportsystem.util.constants.Pages;
+import com.training.reportsystem.util.constants.Parameters;
+import com.training.reportsystem.util.i18n.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
-import static com.training.reportsystem.util.constants.LoggerMessages.*;
+import static com.training.reportsystem.util.constants.LoggerMessages.LOGIN_FAILED;
 
 
 public class Login implements Command {
