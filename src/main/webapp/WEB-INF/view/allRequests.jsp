@@ -12,11 +12,11 @@
         <div class="row justify-content-center text-center">
             <h1><fmt:message key="requests" bundle="${bundle}"/></h1>
         </div>
-        <h4 class="text-danger">${sessionScope.inspector_error}</h4>
-        <c:remove var="inspector_error" scope="session"/>
+        <h4 class="text-danger">${sessionScope.all_requests_page_error}</h4>
+        <c:remove var="all_requests_page_error" scope="session"/>
         <div class="row justify-content-start">
             <c:forEach var="request" items="${requestScope.requests}">
-                <div class="bg-light admin_page_item col-md-3">
+                <div class="bg-light item col-md-3">
                     <div class="form-group">
                         <h4>${request.taxPayer.firstName} ${request.taxPayer.lastName}</h4>
                         <h6><fmt:message key="username.in" bundle="${bundle}"/> ${request.taxPayer.username}</h6>

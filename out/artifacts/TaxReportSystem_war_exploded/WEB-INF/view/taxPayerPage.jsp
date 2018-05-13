@@ -39,7 +39,7 @@
                     <h6><fmt:message key="inspector" bundle="${bundle}"/>: </h6>
                     <p>${report.inspector.firstName} ${report.inspector.lastName}</p>
                     <h6><fmt:message key="status" bundle="${bundle}"/>: </h6>
-                    <p class="text-info">${report.status}</p>
+                    <p class="text-info"><fmt:message key="${report.status.toString().toLowerCase()}" bundle="${bundle}"/></p>
                     <h6><fmt:message key="period.from" bundle="${bundle}"/>: </h6>
                     <p><ct:formatDate date="${report.periodFrom}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>

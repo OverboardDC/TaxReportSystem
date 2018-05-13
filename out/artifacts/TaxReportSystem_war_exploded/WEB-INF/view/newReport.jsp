@@ -10,7 +10,7 @@
     <section>
         <div class="row justify-content-center">
 
-            <form class="form-group col-4" method="post" action="<c:url value="/app/redirect/client/sendReport"/>">
+            <form class="form-group col-lg-4" method="post" action="<c:url value="/app/redirect/client/sendReport"/>">
                 <h1 class="text-center"><fmt:message key="adding.new.report" bundle="${bundle}"/></h1>
                 <div class="form-group">
 

@@ -12,7 +12,7 @@
 
             <form action="<c:url value="/app/redirect/login"/>" class="form-group col-md-4">
                 <h1 class="text-center"><fmt:message key="login" bundle="${bundle}"/></h1>
-                <label class="text-danger">${sessionScope.login_error}</label>
+                <h6 class="text-danger">${sessionScope.login_error}</h6>
                 <c:remove var="login_error" scope="session"/>
                 <input placeholder="<fmt:message key="username" bundle="${bundle}"/>" name="username" class="input-group">
                 <input type="password" placeholder="<fmt:message key="password" bundle="${bundle}"/>" name="password" class="input-group">

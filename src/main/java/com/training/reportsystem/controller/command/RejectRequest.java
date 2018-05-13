@@ -2,9 +2,8 @@ package com.training.reportsystem.controller.command;
 
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LoggerUtil;
-import com.training.reportsystem.util.constants.LoggerMessages;
-import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.constants.Parameters;
+import com.training.reportsystem.util.constants.*;
+import com.training.reportsystem.util.i18n.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,8 @@ public class RejectRequest implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String rejectReason = request.getParameter(Parameters.REJECT_REASON);
         if(rejectReason.isEmpty()){
+            request.getSession().setAttribute(Attributes.ALL_REQUESTS_PAGE_ERROR,
+                    LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
             return Pages.ALL_REQUESTS_REDIRECT;
         }
         Long requestId = Long.valueOf(request.getParameter(Parameters.REQUEST_ID));

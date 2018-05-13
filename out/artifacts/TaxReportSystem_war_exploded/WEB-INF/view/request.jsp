@@ -34,11 +34,11 @@
         </div>
         <h2 class="text-center"><fmt:message key="previous.requests"
                                              bundle="${bundle}"/> ${request.status}</h2>
-        <div class="row justify-content-start">
+        <div class="row justify-content-center">
             <c:forEach items="${requestScope.requests}" var="request">
-                <div class="col-md-3 bg-light">
+                <div class="col-md-3 bg-light item">
                     <h6><fmt:message key="status.in"
-                                     bundle="${bundle}"/> ${request.status}</h6>
+                                     bundle="${bundle}"/> <fmt:message key="${request.status.toString().toLowerCase()}" bundle="${bundle}"/></h6>
                     <h6><fmt:message key="inspector.in"
                                      bundle="${bundle}"/> ${request.inspector.firstName} ${request.inspector.lastName}</h6>
                     <h6><fmt:message key="reason.in" bundle="${bundle}"/></h6>

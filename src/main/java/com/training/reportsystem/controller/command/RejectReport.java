@@ -23,7 +23,7 @@ public class RejectReport implements Command {
         Long reportId = Long.valueOf(request.getParameter(Parameters.REPORT_ID));
         String rejectReason = request.getParameter(Parameters.REJECT_REASON);
         if(rejectReason.isEmpty()){
-            request.getSession().setAttribute(Attributes.REASON_ERROR, LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
+            request.getSession().setAttribute(Attributes.INSPECTOR_PAGE_ERROR, LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
             return Pages.INSPECTOR_REDIRECT;
         }
         reportService.rejectReport(reportId, rejectReason);

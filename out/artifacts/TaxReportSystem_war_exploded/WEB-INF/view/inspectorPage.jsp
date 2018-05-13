@@ -14,13 +14,15 @@
         <div class="row justify-content-center text-center">
             <h1><fmt:message key="inspector.page" bundle="${bundle}"/></h1>
         </div>
+        <h6 class="text-danger">${sessionScope.inspector_page_error}</h6>
+        <c:remove var="inspector_page_error" scope="session"/>
         <div class="row justify-content-start">
             <c:forEach var="report" items="${requestScope.reports}">
                 <div class="bg-light col-md-3 report_div">
                     <h6><fmt:message key="client" bundle="${bundle}"/>: </h6>
                     <p>${report.taxPayer.firstName} ${report.taxPayer.lastName}</p>
-                    <h6><fmt:message key="status" bundle="${bundle}"/>: </h6>
-                    <p class="text-info">${report.status}</p>
+                    <h6 class="status"><fmt:message key="status" bundle="${bundle}"/>: </h6>
+                    <p class="text-info"><fmt:message key="${report.status.toString().toLowerCase()}" bundle="${bundle}"/></p>
                     <h6><fmt:message key="period.from" bundle="${bundle}"/>: </h6>
                     <p><ct:formatDate date="${report.periodFrom}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>

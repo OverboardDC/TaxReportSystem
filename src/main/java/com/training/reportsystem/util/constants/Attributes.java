@@ -7,7 +7,6 @@ public interface Attributes {
     String INSPECTORS = "inspectors";
 
     //Error attributes
-    String ERROR = "error";
     String USERNAME_ERROR = "username_error";
     String PASSWORD_ERROR = "password_error";
     String FIRST_NAME_ERROR = "first_name_error";
@@ -20,8 +19,10 @@ public interface Attributes {
     String PERIOD_TO_ERROR = "period_to_error";
     String REVENUE_ERROR = "revenue_error";
     String TAX_ERROR = "tax_error";
-    String INSPECTOR_ERROR = "inspector_error";
     String COMMENTARY_ERROR = "commentary_error";
+    String ADMIN_PAGE_ERROR = "admin_page_error";
+    String ALL_REQUESTS_PAGE_ERROR = "all_requests_page_error";
+    String INSPECTOR_PAGE_ERROR = "inspector_page_error";
 
     String REQUESTS = "requests";
     String ARE_THERE_REQUESTS_PENDING = "are_there_requests_pending";
@@ -30,5 +31,5 @@ public interface Attributes {
 
     String REPORT = "report";
     String USERS_IN_SYSTEM = "users_in_system";
-    String TAX_PAYER_ERROR = "tax_payer_error";
+
 }

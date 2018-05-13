@@ -18,9 +18,11 @@
             </div>
         </div>
         <h3 class="text-center"><fmt:message key="new.users" bundle="${bundle}"/></h3>
+        <h6 class="text-danger">${sessionScope.admin_page_error}</h6>
+        <c:remove var="admin_page_error" scope="session"/>
         <div class="row justify-content-start">
             <c:forEach var="tax_payer" items="${requestScope.tax_payers}">
-                <div class="bg-light admin_page_item">
+                <div class="bg-light item">
                     <form method="post" action="<c:url value="/app/redirect/admin/assignInspector"/>">
                         <h4>${tax_payer.firstName} ${tax_payer.lastName}</h4>
                         <h6><fmt:message key="username.in" bundle="${bundle}"/> ${tax_payer.username}</h6>

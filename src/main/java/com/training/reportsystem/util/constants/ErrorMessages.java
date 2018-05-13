@@ -18,4 +18,6 @@ public interface ErrorMessages {
     String INCORRECT_TAX = "incorrect.tax";
     String INCORRECT_COMMENTARY = "incorrect.commentary";
     String USER_ALREADY_LOGINED = "user.already.logined";
+    String INSPECTOR_WASNT_CHOSEN = "inspector.wasnt.chosen";
+
 }

@@ -26,7 +26,7 @@ public class AcceptRequest implements Command{
         Optional<String> inspectorId = Optional.ofNullable(request.getParameter(Parameters.INSPECTOR_ID));
         Long requestId = Long.valueOf(request.getParameter(Parameters.REQUEST_ID));
         if(!inspectorId.isPresent()){
-            request.getSession().setAttribute(Attributes.INSPECTOR_ERROR, LocalisationUtil.getMessage(ErrorMessages.INCORRECT_INSPECTOR));
+            request.getSession().setAttribute(Attributes.ALL_REQUESTS_PAGE_ERROR, LocalisationUtil.getMessage(ErrorMessages.INSPECTOR_WASNT_CHOSEN));
             return Pages.ALL_REQUESTS_REDIRECT;
         }
 
