@@ -22,4 +22,5 @@ public interface Pages {
     String INSPECTOR_REDIRECT = "/app/inspector/inspectorPage";
     String EDIT_REPORT = "/WEB-INF/view/editReport.jsp";
     String EDIT_REPORT_REDIRECT = "/app/client/editReportPage";
+    String TAX_PAYER_WITH_PAGE = "taxPayerPage?page=";
 }

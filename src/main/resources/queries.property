@@ -20,3 +20,4 @@ approve.report=UPDATE report SET status = ? WHERE id = ?
 reject.report=UPDATE report SET status = ?, reject_reason = ? WHERE id = ?
 get.report.by.id=SELECT id, status, period_from, period_to, revenue, tax, commentary, reject_reason, submission_date, editing_date FROM report WHERE id = ?
 update.report=UPDATE report SET status = ?, period_from = ?, period_to = ?, revenue = ?, tax = ?, commentary = ?, editing_date = ?, inspector_id = ? WHERE id = ?
+get.count.all.reports.by.user=SELECT COUNT(*) FROM report AS r INNER JOIN inspector i ON i.id = r.inspector_id WHERE r.taxpayer_id = ? ORDER BY r.submission_date DESC

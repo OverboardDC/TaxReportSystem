@@ -39,7 +39,8 @@
                     <h6><fmt:message key="inspector" bundle="${bundle}"/>: </h6>
                     <p>${report.inspector.firstName} ${report.inspector.lastName}</p>
                     <h6><fmt:message key="status" bundle="${bundle}"/>: </h6>
-                    <p class="text-info"><fmt:message key="${report.status.toString().toLowerCase()}" bundle="${bundle}"/></p>
+                    <p class="text-info"><fmt:message key="${report.status.toString().toLowerCase()}"
+                                                      bundle="${bundle}"/></p>
                     <h6><fmt:message key="period.from" bundle="${bundle}"/>: </h6>
                     <p><ct:formatDate date="${report.periodFrom}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>
@@ -64,6 +65,21 @@
                     </c:if>
                 </div>
             </c:forEach>
+        </div>
+        <div class="row justify-content-center">
+            <ul class="pagination">
+                <c:forEach var="page" items="${requestScope.pages}">
+                    <c:url value="" var="changePage">
+                        <c:param name="page" value="${page.number}"/>
+                    </c:url>
+                    <c:if test="${not page.selected}">
+                        <li class="page-item"><a class="page-link text-dark" href="${changePage}">${page.number}</a></li>
+                    </c:if>
+                    <c:if test="${page.selected}">
+                        <li class="page-item"><a class="page-link badge-dark" href="${changePage}">${page.number}</a></li>
+                    </c:if>
+                </c:forEach>
+            </ul>
         </div>
     </section>
 </div>

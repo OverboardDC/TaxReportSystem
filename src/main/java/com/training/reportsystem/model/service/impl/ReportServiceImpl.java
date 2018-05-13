@@ -4,6 +4,7 @@ import com.training.reportsystem.model.dao.ReportDao;
 import com.training.reportsystem.model.dao.impl.ReportDaoImpl;
 import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.service.ReportService;
+import com.training.reportsystem.model.service.util.Pagination;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> findAllByUser(Long userId) {
-        return reportDao.findAllByUser(userId);
+    public List<Report> findAllByUser(Long userId, Pagination pagination) {
+        return reportDao.findAllByUser(userId, pagination);
     }
 
     @Override

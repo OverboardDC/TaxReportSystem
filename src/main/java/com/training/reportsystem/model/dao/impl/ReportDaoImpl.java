@@ -4,12 +4,14 @@ import com.training.reportsystem.model.dao.ReportDao;
 import com.training.reportsystem.model.dao.mapper.Mapper;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
+import com.training.reportsystem.model.dao.util.PaginationDaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Columns;
 import com.training.reportsystem.model.dao.util.constant.Queries;
 import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.entity.TaxPayer;
+import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.*;
@@ -91,10 +93,13 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
-    public List<Report> findAllByUser(Long userId) {
+    public List<Report> findAllByUser(Long userId, Pagination pagination) {
         List<Report> reports = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REPORTS_BY_USER))) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            String query = DaoUtil.getQuery(Queries.FIND_ALL_REPORTS_BY_USER);
+            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_REPORTS_BY_USER), userId));
+            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
 
             preparedStatement.setLong(1, userId);
 
@@ -161,7 +166,7 @@ public class ReportDaoImpl implements ReportDao {
 
     private Report extractFromRsWithTaxPayer(ResultSet rs, Mapper<TaxPayer> mapper) throws SQLException {
         String userName = rs.getString(Columns.TAX_PAYER_USERNAME);
-        if (!mapper.getMap().containsKey(userName)){
+        if (!mapper.getMap().containsKey(userName)) {
             mapper.getMap().put(userName, extractTaxPayer(rs));
         }
         return getBuilder(rs).setTaxPayer(mapper.get(userName)).build();
@@ -169,7 +174,7 @@ public class ReportDaoImpl implements ReportDao {
 
     private Report extractFromRsWithInspector(ResultSet rs, Mapper<Inspector> mapper) throws SQLException {
         String userName = rs.getString(Columns.INSPECTOR_USERNAME);
-        if (!mapper.getMap().containsKey(userName)){
+        if (!mapper.getMap().containsKey(userName)) {
             mapper.getMap().put(userName, extractInspector(rs));
         }
         return getBuilder(rs).setInspector(mapper.get(userName)).build();

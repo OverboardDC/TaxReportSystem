@@ -25,4 +25,5 @@ public interface Queries {
     String GET_REPORT_BY_ID = "get.report.by.id";
     String UPDATE_REPORT = "update.report";
 
+    String GET_COUNT_ALL_REPORTS_BY_USER = "get.count.all.reports.by.user";
 }
