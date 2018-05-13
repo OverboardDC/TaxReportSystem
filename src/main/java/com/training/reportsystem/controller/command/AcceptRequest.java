@@ -13,15 +13,12 @@ import java.util.Optional;
 public class AcceptRequest implements Command{
 
     private RequestService requestService;
-    private TaxPayerService taxPayerService;
 
-    public AcceptRequest(RequestService requestService, TaxPayerService taxPayerService) {
+    public AcceptRequest(RequestService requestService) {
         this.requestService = requestService;
-        this.taxPayerService = taxPayerService;
     }
 
     @Override
-    //TODO ?
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Optional<String> inspectorId = Optional.ofNullable(request.getParameter(Parameters.INSPECTOR_ID));
         Long requestId = Long.valueOf(request.getParameter(Parameters.REQUEST_ID));
@@ -31,8 +28,7 @@ public class AcceptRequest implements Command{
         }
 
         Long taxPayerId = Long.valueOf(request.getParameter(Parameters.TAX_PAYER_ID));
-        requestService.accept(requestId);
-        taxPayerService.assignInspector(taxPayerId, Long.valueOf(inspectorId.get()));
+        requestService.accept(requestId, taxPayerId, Long.valueOf(inspectorId.get()));
         logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_ACCEPTED));
         return Pages.ALL_REQUESTS_REDIRECT;
     }

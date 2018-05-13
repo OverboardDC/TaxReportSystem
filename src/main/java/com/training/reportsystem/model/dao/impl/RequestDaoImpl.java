@@ -116,14 +116,27 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public void accept(Long requestId) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ACCEPT_REQUEST))) {
+    public void accept(Long requestId, Long taxPayerId, Long inspectorId) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            connection.setAutoCommit(false);
 
-            preparedStatement.setString(1, Status.APPROVED.toString());
-            preparedStatement.setLong(2, requestId);
+            try {
+                PreparedStatement prstAccept = connection.prepareStatement(DaoUtil.getQuery(Queries.ACCEPT_REQUEST));
+                prstAccept.setString(1, Status.APPROVED.toString());
+                prstAccept.setLong(2, requestId);
+                prstAccept.executeUpdate();
 
-            preparedStatement.executeUpdate();
+                PreparedStatement prstAssignInspector = connection.prepareStatement(DaoUtil.getQuery(Queries.ASSIGN_INSPECTOR));
+                prstAssignInspector.setLong(1, inspectorId);
+                prstAssignInspector.setLong(2, taxPayerId);
+                prstAssignInspector.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(LoggerMessages.SQL_EXCEPTION);
+                e.printStackTrace();
+            }
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
@@ -148,11 +161,11 @@ public class RequestDaoImpl implements RequestDao {
 
     private Request extractRequest(ResultSet rs, Mapper<Inspector> inspectorMapper, Mapper<TaxPayer> taxPayerMapper) throws SQLException {
         String inspectorUserName = rs.getString(Columns.INSPECTOR_USERNAME);
-        if (!inspectorMapper.getMap().containsKey(inspectorUserName)){
+        if (!inspectorMapper.getMap().containsKey(inspectorUserName)) {
             inspectorMapper.getMap().put(inspectorUserName, extractInspectorFromRs(rs));
         }
         String taxPayerUserName = rs.getString(Columns.TAX_PAYER_USERNAME);
-        if (!taxPayerMapper.getMap().containsKey(taxPayerUserName)){
+        if (!taxPayerMapper.getMap().containsKey(taxPayerUserName)) {
             taxPayerMapper.getMap().put(taxPayerUserName, extractTaxPayerFromRs(rs));
         }
         return getBuilder(rs).setInspector(inspectorMapper.get(inspectorUserName))

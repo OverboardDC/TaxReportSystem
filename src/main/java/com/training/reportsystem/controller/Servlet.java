@@ -51,7 +51,7 @@ public class Servlet extends HttpServlet {
         commandMap.put(Commands.REQUEST_PAGE, new RequestPage(requestService, inspectorService));
         commandMap.put(Commands.SEND_REQUEST, new SendRequest(requestService));
         commandMap.put(Commands.ALL_REQUESTS_PAGE, new AllRequestsPage(requestService, inspectorService));
-        commandMap.put(Commands.ACCEPT_REQUEST, new AcceptRequest(requestService, taxPayerService));
+        commandMap.put(Commands.ACCEPT_REQUEST, new AcceptRequest(requestService));
         commandMap.put(Commands.REJECT_REQUEST, new RejectRequest(requestService));
         commandMap.put(Commands.NEW_REPORT_PAGE, new NewReportPage(inspectorService));
         commandMap.put(Commands.SEND_REPORT, new SendReport(reportService));
