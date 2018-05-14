@@ -12,4 +12,5 @@ public interface RegexConstants {
     String DATE_REGEX = "[0-9]{4}[-]{1}[0-9]{2}[-][0-9]{2}";
     String NUMBER = "[0-9.]{1,10}+";
     String COMMENTARY = "[a-zA-Z0-9,.`\\-\\s\\\\(\\)!?;:]{1,250}+";
+    String MONEY = "[0-9]{1,16}.?[0-9]{1,2}";
 }

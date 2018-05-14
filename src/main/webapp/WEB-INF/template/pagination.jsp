@@ -9,7 +9,7 @@
                 <c:param name="page" value="${page.number}"/>
             </c:url>
             <c:if test="${not page.selected}">
-                <li class="page-item"><a class="page-link text-dark" href="${changePage}">${page.number}</a></li>
+                <li class="page-item"><a class="page-link badge-light" href="${changePage}">${page.number}</a></li>
             </c:if>
             <c:if test="${page.selected}">
                 <li class="page-item"><a class="page-link badge-dark" href="${changePage}">${page.number}</a></li>

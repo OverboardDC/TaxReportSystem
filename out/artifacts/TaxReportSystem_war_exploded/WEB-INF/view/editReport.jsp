@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/tag/customTags.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <jsp:include page="../template/head.jsp"/>
@@ -30,12 +31,12 @@
                     <c:remove var="revenue_error" scope="session"/>
                     <label><fmt:message key="revenue" bundle="${bundle}"/>:</label>
                     <input type="text" name="revenue" class="input-group"
-                           value="${requestScope.report.revenue}" required>
+                           value="<ct:formatRevenue revenue="${requestScope.report.revenue}"/>" required>
 
                     <h6 class="text-danger">${sessionScope.tax_error}</h6>
                     <c:remove var="tax_error" scope="session"/>
                     <label><fmt:message key="tax" bundle="${bundle}"/>:</label>
-                    <input type="text" name="tax" class="input-group" value="${requestScope.report.tax}" required>
+                    <input type="text" name="tax" class="input-group" value="<ct:formatTax tax="${requestScope.report.tax}"/>" required>
 
                     <h6 class="text-danger">${sessionScope.commentary_error}</h6>
                     <c:remove var="commentary_error" scope="session"/>

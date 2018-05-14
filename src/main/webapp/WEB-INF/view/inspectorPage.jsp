@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="ct" uri="/WEB-INF/tag/dateFormatTag.tld" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/tag/customTags.tld" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -27,6 +27,10 @@
                     <p><ct:formatDate date="${report.periodFrom}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>
                     <p><ct:formatDate date="${report.periodTo}"/></p>
+                    <h6><fmt:message key="revenue" bundle="${bundle}"/>: </h6>
+                    <p><ct:formatRevenue revenue="${report.revenue}"/> $</p>
+                    <h6><fmt:message key="tax" bundle="${bundle}"/>: </h6>
+                    <p><ct:formatTax tax="${report.tax}"/> %</p>
                     <h6><fmt:message key="submission.date" bundle="${bundle}"/>: </h6>
                     <p><ct:formatDateTime dateTime="${report.submissionDate}"/></p>
                     <c:if test="${not empty report.commentary}">

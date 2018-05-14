@@ -8,7 +8,7 @@
 
     <tlib-version>1.0</tlib-version>
     <short-name>ct</short-name>
-    <uri>/WEB-INF/tag/dateFormatTag.tld</uri>
+    <uri>/WEB-INF/tag/customTags.tld</uri>
 
     <tag>
         <name>formatDateTime</name>
@@ -27,6 +27,28 @@
         <body-content>empty</body-content>
         <attribute>
             <name>date</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>formatRevenue</name>
+        <tag-class>com.training.reportsystem.util.tag.RevenueTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>revenue</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>formatTax</name>
+        <tag-class>com.training.reportsystem.util.tag.TaxTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>tax</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

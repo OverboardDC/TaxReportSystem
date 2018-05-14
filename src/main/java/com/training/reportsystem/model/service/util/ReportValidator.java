@@ -1,5 +1,6 @@
 package com.training.reportsystem.model.service.util;
 
+import com.training.reportsystem.util.ValueParser;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.Parameters;
@@ -9,7 +10,6 @@ import com.training.reportsystem.util.i18n.LocalisationUtil;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
-//TODO make valid regex for revenue
 public class ReportValidator implements Validator {
 
     private boolean isValid = true;
@@ -32,10 +32,10 @@ public class ReportValidator implements Validator {
 
     public Long inputRevenue(HttpServletRequest request) {
         String revenue = request.getParameter(Parameters.REVENUE);
-        if (!revenue.matches(RegexConstants.NUMBER)) {
+        if (!revenue.matches(RegexConstants.MONEY)) {
             isValid = validationFailed(request, Attributes.REVENUE_ERROR, ErrorMessages.INCORRECT_REVENUE);
         }
-        return Long.parseLong(revenue);
+        return ValueParser.parseRevenue(revenue);
     }
 
     public Double inputTax(HttpServletRequest request) {
@@ -43,7 +43,7 @@ public class ReportValidator implements Validator {
         if (!tax.matches(RegexConstants.NUMBER)) {
             isValid = validationFailed(request, Attributes.TAX_ERROR, ErrorMessages.INCORRECT_TAX);
         }
-        return Double.parseDouble(tax);
+        return ValueParser.parseTax(tax);
     }
 
     public String inputCommentary(HttpServletRequest request) {
