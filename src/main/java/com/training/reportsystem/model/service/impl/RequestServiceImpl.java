@@ -33,8 +33,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void update(Request t) {
-        requestDao.update(t);
+    public void update(Request request) {
+        requestDao.update(request);
     }
 
     @Override
@@ -60,6 +60,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void reject(Long requestId, String rejectReason) {
         requestDao.reject(requestId, rejectReason);
+    }
+
+    @Override
+    public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
+        return requestDao.areThereRequestsWithStatus(status, taxPayerId);
     }
 
 }

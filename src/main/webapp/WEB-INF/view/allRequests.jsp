@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/tag/customTags.tld" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -26,6 +27,8 @@
                                          bundle="${bundle}"/> ${request.inspector.firstName} ${request.inspector.lastName}</h6>
                         <h6><fmt:message key="reason.in" bundle="${bundle}"/></h6>
                         <p>${request.reason}</p>
+                        <h6><fmt:message key="submission.date" bundle="${bundle}"/>:</h6>
+                        <p><ct:formatDateTime dateTime="${request.submissionDate}"/></p>
                         <form action="<c:url value="/app/redirect/admin/acceptRequest"/>" method="post">
                             <div class="form-group">
 

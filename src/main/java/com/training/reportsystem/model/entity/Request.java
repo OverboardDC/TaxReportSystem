@@ -1,6 +1,7 @@
 package com.training.reportsystem.model.entity;
 
-//TODO add dates
+import java.time.LocalDateTime;
+
 public class Request {
 
     private Long id;
@@ -9,6 +10,7 @@ public class Request {
     private Status status;
     private String reason;
     private String rejectReason;
+    private LocalDateTime submissionDate;
 
     public Long getId() {
         return id;
@@ -58,6 +60,14 @@ public class Request {
         this.rejectReason = rejectReason;
     }
 
+    public LocalDateTime getSubmissionDate() {
+        return submissionDate;
+    }
+
+    public void setSubmissionDate(LocalDateTime submissionDate) {
+        this.submissionDate = submissionDate;
+    }
+
     public static final class RequestBuilder implements Builder<Request> {
 
         private Long id;
@@ -66,6 +76,7 @@ public class Request {
         private Status status;
         private String reason;
         private String rejectReason;
+        private LocalDateTime submissionDate;
 
         public RequestBuilder setId(Long id) {
             this.id = id;
@@ -97,6 +108,11 @@ public class Request {
             return this;
         }
 
+        public RequestBuilder setSubmissionDate(LocalDateTime submissionDate) {
+            this.submissionDate = submissionDate;
+            return this;
+        }
+
         @Override
         public Request build() {
             Request request = new Request();
@@ -106,6 +122,7 @@ public class Request {
             request.setStatus(status);
             request.setReason(reason);
             request.setRejectReason(rejectReason);
+            request.setSubmissionDate(submissionDate);
             return request;
         }
     }

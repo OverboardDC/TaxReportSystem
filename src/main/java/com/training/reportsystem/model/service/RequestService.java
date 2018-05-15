@@ -15,4 +15,6 @@ public interface RequestService extends GenericService<Request> {
     void accept(Long requestId, Long taxPayerId, Long inspectorId);
 
     void reject(Long requestId, String rejectReason);
+
+    boolean areThereRequestsWithStatus(Status status, Long taxPayerId);
 }

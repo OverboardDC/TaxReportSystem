@@ -14,10 +14,8 @@ import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +55,7 @@ public class RequestDaoImpl implements RequestDao {
             preparedStatement.setLong(2, request.getInspector().getId());
             preparedStatement.setString(3, request.getReason());
             preparedStatement.setString(4, String.valueOf(request.getStatus()));
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(request.getSubmissionDate()));
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -167,6 +166,22 @@ public class RequestDaoImpl implements RequestDao {
         }
     }
 
+    @Override
+    public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ARE_THERE_REQUESTS_STATUS))) {
+            preparedStatement.setLong(1, taxPayerId);
+            preparedStatement.setString(2, status.toString());
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private Request extractRequest(ResultSet rs, Mapper<Inspector> inspectorMapper, Mapper<TaxPayer> taxPayerMapper) throws SQLException {
         String inspectorUserName = rs.getString(Columns.INSPECTOR_USERNAME);
         if (!inspectorMapper.getMap().containsKey(inspectorUserName)) {
@@ -185,8 +200,9 @@ public class RequestDaoImpl implements RequestDao {
         String reason = rs.getString(4);
         Status status = Status.valueOf(rs.getString(5).toUpperCase());
         String rejectReason = rs.getString(6);
+        LocalDateTime submissionDate = rs.getTimestamp(7).toLocalDateTime();
         return new Request.RequestBuilder().setId(id).setReason(reason)
-                .setStatus(status).setRejectReason(rejectReason);
+                .setStatus(status).setRejectReason(rejectReason).setSubmissionDate(submissionDate);
     }
 
     private Inspector extractInspectorFromRs(ResultSet rs) throws SQLException {

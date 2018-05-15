@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/tag/customTags.tld" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -34,7 +35,7 @@
         </div>
         <h2 class="text-center"><fmt:message key="previous.requests"
                                              bundle="${bundle}"/> ${request.status}</h2>
-        <div class="row justify-content-center">
+        <div class="row justify-content-start">
             <c:forEach items="${requestScope.requests}" var="request">
                 <div class="col-md-3 bg-light item">
                     <h6><fmt:message key="status.in"
@@ -48,6 +49,8 @@
                         <h6><fmt:message key="reject.reason.in" bundle="${bundle}"/></h6>
                         <p>${request.rejectReason}</p>
                     </c:if>
+                    <h6><fmt:message key="submission.date" bundle="${bundle}"/>:</h6>
+                    <p><ct:formatDateTime dateTime="${request.submissionDate}"/></p>
                 </div>
             </c:forEach>
         </div>

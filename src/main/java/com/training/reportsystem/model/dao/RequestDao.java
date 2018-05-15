@@ -16,4 +16,6 @@ public interface RequestDao extends GenericDao<Request> {
 
     void reject(Long requestId, String rejectReason);
 
+    boolean areThereRequestsWithStatus(Status status, Long taxPayerId);
+
 }

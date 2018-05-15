@@ -24,6 +24,7 @@ public interface Queries {
     String REJECT_REPORT = "reject.report";
     String GET_REPORT_BY_ID = "get.report.by.id";
     String UPDATE_REPORT = "update.report";
+    String ARE_THERE_REQUESTS_STATUS = "are.there.requests.status";
 
     String GET_COUNT_ALL_REPORTS_BY_USER = "get.count.all.reports.by.user";
     String GET_COUNT_ALL_REPORTS_BY_INSPECTOR = "get.count.all.reports.by.inspector";

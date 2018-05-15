@@ -36,7 +36,7 @@ public class RequestPage implements Command {
             return Pages.REQUEST_WITH_PAGE + pagination.getLastPageNum();
         }
         request.setAttribute(Attributes.INSPECTOR, inspectorService.getByUserId(taxPayer.getId()));
-        request.setAttribute(Attributes.ARE_THERE_REQUESTS_PENDING, requests.stream().anyMatch(i -> i.getStatus().equals(Status.PENDING)));
+        request.setAttribute(Attributes.ARE_THERE_REQUESTS_PENDING, requestService.areThereRequestsWithStatus(Status.PENDING, taxPayer.getId()));
         request.setAttribute(Attributes.REQUESTS, requests);
         return Pages.REQUEST;
     }

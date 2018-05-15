@@ -11,6 +11,7 @@ import com.training.reportsystem.util.i18n.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
 public class SendRequest implements Command {
 
@@ -32,7 +33,7 @@ public class SendRequest implements Command {
         Request taxPayerRequest = new Request.RequestBuilder()
                 .setTaxPayer(new TaxPayer.TaxPayerBuilder().setId(taxPayerId).build())
                 .setInspector(new Inspector.InspectorBuilder().setId(inspectorId).build())
-                .setReason(reason).setStatus(Status.PENDING).build();
+                .setReason(reason).setStatus(Status.PENDING).setSubmissionDate(LocalDateTime.now()).build();
         requestService.create(taxPayerRequest);
         logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_WAS_SENT));
         return Pages.TAX_PAYER_REDIRECT;

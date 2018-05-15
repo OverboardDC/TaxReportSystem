@@ -28,7 +28,6 @@
                         <h6><fmt:message key="username.in" bundle="${bundle}"/> ${tax_payer.username}</h6>
                         <h6><fmt:message key="identification.code.in"
                                          bundle="${bundle}"/> ${tax_payer.identificationCode}</h6>
-
                         <label><fmt:message key="assign.inspector" bundle="${bundle}"/></label>
                         <select name="inspector_id">
                             <option selected disabled class="hidden"><fmt:message key="select"
