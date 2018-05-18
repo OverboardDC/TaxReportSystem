@@ -6,7 +6,7 @@ import java.util.List;
 public class Pagination {
 
     private LinkedList<Page> pages = new LinkedList<>();
-    private int itemsOnPage = 5;
+    private static final int ITEMS_ON_PAGE = 5;
     private int page;
     private int totalCount;
 
@@ -15,7 +15,7 @@ public class Pagination {
     }
 
     public void fillPages() {
-        for (int index = 1; index <= calculateMaxPage(totalCount, itemsOnPage); index++) {
+        for (int index = 1; index <= calculateMaxPage(totalCount); index++) {
             addPage(index);
         }
     }
@@ -55,12 +55,12 @@ public class Pagination {
         }
     }
 
-    private int calculateMaxPage(int totalCount, int itemsOnPage) {
+    private int calculateMaxPage(int totalCount) {
         int limit;
-        if (totalCount % itemsOnPage == 0) {
-            limit = totalCount / itemsOnPage;
+        if (totalCount % ITEMS_ON_PAGE == 0) {
+            limit = totalCount / ITEMS_ON_PAGE;
         } else {
-            limit = (totalCount / itemsOnPage) + 1;
+            limit = (totalCount / ITEMS_ON_PAGE) + 1;
         }
         return limit;
     }
@@ -70,7 +70,7 @@ public class Pagination {
     }
 
     public int getItemsOnPage() {
-        return itemsOnPage;
+        return ITEMS_ON_PAGE;
     }
 
     public int getPage() {

@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+import static com.training.reportsystem.util.constants.LoggerMessages.INVALID_DATA;
 import static com.training.reportsystem.util.constants.LoggerMessages.LOGIN_FAILED;
+import static com.training.reportsystem.util.constants.LoggerMessages.REASON;
 
 
 public class Login implements Command {
@@ -38,7 +40,7 @@ public class Login implements Command {
             return LoginUtil.authorizeUser(user.get(), request);
         }
         request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
-        logger.info(LoggerUtil.formMessage(LOGIN_FAILED, username));
+        logger.info(LoggerUtil.formMessage(LOGIN_FAILED, username, REASON, INVALID_DATA));
         return Pages.LOGIN_REDIRECT;
     }
 

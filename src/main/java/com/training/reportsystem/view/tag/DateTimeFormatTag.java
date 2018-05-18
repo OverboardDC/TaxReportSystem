@@ -1,4 +1,4 @@
-package com.training.reportsystem.util.tag;
+package com.training.reportsystem.view.tag;
 
 import com.training.reportsystem.util.i18n.LocalisationUtil;
 

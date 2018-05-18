@@ -177,6 +177,7 @@ public class RequestDaoImpl implements RequestDao {
                 return true;
             }
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return false;

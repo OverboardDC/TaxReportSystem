@@ -1,5 +1,6 @@
 package com.training.reportsystem.model.entity;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class User {
@@ -69,6 +70,25 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                role == user.role;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, username, password, firstName, lastName, role);
     }
 
     protected static abstract class GenericUserBuilder<T extends GenericUserBuilder<T>> implements Builder<User> {

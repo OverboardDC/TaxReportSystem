@@ -13,17 +13,17 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.training.reportsystem.util.constants.LoggerMessages.LOGIN_SUCCESS;
-import static com.training.reportsystem.util.constants.LoggerMessages.USER;
+import static com.training.reportsystem.util.constants.LoggerMessages.*;
 
 public class LoginUtil {
 
     private static Logger logger = Logger.getRootLogger();
 
-    public static String authorizeUser(User user, HttpServletRequest request){
+    public static String authorizeUser(User user, HttpServletRequest request) {
         Set usersInSystem = getUsersFromContext(request.getSession());
-        if (usersInSystem.contains(user.getUsername())){
+        if (usersInSystem.contains(user.getUsername())) {
             request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.USER_ALREADY_LOGINED));
+            logger.info(LoggerUtil.formMessage(LOGIN_FAILED, USER, user.getUsername(), REASON, USER_ALREADY_LOGINED));
             return Pages.LOGIN_REDIRECT;
         }
         request.getSession().setAttribute(Attributes.USER, user);
@@ -47,11 +47,11 @@ public class LoginUtil {
         }
     }
 
-    private static Set getUsersFromContext(HttpSession session){
+    private static Set getUsersFromContext(HttpSession session) {
         return (Set) session.getServletContext().getAttribute(Attributes.USERS_IN_SYSTEM);
     }
 
-    private static void updateUsersAttribute(HttpSession session, Set usersInSystem){
+    private static void updateUsersAttribute(HttpSession session, Set usersInSystem) {
         session.getServletContext().setAttribute(Attributes.USERS_IN_SYSTEM, usersInSystem);
     }
 }

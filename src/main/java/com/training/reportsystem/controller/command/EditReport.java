@@ -4,6 +4,7 @@ import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.service.ReportService;
 import com.training.reportsystem.model.service.util.ReportValidator;
+import com.training.reportsystem.util.constants.LoggerMessages;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
 
@@ -36,6 +37,7 @@ public class EditReport implements Command {
         Report report = new Report.ReportBuilder().setId(id).setInspector(inspector).setPeriodFrom(periodFrom).setPeriodTo(periodTo)
                 .setRevenue(revenue).setTax(tax).setCommentary(commentary).build();
         reportService.update(report);
+        logger.info(LoggerMessages.REPORT_WAS_UPDATED);
         return Pages.TAX_PAYER_REDIRECT;
     }
 }

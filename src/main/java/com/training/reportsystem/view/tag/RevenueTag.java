@@ -1,4 +1,4 @@
-package com.training.reportsystem.util.tag;
+package com.training.reportsystem.view.tag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
