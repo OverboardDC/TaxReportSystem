@@ -43,7 +43,19 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public Request getById(Long id) {
-        return null;
+        Request request = null;
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REQUEST_BY_ID))) {
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                request = extractLazyRequest(rs);
+            }
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return request;
     }
 
     @Override
@@ -65,13 +77,33 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public void update(Request t) {
+    public void update(Request request) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_REQUEST));
 
+            preparedStatement.setLong(1, request.getTaxPayer().getId());
+            preparedStatement.setLong(2, request.getInspector().getId());
+            preparedStatement.setString(3, request.getReason());
+            preparedStatement.setString(4, String.valueOf(request.getStatus()));
+            preparedStatement.setLong(5, request.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Long id) {
-
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_REQUEST));
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -173,7 +205,7 @@ public class RequestDaoImpl implements RequestDao {
             preparedStatement.setLong(1, taxPayerId);
             preparedStatement.setString(2, status.toString());
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException e) {
@@ -181,6 +213,10 @@ public class RequestDaoImpl implements RequestDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private Request extractLazyRequest(ResultSet rs) throws SQLException {
+        return getBuilder(rs).build();
     }
 
     private Request extractRequest(ResultSet rs, Mapper<Inspector> inspectorMapper, Mapper<TaxPayer> taxPayerMapper) throws SQLException {

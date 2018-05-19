@@ -17,24 +17,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO implement
-//TODO create mappers!
 public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override
-    //TODO refactor
     public TaxPayer login(String username, String password) {
+        TaxPayer taxPayer = null;
         try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement taxPayerStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.TAX_PAYER_LOGIN));
             taxPayerStatement.setString(1, username);
             taxPayerStatement.setString(2, password);
             ResultSet rs = taxPayerStatement.executeQuery();
-            return extractFromResultSet(rs);
+            taxPayer = extractFromRs(rs);
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
-        return null;
+        return taxPayer;
     }
 
     @Override
@@ -55,12 +53,39 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
     @Override
     public List<TaxPayer> findAll() {
-        return null;
+        List<TaxPayer> taxPayers = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS))) {
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                taxPayers.add(extractLazyFromRs(rs));
+            }
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return taxPayers;
     }
 
     @Override
     public TaxPayer getById(Long id) {
-        return null;
+        TaxPayer taxPayer = null;
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_TAX_PAYER_BY_ID))) {
+
+            preparedStatement.setLong(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                taxPayer = extractFromRs(rs);
+            }
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return taxPayer;
     }
 
     @Override
@@ -80,27 +105,47 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
     }
 
     @Override
-    public void update(TaxPayer t) {
-
+    public void update(TaxPayer taxPayer) {
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_TAX_PAYER))) {
+            preparedStatement.setLong(1, taxPayer.getInspector().getId());
+            preparedStatement.setString(2, taxPayer.getUsername());
+            preparedStatement.setString(3, taxPayer.getPassword());
+            preparedStatement.setString(4, taxPayer.getFirstName());
+            preparedStatement.setString(5, taxPayer.getLastName());
+            preparedStatement.setString(6, taxPayer.getIdentificationCode());
+            preparedStatement.setLong(7, taxPayer.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Long id) {
-
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_TAX_PAYER))) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<TaxPayer> findAllWithoutInspector(Pagination pagination) {
         List<TaxPayer> taxPayers = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()){
-             String query = DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR);
-             pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
-                     DaoUtil.getQuery(Queries.GET_COUNT_ALL_TAX_PAYERS_WITHOUT_INSPECTOR)));
-             PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+            String query = DaoUtil.getQuery(Queries.FIND_ALL_TAX_PAYERS_WITHOUT_INSPECTOR);
+            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_TAX_PAYERS_WITHOUT_INSPECTOR)));
+            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                taxPayers.add(extractLazyFromResultSet(rs));
+                taxPayers.add(extractLazyFromRs(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -123,7 +168,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
         }
     }
 
-    private TaxPayer extractFromResultSet(ResultSet rs) throws SQLException {
+    private TaxPayer extractFromRs(ResultSet rs) throws SQLException {
         TaxPayer taxPayer = null;
         while (rs.next()) {
             Long id = rs.getLong(1);
@@ -139,7 +184,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
         return taxPayer;
     }
 
-    private TaxPayer extractLazyFromResultSet(ResultSet rs) throws SQLException {
+    private TaxPayer extractLazyFromRs(ResultSet rs) throws SQLException {
         Long id = rs.getLong(1);
         String username = rs.getString(2);
         String firstName = rs.getString(3);

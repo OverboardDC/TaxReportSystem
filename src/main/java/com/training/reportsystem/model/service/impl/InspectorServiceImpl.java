@@ -43,8 +43,8 @@ public class InspectorServiceImpl implements InspectorService {
     }
 
     @Override
-    public void update(Inspector t) {
-        inspectorDao.update(t);
+    public void update(Inspector inspector) {
+        inspectorDao.update(inspector);
     }
 
     @Override

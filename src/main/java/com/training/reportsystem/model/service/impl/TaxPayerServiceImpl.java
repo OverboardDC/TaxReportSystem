@@ -44,8 +44,8 @@ public class TaxPayerServiceImpl implements TaxPayerService {
     }
 
     @Override
-    public void update(TaxPayer t) {
-        taxPayerDao.update(t);
+    public void update(TaxPayer taxPayer) {
+        taxPayerDao.update(taxPayer);
     }
 
     @Override

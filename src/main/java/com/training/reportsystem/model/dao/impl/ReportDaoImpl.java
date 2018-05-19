@@ -24,25 +24,38 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public List<Report> findAll() {
-        return null;
+        List<Report> reports = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REPORTS))) {
+
+           ResultSet rs = preparedStatement.executeQuery();
+           while (rs.next()){
+               reports.add(extractLazyFromRs(rs));
+           }
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return reports;
     }
 
     @Override
     public Report getById(Long id) {
+        Report report = null;
         try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REPORT_BY_ID))) {
             preparedStatement.setLong(1, id);
 
             ResultSet rs = preparedStatement.executeQuery();
-            Report report = null;
+
             while (rs.next()) {
                 report = getBuilder(rs).build();
             }
-            return report;
         } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
-        return null;
+        return report;
     }
 
     @Override
@@ -89,7 +102,14 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public void delete(Long id) {
-
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_REPORT))) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -165,6 +185,10 @@ public class ReportDaoImpl implements ReportDao {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
+    }
+
+    private Report extractLazyFromRs(ResultSet rs) throws SQLException {
+        return getBuilder(rs).build();
     }
 
     private Report extractFromRsWithTaxPayer(ResultSet rs, Mapper<TaxPayer> mapper) throws SQLException {
