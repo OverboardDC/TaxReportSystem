@@ -30,6 +30,12 @@ public class ReportValidator implements Validator {
         return LocalDate.parse(periodTo);
     }
 
+    public void checkPeriodsValidity(HttpServletRequest request, LocalDate periodFrom, LocalDate periodTo) {
+        if (periodFrom.compareTo(periodTo) >= 0) {
+            isValid = validationFailed(request, Attributes.PERIOD_FROM_ERROR, ErrorMessages.INCORRECT_DATE_FORMAT);
+        }
+    }
+
     public Long inputRevenue(HttpServletRequest request) {
         String revenue = request.getParameter(Parameters.REVENUE);
         if (!revenue.matches(RegexConstants.MONEY)) {
@@ -48,7 +54,7 @@ public class ReportValidator implements Validator {
 
     public String inputCommentary(HttpServletRequest request) {
         String commentary = request.getParameter(Parameters.COMMENTARY);
-        if(commentary.isEmpty()){
+        if (commentary.isEmpty()) {
             return null;
         }
         if (!commentary.matches(RegexConstants.COMMENTARY)) {

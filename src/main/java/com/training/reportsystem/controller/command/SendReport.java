@@ -28,6 +28,7 @@ public class SendReport implements Command {
         ReportValidator reportValidator = new ReportValidator();
         LocalDate periodFrom = reportValidator.inputPeriodFrom(request);
         LocalDate periodTo = reportValidator.inputPeriodTo(request);
+        reportValidator.checkPeriodsValidity(request, periodFrom, periodTo);
         Long revenue = reportValidator.inputRevenue(request);
         Double tax = reportValidator.inputTax(request);
         String commentary = reportValidator.inputCommentary(request);
