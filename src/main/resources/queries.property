@@ -26,3 +26,16 @@ get.count.all.requests.by.status=SELECT COUNT(*) FROM request AS r INNER JOIN in
 get.count.all.requests.by.tax.payer=SELECT COUNT(*) FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.taxpayer_id = ?
 get.count.all.tax.payers.without.inspector=SELECT COUNT(*) FROM taxpayer WHERE inspector_id IS NULL
 are.there.requests.status=SELECT id from request where taxpayer_id = ? and status = ?
+get.inspector.by.id=SELECT id, firstname, lastname FROM inspector WHERE id = ?
+create.inspector=INSERT INTO inspector (role, username, password, firstname, lastname) VALUES (?,?,?,?,?)
+update.inspector=UPDATE inspector SET role = ?, username = ?, password = ?, firstname = ?, lastname = ? WHERE id = ?
+delete.inspector=DELETE FROM inspector WHERE id = ?
+find.all.reports=SELECT r.id, r.status, r.period_from, r.period_to, r.revenue, r.tax, r.commentary, r.reject_reason, r.submission_date, r.editing_date, t.id, t.firstname, t.lastname, t.username FROM report AS r INNER JOIN taxpayer t ON t.id = r.taxpayer_id
+delete.report=DELETE FROM report WHERE id = ?
+get.request.by.id=SELECT * FROM request WHERE id = ?
+update.request=UPDATE request SET taxpayer_id = ?, inspector_id = ?, reason = ?, status = ?, reject_reason = ? WHERE id = ?
+delete.request=DELETE FROM request WHERE id = ?
+find.all.taxpayers=SELECT id, username, firstname, lastname, identification_code FROM taxpayer
+get.taxpayer.by.id=SELECT id, username, firstname, lastname, identification_code FROM taxpayer WHERE id = ?
+update.taxpayer=UPDATE taxpayer SET inspector_id = ?, username = ?, password = ?, firstname = ?, lastname = ?, identification_code = ? WHERE id = ?
+delete.taxpayer=DELETE FROM taxpayer WHERE id = ?

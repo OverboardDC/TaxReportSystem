@@ -38,7 +38,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Report> findAll() {
-        return null;
+        return reportDao.findAll();
     }
 
     @Override
@@ -58,6 +58,6 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void delete(Long id) {
-
+        reportDao.delete(id);
     }
 }

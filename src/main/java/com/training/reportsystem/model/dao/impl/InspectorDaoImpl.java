@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO create mappers!
 public class InspectorDaoImpl implements InspectorDao {
 
     @Override
@@ -25,27 +24,12 @@ public class InspectorDaoImpl implements InspectorDao {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             ResultSet rs = preparedStatement.executeQuery();
-            return extractFromResultSet(rs);
+            return extractFromRs(rs);
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return null;
-    }
-
-    private Inspector extractFromResultSet(ResultSet rs) throws SQLException {
-        Inspector inspector = null;
-        while (rs.next()){
-            Long id = rs.getLong(1);
-            Role role =  Role.valueOf(rs.getString(2).toUpperCase());
-            String username = rs.getString(3);
-            String password = rs.getString(4);
-            String firstName = rs.getString(5);
-            String lastName = rs.getString(6);
-            inspector = new Inspector.InspectorBuilder().setId(id).setRole(role).setUsername(username).setPassword(password)
-                    .setFirstName(firstName).setLastName(lastName).build();
-        }
-        return inspector;
     }
 
     @Override
@@ -65,7 +49,6 @@ public class InspectorDaoImpl implements InspectorDao {
     }
 
     @Override
-    //TODO Temporary
     public List<Inspector> findAll() {
         List<Inspector> inspectors = new ArrayList<>();
         try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
@@ -73,7 +56,7 @@ public class InspectorDaoImpl implements InspectorDao {
             preparedStatement.setString(1, Role.INSPECTOR.toString());
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
-                inspectors.add(buildLazyFromRs(rs));
+                inspectors.add(extractLazyFromRs(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -84,48 +67,106 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public Inspector getById(Long id) {
-        return null;
-    }
+        Inspector inspector = null;
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_ID))) {
 
-    private Inspector buildLazyFromRs(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(1);
-        String firstName = rs.getString(2);
-        String lastName = rs.getString(3);
-        return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
-    }
-
-    @Override
-    public void create(Inspector inspector) {
-
-    }
-
-    @Override
-    public void update(Inspector t) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
-    public Inspector getByUserId(Long userId) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_USER))) {
-
-            preparedStatement.setLong(1, userId);
-
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            Inspector inspector = null;
+
             while (rs.next()){
-                inspector = buildLazyFromRs(rs);
+                inspector = extractLazyFromRs(rs);
             }
-            return inspector;
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
-        return null;
+        return inspector;
+    }
+
+    @Override
+    public void create(Inspector inspector) {
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_INSPECTOR))) {
+            preparedStatement.setString(1, inspector.getRole().toString());
+            preparedStatement.setString(2, inspector.getUsername());
+            preparedStatement.setString(3, inspector.getPassword());
+            preparedStatement.setString(4, inspector.getFirstName());
+            preparedStatement.setString(5, inspector.getLastName());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Inspector inspector) {
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_INSPECTOR))) {
+            preparedStatement.setString(1, inspector.getRole().toString());
+            preparedStatement.setString(2, inspector.getUsername());
+            preparedStatement.setString(3, inspector.getPassword());
+            preparedStatement.setString(4, inspector.getFirstName());
+            preparedStatement.setString(5, inspector.getLastName());
+            preparedStatement.setLong(6, inspector.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_INSPECTOR))) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Inspector getByUserId(Long userId) {
+        Inspector inspector = null;
+        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_USER))) {
+            preparedStatement.setLong(1, userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                inspector = extractLazyFromRs(rs);
+            }
+        } catch (SQLException e) {
+            logger.error(LoggerMessages.SQL_EXCEPTION);
+            e.printStackTrace();
+        }
+        return inspector;
+    }
+
+    private Inspector extractFromRs(ResultSet rs) throws SQLException {
+        Inspector inspector = null;
+        while (rs.next()){
+            Long id = rs.getLong(1);
+            Role role =  Role.valueOf(rs.getString(2).toUpperCase());
+            String username = rs.getString(3);
+            String password = rs.getString(4);
+            String firstName = rs.getString(5);
+            String lastName = rs.getString(6);
+            inspector = new Inspector.InspectorBuilder().setId(id).setRole(role).setUsername(username).setPassword(password)
+                    .setFirstName(firstName).setLastName(lastName).build();
+        }
+        return inspector;
+    }
+
+    private Inspector extractLazyFromRs(ResultSet rs) throws SQLException {
+        Long id = rs.getLong(1);
+        String firstName = rs.getString(2);
+        String lastName = rs.getString(3);
+        return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
     }
 }
