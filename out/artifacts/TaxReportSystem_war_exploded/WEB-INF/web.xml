@@ -6,7 +6,7 @@
 
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/WEB-INF/view/error.jsp</location>
+        <location>/WEB-INF/view/pages/error.jsp</location>
     </error-page>
 
 

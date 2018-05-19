@@ -74,7 +74,7 @@ public class Servlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = request.getRequestURI().replaceAll(".*" + "/app/", "");
         Command command = commandMap.getOrDefault(url, commandMap.get(Commands.HOME_PAGE));
-
+        System.out.println(url);
         if (url.contains(GlobalConstants.REDIRECT_URL_PATTERN)) {
             response.sendRedirect(command.execute(request, response));
         } else {

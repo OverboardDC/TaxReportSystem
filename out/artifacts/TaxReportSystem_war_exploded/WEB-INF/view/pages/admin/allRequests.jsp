@@ -4,11 +4,11 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<jsp:include page="../template/head.jsp"/>
+<jsp:include page="../../template/head.jsp"/>
 <body>
 
 <div class="wrapper">
-    <jsp:include page="../template/header.jsp"/>
+    <jsp:include page="../../template/header.jsp"/>
     <section>
         <div class="row justify-content-center text-center">
             <h1><fmt:message key="requests" bundle="${bundle}"/></h1>
@@ -60,7 +60,7 @@
                 </div>
             </c:forEach>
         </div>
-        <jsp:include page="../template/pagination.jsp"/>
+        <jsp:include page="../../template/pagination.jsp"/>
     </section>
 </div>
 </body>
