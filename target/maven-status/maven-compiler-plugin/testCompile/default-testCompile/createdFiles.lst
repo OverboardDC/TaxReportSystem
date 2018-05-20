@@ -1,0 +1,11 @@
+com\training\reportsystem\controller\command\AssignInspectorTest.class
+com\training\reportsystem\controller\command\login\LoginTest.class
+com\training\reportsystem\controller\command\EditReportTest.class
+com\training\reportsystem\controller\command\RejectReportTest.class
+com\training\reportsystem\controller\command\RejectRequestTest.class
+com\training\reportsystem\controller\command\SendReportTest.class
+com\training\reportsystem\controller\command\ApproveReportTest.class
+com\training\reportsystem\model\service\PaginationTest.class
+com\training\reportsystem\controller\command\login\RegistrationTest.class
+com\training\reportsystem\controller\command\SendRequestTest.class
+com\training\reportsystem\controller\command\AcceptRequestTest.class

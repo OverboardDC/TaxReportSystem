@@ -43,7 +43,7 @@ public class SendReportTest {
     public void setUp(){
         sendReport = new SendReport(reportService);
         periodFrom = "2018-01-01";
-        periodTo = "2018-01-01";
+        periodTo = "2018-02-01";
         revenue = "123.56";
         tax = "34";
         commentary = "Commentary";
