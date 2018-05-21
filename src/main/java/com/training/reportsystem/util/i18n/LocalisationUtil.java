@@ -9,7 +9,7 @@ public class LocalisationUtil {
             "MM-dd-yyyy HH:mm", "MM-dd-yyyy");
     public static final Language RUSSIAN = new Language(new Locale("ru", "RU"),
             "dd-MM-yyyy HH:mm", "dd-MM-yyyy");
-    private static final String BUNDLE_NAME = "/messages";
+    private static final String BUNDLE_NAME = "messages";
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, ENGLISH.getLocale());
 
