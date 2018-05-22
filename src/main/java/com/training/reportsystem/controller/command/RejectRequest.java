@@ -19,7 +19,7 @@ public class RejectRequest implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String rejectReason = request.getParameter(Parameters.REJECT_REASON);
-        if(rejectReason.isEmpty()){
+        if(!rejectReason.matches(RegexConstants.MESSAGE)){
             request.getSession().setAttribute(Attributes.ALL_REQUESTS_PAGE_ERROR,
                     LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
             return Pages.ALL_REQUESTS_REDIRECT;

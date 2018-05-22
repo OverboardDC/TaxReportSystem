@@ -57,7 +57,7 @@ public class ReportValidator implements Validator {
         if (commentary.isEmpty()) {
             return null;
         }
-        if (!commentary.matches(RegexConstants.COMMENTARY)) {
+        if (!commentary.matches(RegexConstants.MESSAGE)) {
             isValid = validationFailed(request, Attributes.COMMENTARY_ERROR, ErrorMessages.INCORRECT_COMMENTARY);
         }
         return commentary;

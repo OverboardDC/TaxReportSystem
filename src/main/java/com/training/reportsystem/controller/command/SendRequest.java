@@ -26,7 +26,7 @@ public class SendRequest implements Command {
         Long taxPayerId = Long.valueOf(request.getParameter(Parameters.TAX_PAYER_ID));
         Long inspectorId = Long.valueOf(request.getParameter(Parameters.INSPECTOR_ID));
         String reason = request.getParameter(Parameters.REASON);
-        if(reason.isEmpty()){
+        if(!reason.matches(RegexConstants.MESSAGE)){
             request.getSession().setAttribute(Attributes.REASON_ERROR, LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
             return Pages.REQUEST_REDIRECT;
         }
