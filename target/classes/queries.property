@@ -9,13 +9,13 @@ assign.inspector=UPDATE taxpayer SET inspector_id = ? WHERE id = ?
 create.request=INSERT INTO request (taxpayer_id, inspector_id, reason, status, submission_date) VALUES (?,?,?,?,?)
 find.all.requests=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id
 find.all.requests.by.status=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.status = ? ORDER BY submission_date DESC
-find.requests.by.tax.payer=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.taxpayer_id = ? ORDER BY submission_date DESC
+find.requests.by.tax.payer=SELECT * FROM request AS r INNER JOIN inspector i ON i.id = r.inspector_id INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.taxpayer_id = ?
 accept.request=UPDATE request SET status = ? WHERE id = ?
 reject.request=UPDATE request SET status = ?, reject_reason = ? WHERE id = ?
 get.inspector.by.user=SELECT t.inspector_id, i.firstname, i.lastname FROM taxpayer AS t INNER JOIN inspector i ON i.id = t.inspector_id WHERE t.id = ?
 create.report=INSERT INTO report (taxpayer_id, inspector_id, status, period_from, period_to, revenue, tax, commentary, submission_date) VALUES (?,?,?,?,?,?,?,?,?)
-find.all.reports.by.user=SELECT r.id, r.status, r.period_from, r.period_to, r.revenue, r.tax, r.commentary, r.reject_reason, r.submission_date, r.editing_date, i.id, i.firstname, i.lastname, i.username FROM report AS r INNER JOIN inspector i ON i.id = r.inspector_id WHERE r.taxpayer_id = ? ORDER BY r.submission_date DESC
-find.all.reports.by.inspector=SELECT r.id, r.status, r.period_from, r.period_to, r.revenue, r.tax, r.commentary, r.reject_reason, r.submission_date, r.editing_date, t.id, t.firstname, t.lastname, t.username, t.identification_code FROM report AS r INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.inspector_id = ? ORDER BY r.submission_date DESC
+find.all.reports.by.user=SELECT r.id, r.status, r.period_from, r.period_to, r.revenue, r.tax, r.commentary, r.reject_reason, r.submission_date, r.editing_date, i.id, i.firstname, i.lastname, i.username FROM report AS r INNER JOIN inspector i ON i.id = r.inspector_id WHERE r.taxpayer_id = ? ORDER BY status = 'Rejected' DESC, submission_date DESC
+find.all.reports.by.inspector=SELECT r.id, r.status, r.period_from, r.period_to, r.revenue, r.tax, r.commentary, r.reject_reason, r.submission_date, r.editing_date, t.id, t.firstname, t.lastname, t.username, t.identification_code FROM report AS r INNER JOIN taxpayer t ON t.id = r.taxpayer_id WHERE r.inspector_id = ?  ORDER BY status = 'Pending' DESC, submission_date DESC
 approve.report=UPDATE report SET status = ? WHERE id = ?
 reject.report=UPDATE report SET status = ?, reject_reason = ? WHERE id = ?
 get.report.by.id=SELECT id, status, period_from, period_to, revenue, tax, commentary, reject_reason, submission_date, editing_date FROM report WHERE id = ?
