@@ -9,6 +9,7 @@ import com.training.reportsystem.util.i18n.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class ReportValidator implements Validator {
 
@@ -18,6 +19,7 @@ public class ReportValidator implements Validator {
         String periodFrom = request.getParameter(Parameters.PERIOD_FROM);
         if (periodFrom.isEmpty() || !periodFrom.matches(RegexConstants.DATE_REGEX)) {
             isValid = validationFailed(request, Attributes.PERIOD_FROM_ERROR, ErrorMessages.INCORRECT_DATE_FORMAT);
+            return LocalDate.now();
         }
         return LocalDate.parse(periodFrom);
     }
@@ -26,13 +28,14 @@ public class ReportValidator implements Validator {
         String periodTo = request.getParameter(Parameters.PERIOD_TO);
         if (periodTo.isEmpty() || !periodTo.matches(RegexConstants.DATE_REGEX)) {
             isValid = validationFailed(request, Attributes.PERIOD_TO_ERROR, ErrorMessages.INCORRECT_DATE_FORMAT);
+            return LocalDate.now();
         }
         return LocalDate.parse(periodTo);
     }
 
     public void checkPeriodsValidity(HttpServletRequest request, LocalDate periodFrom, LocalDate periodTo) {
         if (periodFrom.compareTo(periodTo) >= 0) {
-            isValid = validationFailed(request, Attributes.PERIOD_FROM_ERROR, ErrorMessages.INCORRECT_DATE_FORMAT);
+            isValid = validationFailed(request, Attributes.NEW_REPORT_ERROR, ErrorMessages.INCORRECT_PERIODS);
         }
     }
 
@@ -40,6 +43,7 @@ public class ReportValidator implements Validator {
         String revenue = request.getParameter(Parameters.REVENUE);
         if (!revenue.matches(RegexConstants.MONEY)) {
             isValid = validationFailed(request, Attributes.REVENUE_ERROR, ErrorMessages.INCORRECT_REVENUE);
+            return null;
         }
         return ValueParser.parseRevenue(revenue);
     }
@@ -48,6 +52,7 @@ public class ReportValidator implements Validator {
         String tax = request.getParameter(Parameters.TAX);
         if (!tax.matches(RegexConstants.NUMBER)) {
             isValid = validationFailed(request, Attributes.TAX_ERROR, ErrorMessages.INCORRECT_TAX);
+            return null;
         }
         return ValueParser.parseTax(tax);
     }

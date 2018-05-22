@@ -23,6 +23,7 @@ public interface Attributes {
     String ADMIN_PAGE_ERROR = "admin_page_error";
     String ALL_REQUESTS_PAGE_ERROR = "all_requests_page_error";
     String INSPECTOR_PAGE_ERROR = "inspector_page_error";
+    String NEW_REPORT_ERROR = "new_report_error";
 
     String REQUESTS = "requests";
     String ARE_THERE_REQUESTS_PENDING = "are_there_requests_pending";
@@ -33,4 +34,5 @@ public interface Attributes {
     String USERS_IN_SYSTEM = "users_in_system";
 
     String PAGES = "pages";
+
 }

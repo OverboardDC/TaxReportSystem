@@ -14,34 +14,34 @@
                 <div class="form-group">
                     <h1 class="text-center"><fmt:message key="registration" bundle="${bundle}"/></h1>
 
+                    <label><fmt:message key="first.name" bundle="${bundle}"/>:*</label>
                     <h6 class="text-danger">${sessionScope.first_name_error}</h6>
                     <c:remove var="first_name_error" scope="session"/>
-                    <label><fmt:message key="first.name" bundle="${bundle}"/>:*</label>
                     <input class="input-group" name="first_name">
 
+                    <label><fmt:message key="last.name" bundle="${bundle}"/>:*</label>
                     <h6 class="text-danger">${sessionScope.last_name_error}</h6>
                     <c:remove var="last_name_error" scope="session"/>
-                    <label><fmt:message key="last.name" bundle="${bundle}"/>:*</label>
                     <input class="input-group" name="last_name">
 
+                    <label><fmt:message key="identification.code" bundle="${bundle}"/>:*</label>
                     <h6 class="text-danger">${sessionScope.identification_code_error}</h6>
                     <c:remove var="identification_code_error" scope="session"/>
-                    <label><fmt:message key="identification.code" bundle="${bundle}"/>:*</label>
                     <input class="input-group" name="identification_code">
 
+                    <label><fmt:message key="username" bundle="${bundle}"/>:*</label>
                     <h6 class="text-danger">${sessionScope.username_error}</h6>
                     <c:remove var="username_error" scope="session"/>
-                    <label><fmt:message key="username" bundle="${bundle}"/>:*</label>
                     <input class="input-group" name="username">
 
-                    <h6 class="text-danger">${sessionScope.password_error}</h6>
-                    <c:remove var="password_error" scope="session"/>
                     <label><fmt:message key="password" bundle="${bundle}"/>:*</label>
+                    <h6 class="text-danger">${sessionScope.username_error}</h6>
+                    <c:remove var="username_error" scope="session"/>
                     <input type="password" class="input-group" name="password">
 
-                    <h6 class="text-danger">${sessionScope.password_repeat_error}</h6>
-                    <c:remove var="password_repeat_error" scope="session"/>
                     <label><fmt:message key="password.repeat" bundle="${bundle}"/>:*</label>
+                    <h6 class="text-danger">${sessionScope.username_error}</h6>
+                    <c:remove var="username_error" scope="session"/>
                     <input type="password" class="input-group" name="password_repeat">
                 </div>
 

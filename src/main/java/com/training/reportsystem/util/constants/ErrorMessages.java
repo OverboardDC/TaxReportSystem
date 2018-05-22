@@ -18,5 +18,5 @@ public interface ErrorMessages {
     String INCORRECT_COMMENTARY = "incorrect.commentary";
     String USER_ALREADY_LOGINED = "user.already.logined";
     String INSPECTOR_WASNT_CHOSEN = "inspector.wasnt.chosen";
-
+    String INCORRECT_PERIODS = "incorrect.periods";
 }

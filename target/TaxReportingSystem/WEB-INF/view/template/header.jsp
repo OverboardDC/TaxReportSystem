@@ -41,9 +41,6 @@
                         <fmt:message key="login" bundle="${bundle}"/></a>
                 </c:if>
 
-                <a href="#" class="nav-item nav-link text-light">
-                    <fmt:message key="help" bundle="${bundle}"/></a>
-
                 <c:if test="${not empty sessionScope.user}">
                     <a href="<c:url value="/app/redirect/logout"/>" class="nav-item nav-link text-light">
                         <fmt:message key="logout" bundle="${bundle}"/></a>
