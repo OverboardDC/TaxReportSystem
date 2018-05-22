@@ -1,11 +1,11 @@
 package com.training.reportsystem.model.dao.impl;
 
 import com.training.reportsystem.model.dao.TaxPayerDao;
+import com.training.reportsystem.model.dao.extractor.TaxPayerExtractor;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.PaginationDaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
-import com.training.reportsystem.model.entity.Role;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.constants.LoggerMessages;
@@ -27,7 +27,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
             taxPayerStatement.setString(1, username);
             taxPayerStatement.setString(2, password);
             ResultSet rs = taxPayerStatement.executeQuery();
-            taxPayer = extractFromRs(rs);
+            taxPayer = TaxPayerExtractor.extractFromRs(rs);
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                taxPayers.add(extractLazyFromRs(rs));
+                taxPayers.add(TaxPayerExtractor.extractLazyFromRs(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -79,7 +79,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                taxPayer = extractFromRs(rs);
+                taxPayer = TaxPayerExtractor.extractFromRs(rs);
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -145,7 +145,7 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                taxPayers.add(extractLazyFromRs(rs));
+                taxPayers.add(TaxPayerExtractor.extractLazyFromRs(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -166,31 +166,5 @@ public class TaxPayerDaoImpl implements TaxPayerDao {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
-    }
-
-    private TaxPayer extractFromRs(ResultSet rs) throws SQLException {
-        TaxPayer taxPayer = null;
-        while (rs.next()) {
-            Long id = rs.getLong(1);
-            String username = rs.getString(3);
-            String password = rs.getString(4);
-            String firstName = rs.getString(5);
-            String lastName = rs.getString(6);
-            String identification_code = rs.getString(7);
-            taxPayer = new TaxPayer.TaxPayerBuilder().setId(id).setUsername(username)
-                    .setPassword(password).setFirstName(firstName).setLastName(lastName).
-                            setIdentificationCode(identification_code).setRole(Role.CLIENT).build();
-        }
-        return taxPayer;
-    }
-
-    private TaxPayer extractLazyFromRs(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(1);
-        String username = rs.getString(2);
-        String firstName = rs.getString(3);
-        String lastName = rs.getString(4);
-        String identificationCode = rs.getString(5);
-        return new TaxPayer.TaxPayerBuilder().setId(id).setUsername(username).setFirstName(firstName).setLastName(lastName)
-                .setIdentificationCode(identificationCode).build();
     }
 }

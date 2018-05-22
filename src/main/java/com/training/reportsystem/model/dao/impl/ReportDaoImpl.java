@@ -1,21 +1,17 @@
 package com.training.reportsystem.model.dao.impl;
 
 import com.training.reportsystem.model.dao.ReportDao;
-import com.training.reportsystem.model.dao.mapper.Mapper;
+import com.training.reportsystem.model.dao.extractor.ReportExtractor;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.PaginationDaoUtil;
-import com.training.reportsystem.model.dao.util.constant.Columns;
 import com.training.reportsystem.model.dao.util.constant.Queries;
-import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.entity.Status;
-import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.util.Pagination;
 import com.training.reportsystem.util.constants.LoggerMessages;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +26,7 @@ public class ReportDaoImpl implements ReportDao {
 
            ResultSet rs = preparedStatement.executeQuery();
            while (rs.next()){
-               reports.add(extractLazyFromRs(rs));
+               reports.add(ReportExtractor.extract(rs));
            }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -49,7 +45,7 @@ public class ReportDaoImpl implements ReportDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                report = getBuilder(rs).build();
+                report = ReportExtractor.extract(rs);
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -124,9 +120,9 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setLong(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
-            Mapper<Inspector> mapper = new Mapper<>();
+            ReportExtractor reportExtractor = new ReportExtractor();
             while (rs.next()) {
-                reports.add(extractFromRsWithInspector(rs, mapper));
+                reports.add(reportExtractor.extractWithInspector(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -147,9 +143,9 @@ public class ReportDaoImpl implements ReportDao {
             preparedStatement.setLong(1, inspectorId);
 
             ResultSet rs = preparedStatement.executeQuery();
-            Mapper<TaxPayer> mapper = new Mapper<>();
+            ReportExtractor reportExtractor = new ReportExtractor();
             while (rs.next()) {
-                reports.add(extractFromRsWithTaxPayer(rs, mapper));
+                reports.add(reportExtractor.extractWithTaxPayer(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -187,54 +183,5 @@ public class ReportDaoImpl implements ReportDao {
         }
     }
 
-    private Report extractLazyFromRs(ResultSet rs) throws SQLException {
-        return getBuilder(rs).build();
-    }
 
-    private Report extractFromRsWithTaxPayer(ResultSet rs, Mapper<TaxPayer> mapper) throws SQLException {
-        String userName = rs.getString(Columns.TAX_PAYER_USERNAME);
-        if (!mapper.getMap().containsKey(userName)) {
-            mapper.getMap().put(userName, extractTaxPayer(rs));
-        }
-        return getBuilder(rs).setTaxPayer(mapper.get(userName)).build();
-    }
-
-    private Report extractFromRsWithInspector(ResultSet rs, Mapper<Inspector> mapper) throws SQLException {
-        String userName = rs.getString(Columns.INSPECTOR_USERNAME);
-        if (!mapper.getMap().containsKey(userName)) {
-            mapper.getMap().put(userName, extractInspector(rs));
-        }
-        return getBuilder(rs).setInspector(mapper.get(userName)).build();
-    }
-
-    private Report.ReportBuilder getBuilder(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(1);
-        Status status = Status.valueOf(rs.getString(2).toUpperCase());
-        LocalDate periodFrom = LocalDate.parse(rs.getString(3));
-        LocalDate periodTo = LocalDate.parse(rs.getString(4));
-        Long revenue = rs.getLong(5);
-        Double tax = rs.getDouble(6);
-        String commentary = rs.getString(7);
-        String rejectReason = rs.getString(8);
-        LocalDateTime submissionDate = rs.getTimestamp(9).toLocalDateTime();
-        LocalDateTime editionDate = rs.getTimestamp(10) == null ? null : rs.getTimestamp(10).toLocalDateTime();
-        return new Report.ReportBuilder().setId(id).setStatus(status).setPeriodFrom(periodFrom)
-                .setPeriodTo(periodTo).setRevenue(revenue).setTax(tax).setCommentary(commentary)
-                .setRejectReason(rejectReason).setSubmissionDate(submissionDate)
-                .setEditionDate(editionDate);
-    }
-
-    private Inspector extractInspector(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(Columns.INSPECTOR_ID);
-        String firstName = rs.getString(Columns.INSPECTOR_FIRST_NAME);
-        String lastName = rs.getString(Columns.INSPECTOR_LAST_NAME);
-        return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
-    }
-
-    private TaxPayer extractTaxPayer(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(Columns.TAX_PAYER_ID);
-        String firstName = rs.getString(Columns.TAX_PAYER_FIRST_NAME);
-        String lastName = rs.getString(Columns.TAX_PAYER_LAST_NAME);
-        return new TaxPayer.TaxPayerBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
-    }
 }

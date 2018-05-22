@@ -1,6 +1,7 @@
 package com.training.reportsystem.model.dao.impl;
 
 import com.training.reportsystem.model.dao.InspectorDao;
+import com.training.reportsystem.model.dao.extractor.InspectorExtractor;
 import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.dao.util.DaoUtil;
 import com.training.reportsystem.model.dao.util.constant.Queries;
@@ -24,7 +25,7 @@ public class InspectorDaoImpl implements InspectorDao {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             ResultSet rs = preparedStatement.executeQuery();
-            return extractFromRs(rs);
+            return InspectorExtractor.extract(rs);
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
@@ -56,7 +57,7 @@ public class InspectorDaoImpl implements InspectorDao {
             preparedStatement.setString(1, Role.INSPECTOR.toString());
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
-                inspectors.add(extractLazyFromRs(rs));
+                inspectors.add(InspectorExtractor.extractLazy(rs));
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -75,7 +76,7 @@ public class InspectorDaoImpl implements InspectorDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
-                inspector = extractLazyFromRs(rs);
+                inspector = InspectorExtractor.extractLazy(rs);
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -139,34 +140,12 @@ public class InspectorDaoImpl implements InspectorDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
-                inspector = extractLazyFromRs(rs);
+                inspector = InspectorExtractor.extractLazy(rs);
             }
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
         return inspector;
-    }
-
-    private Inspector extractFromRs(ResultSet rs) throws SQLException {
-        Inspector inspector = null;
-        while (rs.next()){
-            Long id = rs.getLong(1);
-            Role role =  Role.valueOf(rs.getString(2).toUpperCase());
-            String username = rs.getString(3);
-            String password = rs.getString(4);
-            String firstName = rs.getString(5);
-            String lastName = rs.getString(6);
-            inspector = new Inspector.InspectorBuilder().setId(id).setRole(role).setUsername(username).setPassword(password)
-                    .setFirstName(firstName).setLastName(lastName).build();
-        }
-        return inspector;
-    }
-
-    private Inspector extractLazyFromRs(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(1);
-        String firstName = rs.getString(2);
-        String lastName = rs.getString(3);
-        return new Inspector.InspectorBuilder().setId(id).setFirstName(firstName).setLastName(lastName).build();
     }
 }

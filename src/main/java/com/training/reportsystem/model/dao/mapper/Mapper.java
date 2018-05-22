@@ -1,17 +1,24 @@
 package com.training.reportsystem.model.dao.mapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Mapper<T> {
+public abstract class Mapper<T> {
 
-    private Map<String, T> map = new HashMap<>();
+    private Map<String, T> resultMap = new HashMap<>();
 
-    public Map<String, T> getMap(){
-        return map;
+    protected Map<String, T> getResultMap() {
+        return resultMap;
     }
 
-    public T get(String key) {
-        return map.get(key);
+    protected abstract void putValue(String key, ResultSet rs) throws SQLException;
+
+    public T map(String key, ResultSet rs) throws SQLException {
+        if (!getResultMap().containsKey(key)) {
+            putValue(key, rs);
+        }
+        return getResultMap().get(key);
     }
 }
