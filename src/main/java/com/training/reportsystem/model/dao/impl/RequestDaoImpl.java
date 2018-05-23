@@ -17,11 +17,16 @@ import java.util.List;
 
 public class RequestDaoImpl implements RequestDao {
 
+    private Connection connection;
+
+    public RequestDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public List<Request> findAll() {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS))) {
 
             ResultSet rs = preparedStatement.executeQuery();
             RequestExtractor requestExtractor = new RequestExtractor();
@@ -39,8 +44,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public Request getById(Long id) {
         Request request = null;
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REQUEST_BY_ID))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REQUEST_BY_ID))) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -55,8 +59,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void create(Request request) {
-        try (Connection connection = ConnectionPool.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_REQUEST));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_REQUEST))) {
 
             preparedStatement.setLong(1, request.getTaxPayer().getId());
             preparedStatement.setLong(2, request.getInspector().getId());
@@ -73,8 +76,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void update(Request request) {
-        try (Connection connection = ConnectionPool.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_REQUEST));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_REQUEST))) {
 
             preparedStatement.setLong(1, request.getTaxPayer().getId());
             preparedStatement.setLong(2, request.getInspector().getId());
@@ -91,8 +93,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void delete(Long id) {
-        try (Connection connection = ConnectionPool.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_REQUEST));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_REQUEST))) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -104,11 +105,11 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination) {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getConnection()) {
-            String query = DaoUtil.getQuery(Queries.FIND_REQUESTS_BY_TAX_PAYER);
-            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
-                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_TAX_PAYER), taxPayerId));
-            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
+        String query = DaoUtil.getQuery(Queries.FIND_REQUESTS_BY_TAX_PAYER);
+        pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_TAX_PAYER), taxPayerId));
+        try (PreparedStatement preparedStatement = connection.
+                prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination))) {
 
             preparedStatement.setLong(1, taxPayerId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -127,11 +128,10 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> findByStatus(Status status, Pagination pagination) {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getConnection()) {
-            String query = DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS_BY_STATUS);
-            pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
-                    DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_STATUS), status));
-            PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination));
+        String query = DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS_BY_STATUS);
+        pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
+                DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_STATUS), status));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(PaginationDaoUtil.formQueryWithPagination(query, pagination))) {
 
             preparedStatement.setString(1, status.toString());
             ResultSet rs = preparedStatement.executeQuery();
@@ -149,16 +149,14 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void accept(Long requestId, Long taxPayerId, Long inspectorId) {
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try {
             connection.setAutoCommit(false);
-
-            try {
-                PreparedStatement prstAccept = connection.prepareStatement(DaoUtil.getQuery(Queries.ACCEPT_REQUEST));
+            try (PreparedStatement prstAccept = connection.prepareStatement(DaoUtil.getQuery(Queries.ACCEPT_REQUEST));
+                 PreparedStatement prstAssignInspector = connection.prepareStatement(DaoUtil.getQuery(Queries.ASSIGN_INSPECTOR))) {
                 prstAccept.setString(1, Status.APPROVED.toString());
                 prstAccept.setLong(2, requestId);
                 prstAccept.executeUpdate();
 
-                PreparedStatement prstAssignInspector = connection.prepareStatement(DaoUtil.getQuery(Queries.ASSIGN_INSPECTOR));
                 prstAssignInspector.setLong(1, inspectorId);
                 prstAssignInspector.setLong(2, taxPayerId);
                 prstAssignInspector.executeUpdate();
@@ -168,22 +166,19 @@ public class RequestDaoImpl implements RequestDao {
                 logger.error(LoggerMessages.SQL_EXCEPTION);
                 e.printStackTrace();
             }
-
         } catch (SQLException e) {
-            logger.error(LoggerMessages.SQL_EXCEPTION);
             e.printStackTrace();
         }
+
     }
 
     @Override
     public void reject(Long requestId, String rejectReason) {
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.REJECT_REQUEST))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.REJECT_REQUEST))) {
 
             preparedStatement.setString(1, Status.REJECTED.toString());
             preparedStatement.setString(2, rejectReason);
             preparedStatement.setLong(3, requestId);
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(LoggerMessages.SQL_EXCEPTION);
@@ -193,8 +188,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ARE_THERE_REQUESTS_STATUS))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ARE_THERE_REQUESTS_STATUS))) {
             preparedStatement.setLong(1, taxPayerId);
             preparedStatement.setString(2, status.toString());
             ResultSet rs = preparedStatement.executeQuery();
@@ -206,5 +200,10 @@ public class RequestDaoImpl implements RequestDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void close() throws Exception {
+        connection.close();
     }
 }

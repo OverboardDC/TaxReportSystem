@@ -1,8 +1,6 @@
 package com.training.reportsystem.model.service.impl;
 
-import com.training.reportsystem.model.dao.RequestDao;
 import com.training.reportsystem.model.dao.factory.DaoFactory;
-import com.training.reportsystem.model.dao.impl.RequestDaoImpl;
 import com.training.reportsystem.model.entity.Request;
 import com.training.reportsystem.model.entity.Status;
 import com.training.reportsystem.model.service.RequestService;
@@ -12,60 +10,54 @@ import java.util.List;
 
 public class RequestServiceImpl implements RequestService {
 
-    private RequestDao requestDao;
-
-    public RequestServiceImpl() {
-        requestDao = DaoFactory.getInstance().createRequestDao();
-    }
-
     @Override
     public List<Request> findAll() {
-        return requestDao.findAll();
+        return DaoFactory.getInstance().createRequestDao().findAll();
     }
 
     @Override
     public Request getById(Long id) {
-        return requestDao.getById(id);
+        return DaoFactory.getInstance().createRequestDao().getById(id);
     }
 
     @Override
     public void create(Request request) {
-        requestDao.create(request);
+        DaoFactory.getInstance().createRequestDao().create(request);
     }
 
     @Override
     public void update(Request request) {
-        requestDao.update(request);
+        DaoFactory.getInstance().createRequestDao().update(request);
     }
 
     @Override
     public void delete(Long id) {
-        requestDao.delete(id);
+        DaoFactory.getInstance().createRequestDao().delete(id);
     }
 
     @Override
     public List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination) {
-        return requestDao.findByTaxPayerId(taxPayerId, pagination);
+        return DaoFactory.getInstance().createRequestDao().findByTaxPayerId(taxPayerId, pagination);
     }
 
     @Override
     public List<Request> findByStatus(Status status, Pagination pagination) {
-        return requestDao.findByStatus(status, pagination);
+        return DaoFactory.getInstance().createRequestDao().findByStatus(status, pagination);
     }
 
     @Override
     public void accept(Long requestId, Long taxPayerId, Long inspectorId) {
-        requestDao.accept(requestId, taxPayerId, inspectorId);
+        DaoFactory.getInstance().createRequestDao().accept(requestId, taxPayerId, inspectorId);
     }
 
     @Override
     public void reject(Long requestId, String rejectReason) {
-        requestDao.reject(requestId, rejectReason);
+        DaoFactory.getInstance().createRequestDao().reject(requestId, rejectReason);
     }
 
     @Override
     public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
-        return requestDao.areThereRequestsWithStatus(status, taxPayerId);
+        return DaoFactory.getInstance().createRequestDao().areThereRequestsWithStatus(status, taxPayerId);
     }
 
 }

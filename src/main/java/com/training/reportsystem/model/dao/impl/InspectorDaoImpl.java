@@ -18,10 +18,15 @@ import java.util.List;
 
 public class InspectorDaoImpl implements InspectorDao {
 
+    private Connection connection;
+
+    public InspectorDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public Inspector login(String username, String password) {
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.INSPECTOR_LOGIN))) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.INSPECTOR_LOGIN))) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             ResultSet rs = preparedStatement.executeQuery();
@@ -35,8 +40,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public boolean isUsernameUnique(String username) {
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_INSPECTOR_USERNAME_UNIQUE))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_INSPECTOR_USERNAME_UNIQUE))) {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
@@ -52,8 +56,7 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public List<Inspector> findAll() {
         List<Inspector> inspectors = new ArrayList<>();
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_INSPECTORS))) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_INSPECTORS))) {
             preparedStatement.setString(1, Role.INSPECTOR.toString());
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
@@ -69,8 +72,7 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public Inspector getById(Long id) {
         Inspector inspector = null;
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_ID))) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_ID))) {
 
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -87,8 +89,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public void create(Inspector inspector) {
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_INSPECTOR))) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_INSPECTOR))) {
             preparedStatement.setString(1, inspector.getRole().toString());
             preparedStatement.setString(2, inspector.getUsername());
             preparedStatement.setString(3, inspector.getPassword());
@@ -103,8 +104,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public void update(Inspector inspector) {
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_INSPECTOR))) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_INSPECTOR))) {
             preparedStatement.setString(1, inspector.getRole().toString());
             preparedStatement.setString(2, inspector.getUsername());
             preparedStatement.setString(3, inspector.getPassword());
@@ -120,8 +120,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public void delete(Long id) {
-        try(Connection connection = ConnectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_INSPECTOR))) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_INSPECTOR))) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -133,8 +132,7 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public Inspector getByUserId(Long userId) {
         Inspector inspector = null;
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_USER))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_USER))) {
             preparedStatement.setLong(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -147,5 +145,10 @@ public class InspectorDaoImpl implements InspectorDao {
             e.printStackTrace();
         }
         return inspector;
+    }
+
+    @Override
+    public void close() throws Exception {
+        connection.close();
     }
 }

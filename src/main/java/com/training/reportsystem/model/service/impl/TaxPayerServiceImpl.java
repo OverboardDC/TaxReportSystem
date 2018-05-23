@@ -1,8 +1,6 @@
 package com.training.reportsystem.model.service.impl;
 
-import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.factory.DaoFactory;
-import com.training.reportsystem.model.dao.impl.TaxPayerDaoImpl;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.Pagination;
@@ -12,55 +10,48 @@ import java.util.List;
 
 public class TaxPayerServiceImpl implements TaxPayerService {
 
-    private TaxPayerDao taxPayerDao;
-
-    public TaxPayerServiceImpl() {
-        taxPayerDao = DaoFactory.getInstance().createTaxPayerDao();
-    }
-
-
     @Override
     public TaxPayer login(String username, String password) {
-        return taxPayerDao.login(username, Md5Encryptor.encrypt(password));
+        return DaoFactory.getInstance().createTaxPayerDao().login(username, Md5Encryptor.encrypt(password));
     }
 
     @Override
     public boolean isUsernameUnique(String username) {
-        return taxPayerDao.isUsernameUnique(username);
+        return DaoFactory.getInstance().createTaxPayerDao().isUsernameUnique(username);
     }
 
     @Override
     public List<TaxPayer> findAll() {
-        return taxPayerDao.findAll();
+        return DaoFactory.getInstance().createTaxPayerDao().findAll();
     }
 
     @Override
     public TaxPayer getById(Long id) {
-        return taxPayerDao.getById(id);
+        return DaoFactory.getInstance().createTaxPayerDao().getById(id);
     }
 
     @Override
     public void create(TaxPayer taxPayer) {
-        taxPayerDao.create(taxPayer);
+        DaoFactory.getInstance().createTaxPayerDao().create(taxPayer);
     }
 
     @Override
     public void update(TaxPayer taxPayer) {
-        taxPayerDao.update(taxPayer);
+        DaoFactory.getInstance().createTaxPayerDao().update(taxPayer);
     }
 
     @Override
     public void delete(Long id) {
-        taxPayerDao.delete(id);
+        DaoFactory.getInstance().createTaxPayerDao().delete(id);
     }
 
     @Override
     public List<TaxPayer> findAllWithoutInspector(Pagination pagination) {
-        return taxPayerDao.findAllWithoutInspector(pagination);
+        return DaoFactory.getInstance().createTaxPayerDao().findAllWithoutInspector(pagination);
     }
 
     @Override
     public void assignInspector(Long taxPayer_id, Long inspectorId) {
-        taxPayerDao.assignInspector(taxPayer_id, inspectorId);
+        DaoFactory.getInstance().createTaxPayerDao().assignInspector(taxPayer_id, inspectorId);
     }
 }

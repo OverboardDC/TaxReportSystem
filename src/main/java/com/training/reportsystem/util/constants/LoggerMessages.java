@@ -24,4 +24,5 @@ public interface LoggerMessages {
     String CONTEXT_WAS_DESTROYED = "Context was destroyed";
     String REPORT_WAS_APPROVED = "Report was approved";
     String REPORT_WAS_UPDATED = "Report was updated";
+    Object CONNECTION_FAILED = "Connection failed";
 }

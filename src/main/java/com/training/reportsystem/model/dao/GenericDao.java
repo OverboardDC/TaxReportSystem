@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public interface GenericDao<T> {
+public interface GenericDao<T> extends AutoCloseable{
 
     Logger logger = Logger.getRootLogger();
 
