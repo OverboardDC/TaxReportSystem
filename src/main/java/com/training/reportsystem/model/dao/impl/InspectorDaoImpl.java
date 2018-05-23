@@ -20,7 +20,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public Inspector login(String username, String password) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.INSPECTOR_LOGIN))) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
@@ -35,7 +35,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public boolean isUsernameUnique(String username) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.IS_INSPECTOR_USERNAME_UNIQUE))) {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
@@ -52,7 +52,7 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public List<Inspector> findAll() {
         List<Inspector> inspectors = new ArrayList<>();
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_INSPECTORS))) {
             preparedStatement.setString(1, Role.INSPECTOR.toString());
             ResultSet rs = preparedStatement.executeQuery();
@@ -69,7 +69,7 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public Inspector getById(Long id) {
         Inspector inspector = null;
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_ID))) {
 
             preparedStatement.setLong(1, id);
@@ -87,7 +87,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public void create(Inspector inspector) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_INSPECTOR))) {
             preparedStatement.setString(1, inspector.getRole().toString());
             preparedStatement.setString(2, inspector.getUsername());
@@ -103,7 +103,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public void update(Inspector inspector) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_INSPECTOR))) {
             preparedStatement.setString(1, inspector.getRole().toString());
             preparedStatement.setString(2, inspector.getUsername());
@@ -120,7 +120,7 @@ public class InspectorDaoImpl implements InspectorDao {
 
     @Override
     public void delete(Long id) {
-        try(Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try(Connection connection = ConnectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_INSPECTOR))) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -133,7 +133,7 @@ public class InspectorDaoImpl implements InspectorDao {
     @Override
     public Inspector getByUserId(Long userId) {
         Inspector inspector = null;
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_INSPECTOR_BY_USER))) {
             preparedStatement.setLong(1, userId);
 

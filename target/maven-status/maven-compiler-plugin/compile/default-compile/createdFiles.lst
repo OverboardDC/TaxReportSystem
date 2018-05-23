@@ -5,6 +5,7 @@ com\training\reportsystem\model\service\util\Pagination.class
 com\training\reportsystem\model\service\ReportService.class
 com\training\reportsystem\controller\command\AcceptRequest.class
 com\training\reportsystem\controller\command\EditReport.class
+com\training\reportsystem\model\dao\extractor\InspectorExtractor.class
 com\training\reportsystem\controller\command\AssignInspector.class
 com\training\reportsystem\controller\command\login\Login.class
 com\training\reportsystem\view\tag\DateTimeFormatTag.class
@@ -28,6 +29,7 @@ com\training\reportsystem\util\constants\Parameters.class
 com\training\reportsystem\controller\command\pages\EditReportPage.class
 com\training\reportsystem\util\LoggerUtil.class
 com\training\reportsystem\model\entity\User$UserBuilder.class
+com\training\reportsystem\model\dao\extractor\RequestExtractor.class
 com\training\reportsystem\model\dao\util\DaoUtil.class
 com\training\reportsystem\model\dao\RequestDao.class
 com\training\reportsystem\controller\command\pages\RegistrationPage.class
@@ -37,7 +39,9 @@ com\training\reportsystem\model\service\InspectorService.class
 com\training\reportsystem\model\service\GenericService.class
 com\training\reportsystem\util\constants\Commands.class
 com\training\reportsystem\model\dao\impl\ReportDaoImpl.class
+com\training\reportsystem\model\dao\mapper\TaxPayerMapper.class
 com\training\reportsystem\model\entity\TaxPayer.class
+com\training\reportsystem\model\dao\extractor\TaxPayerExtractor.class
 com\training\reportsystem\controller\command\pages\LoginPage.class
 com\training\reportsystem\util\constants\Attributes.class
 com\training\reportsystem\model\dao\util\ConnectionPool.class
@@ -55,6 +59,7 @@ com\training\reportsystem\util\constants\RegexConstants.class
 com\training\reportsystem\model\dao\ReportDao.class
 com\training\reportsystem\controller\command\ApproveReport.class
 com\training\reportsystem\controller\command\SendReport.class
+com\training\reportsystem\model\dao\extractor\ReportExtractor.class
 com\training\reportsystem\model\dao\util\PaginationDaoUtil.class
 com\training\reportsystem\util\constants\GlobalConstants.class
 com\training\reportsystem\controller\command\pages\RequestPage.class
@@ -85,6 +90,7 @@ com\training\reportsystem\controller\command\SendRequest.class
 com\training\reportsystem\model\entity\Inspector$InspectorBuilder.class
 com\training\reportsystem\controller\filter\ClientFilter.class
 com\training\reportsystem\model\service\RequestService.class
+com\training\reportsystem\model\dao\mapper\InspectorMapper.class
 com\training\reportsystem\model\service\impl\TaxPayerServiceImpl.class
 com\training\reportsystem\view\tag\RevenueTag.class
 com\training\reportsystem\model\dao\impl\InspectorDaoImpl.class

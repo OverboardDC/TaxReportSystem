@@ -1,6 +1,7 @@
 package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.TaxPayerDao;
+import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.dao.impl.TaxPayerDaoImpl;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
@@ -14,7 +15,7 @@ public class TaxPayerServiceImpl implements TaxPayerService {
     private TaxPayerDao taxPayerDao;
 
     public TaxPayerServiceImpl() {
-        taxPayerDao = new TaxPayerDaoImpl();
+        taxPayerDao = DaoFactory.getInstance().createTaxPayerDao();
     }
 
 

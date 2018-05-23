@@ -21,7 +21,7 @@ public class ReportDaoImpl implements ReportDao {
     @Override
     public List<Report> findAll() {
         List<Report> reports = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REPORTS))) {
 
            ResultSet rs = preparedStatement.executeQuery();
@@ -38,7 +38,7 @@ public class ReportDaoImpl implements ReportDao {
     @Override
     public Report getById(Long id) {
         Report report = null;
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REPORT_BY_ID))) {
             preparedStatement.setLong(1, id);
 
@@ -56,7 +56,7 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public void create(Report report) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_REPORT))) {
 
             preparedStatement.setLong(1, report.getTaxPayer().getId());
@@ -77,7 +77,7 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public void update(Report report) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_REPORT))) {
 
             preparedStatement.setString(1, Status.PENDING.toString());
@@ -98,7 +98,7 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public void delete(Long id) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_REPORT))) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -111,7 +111,7 @@ public class ReportDaoImpl implements ReportDao {
     @Override
     public List<Report> findAllByUser(Long userId, Pagination pagination) {
         List<Report> reports = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             String query = DaoUtil.getQuery(Queries.FIND_ALL_REPORTS_BY_USER);
             pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
                     DaoUtil.getQuery(Queries.GET_COUNT_ALL_REPORTS_BY_USER), userId));
@@ -134,7 +134,7 @@ public class ReportDaoImpl implements ReportDao {
     @Override
     public List<Report> findAllByInspector(Long inspectorId, Pagination pagination) {
         List<Report> reports = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             String query = DaoUtil.getQuery(Queries.FIND_ALL_REPORTS_BY_INSPECTOR);
             pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
                     DaoUtil.getQuery(Queries.GET_COUNT_ALL_REPORTS_BY_INSPECTOR), inspectorId));
@@ -156,7 +156,7 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public void approveReport(Long reportId) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.APPROVE_REPORT))) {
 
             preparedStatement.setString(1, Status.APPROVED.toString());
@@ -170,7 +170,7 @@ public class ReportDaoImpl implements ReportDao {
 
     @Override
     public void rejectReport(Long reportId, String rejectReason) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.REJECT_REPORT))) {
 
             preparedStatement.setString(1, Status.REJECTED.toString());

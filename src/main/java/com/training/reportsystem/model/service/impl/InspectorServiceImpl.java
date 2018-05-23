@@ -1,6 +1,7 @@
 package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.InspectorDao;
+import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.dao.impl.InspectorDaoImpl;
 import com.training.reportsystem.model.entity.Inspector;
 import com.training.reportsystem.model.service.InspectorService;
@@ -13,9 +14,8 @@ public class InspectorServiceImpl implements InspectorService {
     private InspectorDao inspectorDao;
 
     public InspectorServiceImpl() {
-        inspectorDao = new InspectorDaoImpl();
+        inspectorDao = DaoFactory.getInstance().createInspectorDao();
     }
-
 
     @Override
     public Inspector login(String username, String password) {

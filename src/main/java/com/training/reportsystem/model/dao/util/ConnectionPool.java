@@ -3,6 +3,8 @@ package com.training.reportsystem.model.dao.util;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ConnectionPool {
 
@@ -11,16 +13,20 @@ public class ConnectionPool {
 
     private static ConnectionPool instance;
 
-    public DataSource getDataSource() {
+    public static Connection getConnection() throws SQLException {
+       return getInstance().getDataSource().getConnection();
+    }
+
+    private DataSource getDataSource() {
         try {
             InitialContext initialContext = new InitialContext();
             return (DataSource) initialContext.lookup("java:comp/env/jdbc/taxReportSystem");
         } catch (NamingException e) {
-            return null;
+            throw new RuntimeException();
         }
     }
 
-    public static ConnectionPool getInstance(){
+    private static ConnectionPool getInstance(){
         if(instance == null){
             synchronized (ConnectionPool.class){
                 if(instance == null) {

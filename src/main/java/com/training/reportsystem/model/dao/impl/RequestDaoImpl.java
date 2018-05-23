@@ -20,7 +20,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> findAll() {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS))) {
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -39,7 +39,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public Request getById(Long id) {
         Request request = null;
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.GET_REQUEST_BY_ID))) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -55,7 +55,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void create(Request request) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.CREATE_REQUEST));
 
             preparedStatement.setLong(1, request.getTaxPayer().getId());
@@ -73,7 +73,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void update(Request request) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.UPDATE_REQUEST));
 
             preparedStatement.setLong(1, request.getTaxPayer().getId());
@@ -91,7 +91,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void delete(Long id) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.DELETE_REQUEST));
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -104,7 +104,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination) {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             String query = DaoUtil.getQuery(Queries.FIND_REQUESTS_BY_TAX_PAYER);
             pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
                     DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_TAX_PAYER), taxPayerId));
@@ -127,7 +127,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> findByStatus(Status status, Pagination pagination) {
         List<Request> requests = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             String query = DaoUtil.getQuery(Queries.FIND_ALL_REQUESTS_BY_STATUS);
             pagination.setTotalCount(PaginationDaoUtil.getTotalItemsCount(connection,
                     DaoUtil.getQuery(Queries.GET_COUNT_ALL_REQUESTS_BY_STATUS), status));
@@ -149,7 +149,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void accept(Long requestId, Long taxPayerId, Long inspectorId) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection()) {
+        try (Connection connection = ConnectionPool.getConnection()) {
             connection.setAutoCommit(false);
 
             try {
@@ -177,7 +177,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void reject(Long requestId, String rejectReason) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.REJECT_REQUEST))) {
 
             preparedStatement.setString(1, Status.REJECTED.toString());
@@ -193,7 +193,7 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
-        try (Connection connection = ConnectionPool.getInstance().getDataSource().getConnection();
+        try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DaoUtil.getQuery(Queries.ARE_THERE_REQUESTS_STATUS))) {
             preparedStatement.setLong(1, taxPayerId);
             preparedStatement.setString(2, status.toString());

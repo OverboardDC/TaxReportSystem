@@ -1,6 +1,7 @@
 package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.RequestDao;
+import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.dao.impl.RequestDaoImpl;
 import com.training.reportsystem.model.entity.Request;
 import com.training.reportsystem.model.entity.Status;
@@ -14,7 +15,7 @@ public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
 
     public RequestServiceImpl() {
-        requestDao = new RequestDaoImpl();
+        requestDao = DaoFactory.getInstance().createRequestDao();
     }
 
     @Override

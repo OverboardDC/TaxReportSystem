@@ -1,6 +1,7 @@
 package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.ReportDao;
+import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.dao.impl.ReportDaoImpl;
 import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.service.ReportService;
@@ -13,7 +14,7 @@ public class ReportServiceImpl implements ReportService {
     private ReportDao reportDao;
 
     public ReportServiceImpl() {
-        reportDao = new ReportDaoImpl();
+        reportDao = DaoFactory.getInstance().createReportDao();
     }
 
     @Override

@@ -26,7 +26,6 @@ public class InspectorFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         Optional<User> user = Optional.ofNullable((User) request.getSession().getAttribute(Attributes.USER));
-        System.out.println(user);
         if (!user.isPresent() || !user.get().getRole().isPresent() || !user.get().getRole().get().equals(Role.INSPECTOR)) {
             response.sendRedirect(Pages.LOGIN_REDIRECT);
             return;
