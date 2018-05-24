@@ -1,9 +1,6 @@
 package com.training.reportsystem.model.dao.factory;
 
-import com.training.reportsystem.model.dao.InspectorDao;
-import com.training.reportsystem.model.dao.ReportDao;
-import com.training.reportsystem.model.dao.RequestDao;
-import com.training.reportsystem.model.dao.TaxPayerDao;
+import com.training.reportsystem.model.dao.*;
 import com.training.reportsystem.model.dao.impl.InspectorDaoImpl;
 import com.training.reportsystem.model.dao.impl.ReportDaoImpl;
 import com.training.reportsystem.model.dao.impl.RequestDaoImpl;
@@ -44,7 +41,7 @@ public class JDBCDaoFactory extends DaoFactory {
             return ConnectionPool.getConnection();
         } catch (SQLException e) {
             logger.error(LoggerMessages.CONNECTION_FAILED);
-            throw new RuntimeException();
+            throw new ConnectionFailedException();
         }
     }
 }
