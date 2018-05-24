@@ -1,5 +1,6 @@
 package com.training.reportsystem.model.service.impl;
 
+import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
@@ -12,46 +13,82 @@ public class TaxPayerServiceImpl implements TaxPayerService {
 
     @Override
     public TaxPayer login(String username, String password) {
-        return DaoFactory.getInstance().createTaxPayerDao().login(username, Md5Encryptor.encrypt(password));
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            return taxPayerDao.login(username, Md5Encryptor.encrypt(password));
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public boolean isUsernameUnique(String username) {
-        return DaoFactory.getInstance().createTaxPayerDao().isUsernameUnique(username);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            return taxPayerDao.isUsernameUnique(username);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public List<TaxPayer> findAll() {
-        return DaoFactory.getInstance().createTaxPayerDao().findAll();
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            return taxPayerDao.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public TaxPayer getById(Long id) {
-        return DaoFactory.getInstance().createTaxPayerDao().getById(id);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            return taxPayerDao.getById(id);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void create(TaxPayer taxPayer) {
-        DaoFactory.getInstance().createTaxPayerDao().create(taxPayer);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            taxPayerDao.create(taxPayer);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void update(TaxPayer taxPayer) {
-        DaoFactory.getInstance().createTaxPayerDao().update(taxPayer);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            taxPayerDao.update(taxPayer);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void delete(Long id) {
-        DaoFactory.getInstance().createTaxPayerDao().delete(id);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            taxPayerDao.delete(id);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public List<TaxPayer> findAllWithoutInspector(Pagination pagination) {
-        return DaoFactory.getInstance().createTaxPayerDao().findAllWithoutInspector(pagination);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            return taxPayerDao.findAllWithoutInspector(pagination);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void assignInspector(Long taxPayer_id, Long inspectorId) {
-        DaoFactory.getInstance().createTaxPayerDao().assignInspector(taxPayer_id, inspectorId);
+        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+            taxPayerDao.assignInspector(taxPayer_id, inspectorId);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }

@@ -61,7 +61,7 @@ CREATE TABLE `report` (
   `period_from` date NOT NULL,
   `period_to` date NOT NULL,
   `revenue` bigint(200) NOT NULL,
-  `tax` decimal(10,0) NOT NULL,
+  `tax` decimal(5,2) NOT NULL,
   `commentary` mediumtext,
   `reject_reason` mediumtext,
   `submission_date` datetime NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE `report` (
   KEY `fk_report_inspector_idx` (`inspector_id`),
   CONSTRAINT `fk_report_inspector` FOREIGN KEY (`inspector_id`) REFERENCES `inspector` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_report_taxpayer` FOREIGN KEY (`taxpayer_id`) REFERENCES `taxpayer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (43,27,2,'Approved','2018-02-01','2018-05-22',220134,24,'My revenue for February, edited','Incorrect report','2018-05-20 17:11:31','2018-05-20 17:20:39'),(44,27,2,'Approved','2018-03-01','2018-05-31',175632,25,'My revenue for March',NULL,'2018-05-20 17:12:19',NULL),(45,27,2,'Approved','2018-04-01','2018-05-31',204523,22,'Revenue for April',NULL,'2018-05-20 17:13:27',NULL),(46,27,2,'Approved','2018-05-01','2018-05-31',190067,25,'My revenue for May',NULL,'2018-05-20 17:14:22',NULL),(47,27,2,'Approved','2018-01-01','2018-01-31',124567,21,'Additional report',NULL,'2018-05-20 17:16:59',NULL),(48,27,2,'Approved','2017-11-01','2018-05-31',145687,24,'Report for november',NULL,'2018-05-20 17:18:57',NULL),(49,26,1,'Approved','2018-05-01','2018-05-31',234578,22,'Revenue for May',NULL,'2018-05-21 10:54:22',NULL),(50,30,2,'Pending','2018-04-01','2018-05-16',84523,23,NULL,NULL,'2018-05-21 10:57:18',NULL);
+INSERT INTO `report` VALUES (43,27,2,'Approved','2018-02-01','2018-05-22',220134,0.24,'My revenue for February, edited','Incorrect report','2018-05-20 17:11:31','2018-05-20 17:20:39'),(44,27,2,'Approved','2018-03-01','2018-05-31',175632,0.25,'My revenue for March',NULL,'2018-05-20 17:12:19',NULL),(45,27,2,'Approved','2018-04-01','2018-05-31',204523,0.22,'Revenue for April',NULL,'2018-05-20 17:13:27',NULL),(46,27,2,'Approved','2018-05-01','2018-05-31',190067,0.25,'My revenue for May',NULL,'2018-05-20 17:14:22',NULL),(47,27,2,'Approved','2018-01-01','2018-01-31',124567,0.21,'Additional report',NULL,'2018-05-20 17:16:59',NULL),(48,27,2,'Approved','2017-11-01','2018-05-31',145687,0.24,'Report for november',NULL,'2018-05-20 17:18:57',NULL),(49,26,1,'Approved','2018-05-01','2018-05-31',234578,0.22,'Revenue for May',NULL,'2018-05-21 10:54:22',NULL),(50,30,2,'Pending','2018-04-01','2018-05-16',84523,0.23,NULL,NULL,'2018-05-21 10:57:18',NULL),(51,27,1,'Pending','2017-12-01','2018-05-31',52223,0.25,'Additional revenue from bussiness, tax was edited, revenue was edited','Too little revenue','2018-05-24 08:39:54','2018-05-24 09:15:05');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,9 +96,9 @@ CREATE TABLE `request` (
   `id` bigint(255) NOT NULL AUTO_INCREMENT,
   `taxpayer_id` bigint(255) NOT NULL,
   `inspector_id` bigint(255) NOT NULL,
-  `reason` mediumtext NOT NULL,
+  `reason` longtext NOT NULL,
   `status` enum('Pending','Approved','Rejected') NOT NULL,
-  `reject_reason` varchar(45) DEFAULT NULL,
+  `reject_reason` longtext,
   `submission_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -106,7 +106,7 @@ CREATE TABLE `request` (
   KEY `fk_rewuest_inspector_idx` (`inspector_id`),
   CONSTRAINT `fk_request_taxpayer` FOREIGN KEY (`taxpayer_id`) REFERENCES `taxpayer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rewuest_inspector` FOREIGN KEY (`inspector_id`) REFERENCES `inspector` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` VALUES (37,27,2,'Strange decisions','Pending',NULL,'2018-05-20 17:23:29');
+INSERT INTO `request` VALUES (37,27,2,'Strange decisions','Approved',NULL,'2018-05-20 17:23:29'),(38,27,1,'Inspector does not provide me with correct information ','Rejected','You have sent te second request in a week. You will be able to chenge your inspector only tommorow','2018-05-24 09:11:03');
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +147,7 @@ CREATE TABLE `taxpayer` (
 
 LOCK TABLES `taxpayer` WRITE;
 /*!40000 ALTER TABLE `taxpayer` DISABLE KEYS */;
-INSERT INTO `taxpayer` VALUES (26,1,'wendy','d4541250b586296fcce5dea4463ae17f','Wendy','Freeman','582048567'),(27,2,'tony','d4541250b586296fcce5dea4463ae17f','Tony','Torres','385945723'),(28,NULL,'jenna','d4541250b586296fcce5dea4463ae17f','Jenna','Collins','274957384'),(29,3,'ronnie','d4541250b586296fcce5dea4463ae17f','Ronnie','Jensen','492748592'),(30,2,'martin','d4541250b586296fcce5dea4463ae17f','Martin','Henderson','482047527');
+INSERT INTO `taxpayer` VALUES (26,1,'wendy','d4541250b586296fcce5dea4463ae17f','Wendy','Freeman','582048567'),(27,1,'tony','d4541250b586296fcce5dea4463ae17f','Tony','Torres','385945723'),(28,NULL,'jenna','d4541250b586296fcce5dea4463ae17f','Jenna','Collins','274957384'),(29,3,'ronnie','d4541250b586296fcce5dea4463ae17f','Ronnie','Jensen','492748592'),(30,2,'martin','d4541250b586296fcce5dea4463ae17f','Martin','Henderson','482047527');
 /*!40000 ALTER TABLE `taxpayer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -160,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-21 13:58:38
+-- Dump completed on 2018-05-24 12:16:53

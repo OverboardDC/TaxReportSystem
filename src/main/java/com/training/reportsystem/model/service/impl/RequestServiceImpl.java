@@ -1,5 +1,6 @@
 package com.training.reportsystem.model.service.impl;
 
+import com.training.reportsystem.model.dao.RequestDao;
 import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.entity.Request;
 import com.training.reportsystem.model.entity.Status;
@@ -12,52 +13,92 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> findAll() {
-        return DaoFactory.getInstance().createRequestDao().findAll();
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            return requestDao.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public Request getById(Long id) {
-        return DaoFactory.getInstance().createRequestDao().getById(id);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            return requestDao.getById(id);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void create(Request request) {
-        DaoFactory.getInstance().createRequestDao().create(request);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            requestDao.create(request);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void update(Request request) {
-        DaoFactory.getInstance().createRequestDao().update(request);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            requestDao.update(request);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void delete(Long id) {
-        DaoFactory.getInstance().createRequestDao().delete(id);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            requestDao.delete(id);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination) {
-        return DaoFactory.getInstance().createRequestDao().findByTaxPayerId(taxPayerId, pagination);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            return requestDao.findByTaxPayerId(taxPayerId, pagination);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public List<Request> findByStatus(Status status, Pagination pagination) {
-        return DaoFactory.getInstance().createRequestDao().findByStatus(status, pagination);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            return requestDao.findByStatus(status, pagination);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void accept(Long requestId, Long taxPayerId, Long inspectorId) {
-        DaoFactory.getInstance().createRequestDao().accept(requestId, taxPayerId, inspectorId);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            requestDao.accept(requestId, taxPayerId, inspectorId);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void reject(Long requestId, String rejectReason) {
-        DaoFactory.getInstance().createRequestDao().reject(requestId, rejectReason);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            requestDao.reject(requestId, rejectReason);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
-        return DaoFactory.getInstance().createRequestDao().areThereRequestsWithStatus(status, taxPayerId);
+        try(RequestDao requestDao = DaoFactory.getInstance().createRequestDao()) {
+            return requestDao.areThereRequestsWithStatus(status, taxPayerId);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.training.reportsystem.model.service.impl;
 
+import com.training.reportsystem.model.dao.ReportDao;
 import com.training.reportsystem.model.dao.factory.DaoFactory;
 import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.service.ReportService;
@@ -11,46 +12,82 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Report> findAllByUser(Long userId, Pagination pagination) {
-        return DaoFactory.getInstance().createReportDao().findAllByUser(userId, pagination);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            return reportDao.findAllByUser(userId, pagination);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public List<Report> findAllByInspector(Long inspectorId, Pagination pagination) {
-        return DaoFactory.getInstance().createReportDao().findAllByInspector(inspectorId, pagination);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            return reportDao.findAllByInspector(inspectorId, pagination);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void approveReport(Long reportId) {
-        DaoFactory.getInstance().createReportDao().approveReport(reportId);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            reportDao.approveReport(reportId);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void rejectReport(Long reportId, String rejectReason) {
-        DaoFactory.getInstance().createReportDao().rejectReport(reportId, rejectReason);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            reportDao.rejectReport(reportId, rejectReason);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public List<Report> findAll() {
-        return DaoFactory.getInstance().createReportDao().findAll();
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            return reportDao.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public Report getById(Long id) {
-        return DaoFactory.getInstance().createReportDao().getById(id);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            return reportDao.getById(id);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void create(Report report) {
-        DaoFactory.getInstance().createReportDao().create(report);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            reportDao.create(report);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void update(Report report) {
-        DaoFactory.getInstance().createReportDao().update(report);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            reportDao.update(report);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public void delete(Long id) {
-        DaoFactory.getInstance().createReportDao().delete(id);
+        try (ReportDao reportDao = DaoFactory.getInstance().createReportDao()) {
+            reportDao.delete(id);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }
