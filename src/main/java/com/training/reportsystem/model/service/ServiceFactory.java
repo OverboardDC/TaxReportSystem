@@ -7,10 +7,6 @@ import com.training.reportsystem.model.service.impl.TaxPayerServiceImpl;
 
 public class ServiceFactory {
 
-    private static class InstanceHolder {
-        public static final ServiceFactory instance = new ServiceFactory();
-    }
-
     public InspectorService createInspectorService(){
         return new InspectorServiceImpl();
     }
@@ -27,7 +23,4 @@ public class ServiceFactory {
         return new TaxPayerServiceImpl();
     }
 
-    public static ServiceFactory getInstance(){
-        return InstanceHolder.instance;
-    }
 }

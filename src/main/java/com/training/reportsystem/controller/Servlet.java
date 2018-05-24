@@ -30,7 +30,7 @@ public class Servlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         commandMap = new HashMap<>();
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        ServiceFactory serviceFactory = new ServiceFactory();
         TaxPayerService taxPayerService = serviceFactory.createTaxPayerService();
         InspectorService inspectorService = serviceFactory.createInspectorService();
         RequestService requestService = serviceFactory.createRequestService();
