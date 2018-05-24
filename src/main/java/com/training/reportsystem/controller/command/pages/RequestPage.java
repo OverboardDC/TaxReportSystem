@@ -38,7 +38,7 @@ public class RequestPage implements Command {
         Pagination pagination = new Pagination(page);
 
         List<Request> requests = requestService.findByTaxPayerId(taxPayer.getId(), pagination);
-        PaginationUtil.setAttribute(pagination, request);
+        PaginationUtil.setAttributeAndFill(pagination, request);
         if (pagination.isPageEmpty(requests)) {
             return Pages.REQUEST_WITH_PAGE + pagination.getLastPageNum();
         }

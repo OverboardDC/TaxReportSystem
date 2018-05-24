@@ -1,5 +1,7 @@
 package com.training.reportsystem.model.dao.util;
 
+import com.training.reportsystem.model.dao.ConnectionFailedException;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -13,8 +15,13 @@ public class ConnectionPool {
 
     private static ConnectionPool instance;
 
-    public static Connection getConnection() throws SQLException {
-       return getInstance().getDataSource().getConnection();
+    public static Connection getConnection() {
+        try {
+            return getInstance().getDataSource().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ConnectionFailedException();
+        }
     }
 
     private DataSource getDataSource() {

@@ -27,7 +27,7 @@ public class InspectorPage implements Command {
         Pagination pagination = new Pagination(page);
         Inspector inspector = (Inspector) request.getSession().getAttribute(Attributes.USER);
         List<Report> reports = reportService.findAllByInspector(inspector.getId(), pagination);
-        PaginationUtil.setAttribute(pagination, request);
+        PaginationUtil.setAttributeAndFill(pagination, request);
         if (pagination.isPageEmpty(reports)) {
             return Pages.INSPECTOR_WITH_PAGE + pagination.getLastPageNum();
         }

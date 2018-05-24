@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-//TODO Temporary
 public class AdminPage implements Command {
 
     private TaxPayerService taxPayerService;
@@ -29,7 +28,7 @@ public class AdminPage implements Command {
         int page = PaginationUtil.getPageParameter(request);
         Pagination pagination = new Pagination(page);
         List<TaxPayer> taxPayers = taxPayerService.findAllWithoutInspector(pagination);
-        PaginationUtil.setAttribute(pagination, request);
+        PaginationUtil.setAttributeAndFill(pagination, request);
         if (pagination.isPageEmpty(taxPayers)) {
             return Pages.ADMIN_WITH_PAGE + pagination.getLastPageNum();
         }

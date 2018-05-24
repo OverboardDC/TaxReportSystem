@@ -203,7 +203,12 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public void close() throws Exception {
-        connection.close();
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException();
+        }
     }
 }

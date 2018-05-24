@@ -29,7 +29,7 @@ public class AllRequestsPage implements Command {
         int page = PaginationUtil.getPageParameter(request);
         Pagination pagination = new Pagination(page);
         List<Request> requests = requestService.findByStatus(Status.PENDING, pagination);
-        PaginationUtil.setAttribute(pagination, request);
+        PaginationUtil.setAttributeAndFill(pagination, request);
         if (pagination.isPageEmpty(requests)) {
             return Pages.ALL_REQUESTS_WITH_PAGE + pagination.getLastPageNum();
         }

@@ -5,17 +5,19 @@ import com.training.reportsystem.model.dao.ReportDao;
 import com.training.reportsystem.model.dao.RequestDao;
 import com.training.reportsystem.model.dao.TaxPayerDao;
 
+import java.sql.Connection;
+
 public abstract class DaoFactory {
 
     private static DaoFactory instance;
 
-    public abstract InspectorDao createInspectorDao();
+    public abstract InspectorDao createInspectorDao(Connection connection);
 
-    public abstract TaxPayerDao createTaxPayerDao();
+    public abstract TaxPayerDao createTaxPayerDao(Connection connection);
 
-    public abstract ReportDao createReportDao();
+    public abstract ReportDao createReportDao(Connection connection);
 
-    public abstract RequestDao createRequestDao();
+    public abstract RequestDao createRequestDao(Connection connection);
 
     public static DaoFactory getInstance() {
         if (instance == null) {

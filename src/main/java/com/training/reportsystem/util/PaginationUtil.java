@@ -18,7 +18,7 @@ public class PaginationUtil {
         return page;
     }
 
-    public static void setAttribute(Pagination pagination, HttpServletRequest request){
+    public static void setAttributeAndFill(Pagination pagination, HttpServletRequest request){
         pagination.fillPages();
         if(pagination.pagesPresent()) {
             request.setAttribute(Attributes.PAGES, pagination.getPages());

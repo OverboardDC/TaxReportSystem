@@ -2,6 +2,7 @@ package com.training.reportsystem.model.service.impl;
 
 import com.training.reportsystem.model.dao.TaxPayerDao;
 import com.training.reportsystem.model.dao.factory.DaoFactory;
+import com.training.reportsystem.model.dao.util.ConnectionPool;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.model.service.util.Pagination;
@@ -11,84 +12,68 @@ import java.util.List;
 
 public class TaxPayerServiceImpl implements TaxPayerService {
 
+    private DaoFactory daoFactory = DaoFactory.getInstance();
+
     @Override
     public TaxPayer login(String username, String password) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             return taxPayerDao.login(username, Md5Encryptor.encrypt(password));
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public boolean isUsernameUnique(String username) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             return taxPayerDao.isUsernameUnique(username);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public List<TaxPayer> findAll() {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             return taxPayerDao.findAll();
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public TaxPayer getById(Long id) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             return taxPayerDao.getById(id);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public void create(TaxPayer taxPayer) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             taxPayerDao.create(taxPayer);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public void update(TaxPayer taxPayer) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             taxPayerDao.update(taxPayer);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public void delete(Long id) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             taxPayerDao.delete(id);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public List<TaxPayer> findAllWithoutInspector(Pagination pagination) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             return taxPayerDao.findAllWithoutInspector(pagination);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 
     @Override
     public void assignInspector(Long taxPayer_id, Long inspectorId) {
-        try(TaxPayerDao taxPayerDao = DaoFactory.getInstance().createTaxPayerDao()) {
+        try(TaxPayerDao taxPayerDao = daoFactory.createTaxPayerDao(ConnectionPool.getConnection())) {
             taxPayerDao.assignInspector(taxPayer_id, inspectorId);
-        } catch (Exception e) {
-            throw new RuntimeException();
         }
     }
 }

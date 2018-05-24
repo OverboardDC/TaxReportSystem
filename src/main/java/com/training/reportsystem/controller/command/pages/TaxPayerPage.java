@@ -30,7 +30,7 @@ public class TaxPayerPage implements Command {
         Pagination pagination = new Pagination(page);
         TaxPayer taxPayer = (TaxPayer) request.getSession().getAttribute(Attributes.USER);
         List<Report> reports = reportService.findAllByUser(taxPayer.getId(), pagination);
-        PaginationUtil.setAttribute(pagination, request);
+        PaginationUtil.setAttributeAndFill(pagination, request);
         if (pagination.isPageEmpty(reports)) {
             return Pages.TAX_PAYER_WITH_PAGE + pagination.getLastPageNum();
         }
