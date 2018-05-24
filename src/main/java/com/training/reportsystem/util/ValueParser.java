@@ -8,6 +8,6 @@ public class ValueParser {
     }
 
     public static Double parseTax(String taxParam) {
-        return Double.parseDouble(taxParam);
+        return Double.parseDouble(taxParam) / 100;
     }
 }

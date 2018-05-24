@@ -19,7 +19,7 @@ public class TaxTag extends TagSupport {
         JspWriter out = pageContext.getOut();
 
         try {
-            out.write(DecimalFormat.getInstance().format(tax));
+            out.write(DecimalFormat.getInstance().format(tax * 100));
         } catch (IOException e) {
             e.printStackTrace();
         }

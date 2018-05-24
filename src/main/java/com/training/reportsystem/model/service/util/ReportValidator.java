@@ -9,7 +9,6 @@ import com.training.reportsystem.util.i18n.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class ReportValidator implements Validator {
 
@@ -50,7 +49,7 @@ public class ReportValidator implements Validator {
 
     public Double inputTax(HttpServletRequest request) {
         String tax = request.getParameter(Parameters.TAX);
-        if (!tax.matches(RegexConstants.NUMBER)) {
+        if (!tax.matches(RegexConstants.TAX)) {
             isValid = validationFailed(request, Attributes.TAX_ERROR, ErrorMessages.INCORRECT_TAX);
             return null;
         }
