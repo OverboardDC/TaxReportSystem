@@ -35,13 +35,13 @@
                     <input class="input-group" name="username">
 
                     <label><fmt:message key="password" bundle="${bundle}"/>:*</label>
-                    <h6 class="text-danger">${sessionScope.username_error}</h6>
-                    <c:remove var="username_error" scope="session"/>
+                    <h6 class="text-danger">${sessionScope.password_error}</h6>
+                    <c:remove var="password_error" scope="session"/>
                     <input type="password" class="input-group" name="password">
 
                     <label><fmt:message key="password.repeat" bundle="${bundle}"/>:*</label>
-                    <h6 class="text-danger">${sessionScope.username_error}</h6>
-                    <c:remove var="username_error" scope="session"/>
+                    <h6 class="text-danger">${sessionScope.password_repeat_error}</h6>
+                    <c:remove var="password_repeat_error" scope="session"/>
                     <input type="password" class="input-group" name="password_repeat">
                 </div>
 

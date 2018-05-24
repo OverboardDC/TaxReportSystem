@@ -5,10 +5,7 @@ import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
-import com.training.reportsystem.model.service.InspectorService;
-import com.training.reportsystem.model.service.ReportService;
-import com.training.reportsystem.model.service.RequestService;
-import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.model.service.*;
 import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
 import com.training.reportsystem.model.service.impl.ReportServiceImpl;
 import com.training.reportsystem.model.service.impl.RequestServiceImpl;
@@ -33,10 +30,11 @@ public class Servlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         commandMap = new HashMap<>();
-        TaxPayerService taxPayerService = new TaxPayerServiceImpl();
-        InspectorService inspectorService = new InspectorServiceImpl();
-        RequestService requestService = new RequestServiceImpl();
-        ReportService reportService = new ReportServiceImpl();
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        TaxPayerService taxPayerService = serviceFactory.createTaxPayerService();
+        InspectorService inspectorService = serviceFactory.createInspectorService();
+        RequestService requestService = serviceFactory.createRequestService();
+        ReportService reportService = serviceFactory.createReportService();
         commandMap.put(Commands.HOME_PAGE, new HomePage());
         commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
         commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
