@@ -14,6 +14,10 @@ public class RequestServiceImpl implements RequestService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
+    /**
+     *
+     * @return all requests
+     */
     @Override
     public List<Request> findAll() {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -21,6 +25,11 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     *
+     * @param id request id
+     * @return request by id
+     */
     @Override
     public Request getById(Long id) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -28,6 +37,11 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     * Creates a new request
+     *
+     * @param request request
+     */
     @Override
     public void create(Request request) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -35,6 +49,11 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     * Updates the request
+     *
+     * @param request request
+     */
     @Override
     public void update(Request request) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -42,6 +61,11 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     * Removes the request
+     *
+     * @param id request id
+     */
     @Override
     public void delete(Long id) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -49,6 +73,12 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     *
+     * @param taxPayerId tax payer id
+     * @param pagination pagination
+     * @return all request by tax payer id
+     */
     @Override
     public List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -56,6 +86,12 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     *
+     * @param status status
+     * @param pagination pagination
+     * @return all requests by status
+     */
     @Override
     public List<Request> findByStatus(Status status, Pagination pagination) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -63,6 +99,13 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     * Accepts the request
+     *
+     * @param requestId request id
+     * @param taxPayerId tax payer id
+     * @param inspectorId inspector id
+     */
     @Override
     public void accept(Long requestId, Long taxPayerId, Long inspectorId) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -70,6 +113,12 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     * Rejects the request
+     *
+     * @param requestId request id
+     * @param rejectReason reject reason
+     */
     @Override
     public void reject(Long requestId, String rejectReason) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {
@@ -77,6 +126,12 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /**
+     *
+     * @param status status
+     * @param taxPayerId tax payer id
+     * @return are there request with status
+     */
     @Override
     public boolean areThereRequestsWithStatus(Status status, Long taxPayerId) {
         try(RequestDao requestDao = daoFactory.createRequestDao(ConnectionPool.getConnection())) {

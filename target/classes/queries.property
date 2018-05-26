@@ -1,5 +1,5 @@
-tax.payer.login=SELECT * FROM taxPayer AS t LEFT JOIN inspector i on t.inspector_id = i.id WHERE t.username = ? AND t.password = ?
-inspector.login=SELECT * FROM inspector as i LEFT JOIN taxpayer t on i.id = t.inspector_id WHERE i.username = ? AND i.password = ?
+tax.payer.login=SELECT * FROM taxPayer WHERE username = ? AND password = ?
+inspector.login=SELECT * FROM inspector WHERE username = ? AND password = ?
 create.tax.payer=INSERT INTO taxPayer (username, password, firstname, lastname, identification_code) VALUES (?, ?, ?, ?, ?)
 is.tax.payer.username.unique=SELECT id from taxpayer where username = ?
 is.inspector.username.unique=SELECT id from inspector where username = ?

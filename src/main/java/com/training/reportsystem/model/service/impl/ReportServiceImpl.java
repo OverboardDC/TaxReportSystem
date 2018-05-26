@@ -13,6 +13,12 @@ public class ReportServiceImpl implements ReportService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
+    /**
+     *
+     * @param userId user id
+     * @param pagination pagination
+     * @return all reports by user id
+     */
     @Override
     public List<Report> findAllByUser(Long userId, Pagination pagination) {
         try (ReportDao reportDao = daoFactory.createReportDao(ConnectionPool.getConnection())) {
@@ -20,6 +26,12 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     *
+     * @param inspectorId inspector id
+     * @param pagination pagination
+     * @return all reports by inspector id
+     */
     @Override
     public List<Report> findAllByInspector(Long inspectorId, Pagination pagination) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -27,6 +39,11 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Approves the report
+     *
+     * @param reportId report id
+     */
     @Override
     public void approveReport(Long reportId) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -34,6 +51,12 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Rejects the report
+     *
+     * @param reportId report id
+     * @param rejectReason reject reason
+     */
     @Override
     public void rejectReport(Long reportId, String rejectReason) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -41,6 +64,10 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     *
+     * @return all reports
+     */
     @Override
     public List<Report> findAll() {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -48,6 +75,11 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     *
+     * @param id report id
+     * @return report by id
+     */
     @Override
     public Report getById(Long id) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -55,6 +87,11 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Creates a new report
+     *
+     * @param report report
+     */
     @Override
     public void create(Report report) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -62,6 +99,11 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Updates the report
+     *
+     * @param report report
+     */
     @Override
     public void update(Report report) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {
@@ -69,6 +111,11 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Removes the report
+     *
+     * @param id report id
+     */
     @Override
     public void delete(Long id) {
         try (ReportDao reportDao = DaoFactory.getInstance().createReportDao(ConnectionPool.getConnection())) {

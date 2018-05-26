@@ -13,6 +13,12 @@ public class InspectorServiceImpl implements InspectorService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
+    /**
+     *
+     * @param username username
+     * @param password password
+     * @return the inspector according to parameters
+     */
     @Override
     public Inspector login(String username, String password) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -20,6 +26,11 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     *
+     * @param username username
+     * @return is username unique
+     */
     @Override
     public boolean isUsernameUnique(String username) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -27,6 +38,10 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     *
+     * @return all inspectors
+     */
     @Override
     public List<Inspector> findAll() {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -34,6 +49,11 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     *
+     * @param id inspector id
+     * @return inspector by id
+     */
     @Override
     public Inspector getById(Long id) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -41,6 +61,11 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     * Creates a new inspector
+     *
+     * @param inspector inspector
+     */
     @Override
     public void create(Inspector inspector) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -48,6 +73,11 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     * Updates the inspector
+     *
+     * @param inspector inspector
+     */
     @Override
     public void update(Inspector inspector) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -55,6 +85,11 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     * Removes the inspector by id
+     *
+     * @param id inspector id
+     */
     @Override
     public void delete(Long id) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
@@ -62,6 +97,11 @@ public class InspectorServiceImpl implements InspectorService {
         }
     }
 
+    /**
+     *
+     * @param userId user id
+     * @return inspector by user id
+     */
     @Override
     public Inspector getByUserId(Long userId) {
         try(InspectorDao inspectorDao = daoFactory.createInspectorDao(ConnectionPool.getConnection())) {
