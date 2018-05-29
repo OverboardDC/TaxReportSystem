@@ -28,7 +28,7 @@
                         <h6><fmt:message key="reason.in" bundle="${bundle}"/></h6>
                         <p>${request.reason}</p>
                         <h6><fmt:message key="submission.date" bundle="${bundle}"/>:</h6>
-                        <p><ct:formatDateTime dateTime="${request.submissionDate}"/></p>
+                        <p><ct:formatDateTime dateTime="${request.submissionDate}" locale="${sessionScope.lang}"/></p>
                         <form action="<c:url value="/app/redirect/admin/acceptRequest"/>" method="post">
                             <div class="form-group">
 

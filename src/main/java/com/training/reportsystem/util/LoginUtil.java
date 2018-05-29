@@ -5,7 +5,6 @@ import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.LoggerMessages;
 import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ public class LoginUtil {
     public static String authorizeUser(User user, HttpServletRequest request) {
         Set usersInSystem = getUsersFromContext(request.getSession());
         if (usersInSystem.contains(user.getUsername())) {
-            request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.USER_ALREADY_LOGINED));
+            LocalisationUtil.setErrorMessage(Attributes.LOGIN_ERROR, ErrorMessages.USER_ALREADY_LOGINED, request);
             logger.info(LoggerUtil.formMessage(LOGIN_FAILED, USER, user.getUsername(), REASON, USER_ALREADY_LOGINED));
             return Pages.LOGIN_REDIRECT;
         }

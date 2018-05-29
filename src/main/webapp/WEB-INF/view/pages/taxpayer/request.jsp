@@ -50,7 +50,7 @@
                         <p>${request.rejectReason}</p>
                     </c:if>
                     <h6><fmt:message key="submission.date" bundle="${bundle}"/>:</h6>
-                    <p><ct:formatDateTime dateTime="${request.submissionDate}"/></p>
+                    <p><ct:formatDateTime dateTime="${request.submissionDate}" locale="${sessionScope.lang}"/></p>
                 </div>
             </c:forEach>
         </div>

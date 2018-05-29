@@ -24,15 +24,15 @@
                     <h6 class="status"><fmt:message key="status" bundle="${bundle}"/>: </h6>
                     <p class="text-info"><fmt:message key="${report.status.toString().toLowerCase()}" bundle="${bundle}"/></p>
                     <h6><fmt:message key="period.from" bundle="${bundle}"/>: </h6>
-                    <p><ct:formatDate date="${report.periodFrom}"/></p>
+                    <p><ct:formatDate date="${report.periodFrom}" locale="${sessionScope.lang}"/></p>
                     <h6><fmt:message key="period.to" bundle="${bundle}"/>: </h6>
-                    <p><ct:formatDate date="${report.periodTo}"/></p>
+                    <p><ct:formatDate date="${report.periodTo}" locale="${sessionScope.lang}"/></p>
                     <h6><fmt:message key="revenue" bundle="${bundle}"/>: </h6>
                     <p><ct:formatRevenue revenue="${report.revenue}"/> $</p>
                     <h6><fmt:message key="tax" bundle="${bundle}"/>: </h6>
                     <p><ct:formatTax tax="${report.tax}"/> %</p>
                     <h6><fmt:message key="submission.date" bundle="${bundle}"/>: </h6>
-                    <p><ct:formatDateTime dateTime="${report.submissionDate}"/></p>
+                    <p><ct:formatDateTime dateTime="${report.submissionDate}" locale="${sessionScope.lang}"/></p>
                     <c:if test="${not empty report.commentary}">
                         <h6><fmt:message key="commentary" bundle="${bundle}"/>: </h6>
                         <p>${report.commentary}</p>
@@ -43,7 +43,7 @@
                     </c:if>
                     <c:if test="${not empty report.editionDate}">
                         <h6><fmt:message key="last.edit.date" bundle="${bundle}"/>: </h6>
-                        <p><ct:formatDateTime dateTime="${report.editionDate}"/></p>
+                        <p><ct:formatDateTime dateTime="${report.editionDate}" locale="${sessionScope.lang}"/></p>
                     </c:if>
                     <c:if test="${report.status == 'PENDING'}">
                         <div class="form-group">

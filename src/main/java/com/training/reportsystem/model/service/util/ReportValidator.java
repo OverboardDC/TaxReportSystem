@@ -5,7 +5,7 @@ import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.Parameters;
 import com.training.reportsystem.util.constants.RegexConstants;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
+import com.training.reportsystem.util.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
@@ -69,7 +69,7 @@ public class ReportValidator implements Validator {
 
 
     private boolean validationFailed(HttpServletRequest request, String attributeName, String message) {
-        request.getSession().setAttribute(attributeName, LocalisationUtil.getMessage(message));
+        LocalisationUtil.setErrorMessage(attributeName, message, request);
         return false;
     }
 

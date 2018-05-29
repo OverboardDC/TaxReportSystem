@@ -10,7 +10,7 @@ import com.training.reportsystem.util.Md5Encryptor;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.Pages;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
+import com.training.reportsystem.util.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +44,7 @@ public class Registration implements Command {
 
         if(!taxPayerService.isUsernameUnique(username) || !inspectorService.isUsernameUnique(username)){
             logger.info(LoggerUtil.formMessage(REGISTRATION_FAILED, REASON, DUPLICATED_USERNAME));
-            request.getSession().setAttribute(Attributes.USERNAME_ERROR, LocalisationUtil.getMessage(ErrorMessages.USERNAME_ALREADY_EXITS));
+            LocalisationUtil.setErrorMessage(Attributes.USERNAME_ERROR, ErrorMessages.USERNAME_ALREADY_EXITS, request);
             return Pages.REGISTRATION_REDIRECT;
         }
 

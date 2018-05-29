@@ -3,7 +3,7 @@ package com.training.reportsystem.controller.command;
 import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.constants.*;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
+import com.training.reportsystem.util.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +22,7 @@ public class AssignInspector implements Command{
         Long taxPayerId = Long.valueOf(request.getParameter(Parameters.TAX_PAYER_ID));
         Optional<String> inspectorId = Optional.ofNullable(request.getParameter(Parameters.INSPECTOR_ID));
         if(!inspectorId.isPresent()){
-            request.getSession().setAttribute(Attributes.ADMIN_PAGE_ERROR,
-                    LocalisationUtil.getMessage(ErrorMessages.INSPECTOR_WASNT_CHOSEN));
+            LocalisationUtil.setErrorMessage(Attributes.ADMIN_PAGE_ERROR, ErrorMessages.INSPECTOR_WASNT_CHOSEN, request);
             return Pages.ADMIN_REDIRECT;
         }
         taxPayerService.assignInspector(taxPayerId, Long.valueOf(inspectorId.get()));

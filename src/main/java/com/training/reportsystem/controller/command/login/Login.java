@@ -10,7 +10,7 @@ import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.ErrorMessages;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
+import com.training.reportsystem.util.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +39,7 @@ public class Login implements Command {
         if (user.isPresent()) {
             return LoginUtil.authorizeUser(user.get(), request);
         }
-        request.getSession().setAttribute(Attributes.LOGIN_ERROR, LocalisationUtil.getMessage(ErrorMessages.LOGIN_ERROR));
+        LocalisationUtil.setErrorMessage(Attributes.LOGIN_ERROR, ErrorMessages.LOGIN_ERROR, request);
         logger.info(LoggerUtil.formMessage(LOGIN_FAILED, username, REASON, INVALID_DATA));
         return Pages.LOGIN_REDIRECT;
     }

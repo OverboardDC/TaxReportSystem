@@ -3,7 +3,7 @@ package com.training.reportsystem.controller.command;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.constants.*;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
+import com.training.reportsystem.util.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +20,7 @@ public class RejectRequest implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String rejectReason = request.getParameter(Parameters.REJECT_REASON);
         if(!rejectReason.matches(RegexConstants.MESSAGE)){
-            request.getSession().setAttribute(Attributes.ALL_REQUESTS_PAGE_ERROR,
-                    LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
+            LocalisationUtil.setErrorMessage(Attributes.ALL_REQUESTS_PAGE_ERROR, ErrorMessages.INCORRECT_REASON, request);
             return Pages.ALL_REQUESTS_REDIRECT;
         }
         Long requestId = Long.valueOf(request.getParameter(Parameters.REQUEST_ID));

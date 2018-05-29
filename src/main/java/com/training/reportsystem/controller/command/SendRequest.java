@@ -7,7 +7,7 @@ import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.constants.*;
-import com.training.reportsystem.util.i18n.LocalisationUtil;
+import com.training.reportsystem.util.LocalisationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class SendRequest implements Command {
         Long inspectorId = Long.valueOf(request.getParameter(Parameters.INSPECTOR_ID));
         String reason = request.getParameter(Parameters.REASON);
         if(!reason.matches(RegexConstants.MESSAGE)){
-            request.getSession().setAttribute(Attributes.REASON_ERROR, LocalisationUtil.getMessage(ErrorMessages.INCORRECT_REASON));
+            LocalisationUtil.setErrorMessage(Attributes.REASON_ERROR, ErrorMessages.INCORRECT_REASON, request);
             return Pages.REQUEST_REDIRECT;
         }
         Request taxPayerRequest = new Request.RequestBuilder()

@@ -48,9 +48,9 @@
                 <div class="nav-item">
                     <form action="<c:url value="/app/redirect/changeLanguage"/>">
                         <select class="input-group" name="lang" onchange="this.form.submit()">
-                            <option value="en" ${sessionScope.lang == 'en' ? 'selected="selected"' : ''}>English
+                            <option value="en" ${sessionScope.lang.language == 'en' ? 'selected="selected"' : ''}>English
                             </option>
-                            <option value="ru" ${sessionScope.lang == 'ru' ? 'selected="selected"' : ''}>Russian
+                            <option value="ru" ${sessionScope.lang.language == 'ru' ? 'selected="selected"' : ''}>Russian
                             </option>
                         </select>
                     </form>
