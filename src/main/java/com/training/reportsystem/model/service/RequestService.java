@@ -6,11 +6,13 @@ import com.training.reportsystem.model.service.util.Pagination;
 
 import java.util.List;
 
-public interface RequestService extends GenericService<Request> {
+public interface RequestService {
 
-    List<Request> findByTaxPayerId(Long taxPayerId, Pagination pagination);
+    void create(Request request);
 
-    List<Request> findByStatus(Status status, Pagination pagination);
+    List<Request> findByTaxPayerId(Long taxPayerId);
+
+    List<Request> findByStatus(Status status);
 
     void accept(Long requestId, Long taxPayerId, Long inspectorId);
 

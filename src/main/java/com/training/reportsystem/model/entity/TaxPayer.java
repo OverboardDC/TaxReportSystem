@@ -1,12 +1,23 @@
 package com.training.reportsystem.model.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "taxpayer")
 public class TaxPayer extends User{
 
+    @OneToMany(mappedBy = "taxPayer")
     private List<Request> requests;
+
+    @OneToMany(mappedBy = "taxPayer", cascade = CascadeType.ALL)
     private List<Report> reports;
+
+    @ManyToOne
+    @JoinColumn(name = "inspector_id")
     private Inspector inspector;
+
+    @Column(name = "identification_code")
     private String identificationCode;
 
     public List<Request> getRequests() {
@@ -44,8 +55,6 @@ public class TaxPayer extends User{
     @Override
     public String toString() {
         return "TaxPayer{" +
-                "requests=" + requests +
-                ", reports=" + reports +
                 ", inspector=" + inspector +
                 ", identificationCode='" + identificationCode + '\'' +
                 "} " + super.toString();

@@ -9,19 +9,18 @@ import com.training.reportsystem.model.service.util.ReportValidator;
 import com.training.reportsystem.util.constants.LoggerMessages;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Controller
 public class SendReport implements Command {
 
     private ReportService reportService;
-
-    public SendReport(ReportService reportService) {
-        this.reportService = reportService;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -45,5 +44,10 @@ public class SendReport implements Command {
         reportService.create(report);
         logger.info(LoggerMessages.REPORT_WAS_CREATED);
         return Pages.TAX_PAYER_REDIRECT;
+    }
+
+    @Autowired
+    public void setReportService(ReportService reportService) {
+        this.reportService = reportService;
     }
 }

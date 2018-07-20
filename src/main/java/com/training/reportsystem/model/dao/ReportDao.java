@@ -5,11 +5,17 @@ import com.training.reportsystem.model.service.util.Pagination;
 
 import java.util.List;
 
-public interface ReportDao extends GenericDao<Report> {
+public interface ReportDao {
 
-    List<Report> findAllByUser(Long userId, Pagination pagination);
+    Report getById(Long reportId);
 
-    List<Report> findAllByInspector(Long inspectorId, Pagination pagination);
+    void create(Report report);
+
+    void edit(Report report);
+
+    List<Report> findAllByUser(Long userId);
+
+    List<Report> findAllByInspector(Long inspectorId);
 
     void approveReport(Long reportId);
 

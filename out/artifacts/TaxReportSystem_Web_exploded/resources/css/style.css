@@ -1,0 +1,25 @@
+.wrapper {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.main_image {
+    width: 50%;
+    height: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.report_div {
+    margin: 30px;
+}
+
+.item {
+    margin: 15px;
+}

@@ -3,17 +3,16 @@ package com.training.reportsystem.controller.command;
 import com.training.reportsystem.model.service.ReportService;
 import com.training.reportsystem.util.constants.*;
 import com.training.reportsystem.util.i18n.LocalisationUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Controller
 public class RejectReport implements Command {
 
     private ReportService reportService;
-
-    public RejectReport(ReportService reportService) {
-        this.reportService = reportService;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -25,5 +24,10 @@ public class RejectReport implements Command {
         }
         reportService.rejectReport(reportId, rejectReason);
         return Pages.INSPECTOR_REDIRECT;
+    }
+
+    @Autowired
+    public void setReportService(ReportService reportService) {
+        this.reportService = reportService;
     }
 }

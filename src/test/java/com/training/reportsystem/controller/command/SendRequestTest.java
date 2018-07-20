@@ -34,7 +34,7 @@ public class SendRequestTest {
 
     @Before
     public void setUp(){
-        sendRequest = new SendRequest(requestService);
+        sendRequest = new SendRequest();
         taxPayerId = "1";
         inspectorId = "1";
         reason = "reason";

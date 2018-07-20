@@ -8,18 +8,17 @@ import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.constants.*;
 import com.training.reportsystem.util.i18n.LocalisationUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
+@Controller
 public class SendRequest implements Command {
 
     private RequestService requestService;
-
-    public SendRequest(RequestService requestService) {
-        this.requestService = requestService;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -37,5 +36,10 @@ public class SendRequest implements Command {
         requestService.create(taxPayerRequest);
         logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_WAS_SENT));
         return Pages.TAX_PAYER_REDIRECT;
+    }
+
+    @Autowired
+    public void setRequestService(RequestService requestService) {
+        this.requestService = requestService;
     }
 }

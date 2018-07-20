@@ -3,6 +3,7 @@ package com.training.reportsystem.controller.command.login;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.model.service.UserService;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
 import org.junit.Before;
@@ -24,7 +25,7 @@ public class RegistrationTest {
     private TaxPayerService taxPayerService;
 
     @Mock
-    private InspectorService inspectorService;
+    private UserService userService;
 
     @Mock
     private HttpServletRequest request;
@@ -42,7 +43,7 @@ public class RegistrationTest {
 
     @Before
     public void setUp() {
-        registration = new Registration(taxPayerService, inspectorService);
+        registration = new Registration();
         firstName = "firstName";
         lastName = "lastName";
         identificationCode = "183957382";
@@ -59,8 +60,8 @@ public class RegistrationTest {
         when(request.getParameter(Parameters.USERNAME)).thenReturn(username);
         when(request.getParameter(Parameters.PASSWORD)).thenReturn(password);
         when(request.getParameter(Parameters.PASSWORD_REPEAT)).thenReturn(passwordRepeat);
-        when(taxPayerService.isUsernameUnique(username)).thenReturn(true);
-        when(inspectorService.isUsernameUnique(username)).thenReturn(true);
+        /*when(taxPayerService.isUsernameUnique(username)).thenReturn(true);
+        when(inspectorService.isUsernameUnique(username)).thenReturn(true);*/
         String page = registration.execute(request, response);
         verify(taxPayerService).create(any());
         assertEquals(page, Pages.LOGIN_REDIRECT);

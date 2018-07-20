@@ -1,15 +1,23 @@
 package com.training.reportsystem.model.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Optional;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public Long getId() {

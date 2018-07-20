@@ -4,6 +4,7 @@ import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.TaxPayerService;
+import com.training.reportsystem.model.service.UserService;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
@@ -31,13 +32,11 @@ public class LoginTest {
 
 
     @Mock
-    private TaxPayerService taxPayerService;
+    private UserService userService;
 
-    @Mock
-    private InspectorService inspectorService;
 
     @InjectMocks
-    private Login login = new Login(taxPayerService, inspectorService);
+    private Login login = new Login();
 
     @InjectMocks
     private String username = "testUsername";
@@ -67,7 +66,7 @@ public class LoginTest {
         when(request.getSession()).thenReturn(session);
         when(session.getServletContext()).thenReturn(context);
         when(context.getAttribute(Attributes.USERS_IN_SYSTEM)).thenReturn(new HashSet<>());
-        when(taxPayerService.login(anyString(), anyString())).thenReturn(taxPayer);
+        when(userService.login(anyString(), anyString())).thenReturn(taxPayer);
         String page = login.execute(request, response);
         Set users = (Set) context.getAttribute(Attributes.USERS_IN_SYSTEM);
         assertTrue(users.contains(taxPayer.getUsername()));

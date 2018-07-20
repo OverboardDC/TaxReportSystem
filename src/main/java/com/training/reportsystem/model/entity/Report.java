@@ -1,21 +1,44 @@
 package com.training.reportsystem.model.entity;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "report", schema = "tax_reporting_system")
 public class Report {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "taxpayer_id")
     private TaxPayer taxPayer;
+
+    @ManyToOne
+    @JoinColumn(name = "inspector_id")
     private Inspector inspector;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Column(name = "period_from")
     private LocalDate periodFrom;
+
+    @Column(name = "period_to")
     private LocalDate periodTo;
     private Long revenue;
     private Double tax;
     private String commentary;
+
+    @Column(name = "reject_reason")
     private String rejectReason;
+
+    @Column(name = "submission_date", updatable = false)
     private LocalDateTime submissionDate;
+
+    @Column(name = "editing_date")
     private LocalDateTime editionDate;
 
     public Long getId() {

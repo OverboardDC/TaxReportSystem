@@ -6,32 +6,41 @@ import com.training.reportsystem.model.entity.Report;
 import com.training.reportsystem.model.entity.TaxPayer;
 import com.training.reportsystem.model.service.InspectorService;
 import com.training.reportsystem.model.service.ReportService;
+import com.training.reportsystem.model.service.TaxPayerService;
 import com.training.reportsystem.util.constants.Attributes;
 import com.training.reportsystem.util.constants.Pages;
 import com.training.reportsystem.util.constants.Parameters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+@Controller
 public class EditReportPage implements Command {
 
     private ReportService reportService;
     private InspectorService inspectorService;
-
-
-    public EditReportPage(ReportService reportService, InspectorService inspectorService) {
-        this.reportService = reportService;
-        this.inspectorService = inspectorService;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Report report = reportService.getById(Long.valueOf(request.getParameter(Parameters.REPORT_ID)));
         TaxPayer taxPayer = (TaxPayer) request.getSession().getAttribute(Attributes.USER);
         Optional<Inspector> inspector = Optional.of(inspectorService.getByUserId(taxPayer.getId()));
+        request.setAttribute(Attributes.TAX_PAYER, report.getTaxPayer());
         request.setAttribute(Attributes.INSPECTOR, inspector.get());
         request.setAttribute(Attributes.REPORT, report);
         return Pages.EDIT_REPORT;
+    }
+
+    @Autowired
+    public void setReportService(ReportService reportService) {
+        this.reportService = reportService;
+    }
+
+    @Autowired
+    public void setInspectorService(InspectorService inspectorService) {
+        this.inspectorService = inspectorService;
     }
 }

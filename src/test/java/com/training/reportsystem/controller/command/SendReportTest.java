@@ -41,7 +41,7 @@ public class SendReportTest {
 
     @Before
     public void setUp(){
-        sendReport = new SendReport(reportService);
+        sendReport = new SendReport();
         periodFrom = "2018-01-01";
         periodTo = "2018-02-01";
         revenue = "123.56";

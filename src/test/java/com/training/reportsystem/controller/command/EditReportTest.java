@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +42,7 @@ public class EditReportTest {
 
     @Before
     public void setUp(){
-        editReport = new EditReport(reportService);
+        editReport = new EditReport();
         periodFrom = "2018-01-01";
         periodTo = "2018-01-01";
         revenue = "123.56";

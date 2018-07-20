@@ -33,7 +33,7 @@ public class AssignInspectorTest {
 
     @Before
     public void setUp(){
-        assignInspector = new AssignInspector(taxPayerService);
+        assignInspector = new AssignInspector();
         taxPayerId = 1L;
         inspectorId = 1L;
     }

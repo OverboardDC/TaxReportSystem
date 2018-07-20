@@ -4,18 +4,17 @@ import com.training.reportsystem.model.service.RequestService;
 import com.training.reportsystem.util.LoggerUtil;
 import com.training.reportsystem.util.constants.*;
 import com.training.reportsystem.util.i18n.LocalisationUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+@Controller
 public class AcceptRequest implements Command{
 
     private RequestService requestService;
-
-    public AcceptRequest(RequestService requestService) {
-        this.requestService = requestService;
-    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -30,5 +29,10 @@ public class AcceptRequest implements Command{
         requestService.accept(requestId, taxPayerId, Long.valueOf(inspectorId.get()));
         logger.info(LoggerUtil.formMessage(LoggerMessages.REQUEST_ACCEPTED));
         return Pages.ALL_REQUESTS_REDIRECT;
+    }
+
+    @Autowired
+    public void setRequestService(RequestService requestService) {
+        this.requestService = requestService;
     }
 }

@@ -5,13 +5,12 @@ import com.training.reportsystem.controller.command.login.Login;
 import com.training.reportsystem.controller.command.login.Logout;
 import com.training.reportsystem.controller.command.login.Registration;
 import com.training.reportsystem.controller.command.pages.*;
+import com.training.reportsystem.controller.config.ApplicationConfig;
 import com.training.reportsystem.model.service.*;
-import com.training.reportsystem.model.service.impl.InspectorServiceImpl;
-import com.training.reportsystem.model.service.impl.ReportServiceImpl;
-import com.training.reportsystem.model.service.impl.RequestServiceImpl;
-import com.training.reportsystem.model.service.impl.TaxPayerServiceImpl;
+import com.training.reportsystem.model.service.factory.ServiceFactory;
 import com.training.reportsystem.util.constants.Commands;
 import com.training.reportsystem.util.constants.GlobalConstants;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,34 +28,30 @@ public class Servlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         commandMap = new HashMap<>();
-        ServiceFactory serviceFactory = new ServiceFactory();
-        TaxPayerService taxPayerService = serviceFactory.createTaxPayerService();
-        InspectorService inspectorService = serviceFactory.createInspectorService();
-        RequestService requestService = serviceFactory.createRequestService();
-        ReportService reportService = serviceFactory.createReportService();
-        commandMap.put(Commands.HOME_PAGE, new HomePage());
-        commandMap.put(Commands.LOGIN_PAGE, new LoginPage());
-        commandMap.put(Commands.REGISTRATION_PAGE, new RegistrationPage());
-        commandMap.put(Commands.CHANGE_LANGUAGE, new ChangeLanguage());
-        commandMap.put(Commands.LOGIN, new Login(taxPayerService, inspectorService));
-        commandMap.put(Commands.ADMIN_PAGE, new AdminPage(taxPayerService, inspectorService));
-        commandMap.put(Commands.TAX_PAYER_PAGE, new TaxPayerPage(inspectorService, reportService));
-        commandMap.put(Commands.INSPECTOR_PAGE, new InspectorPage(reportService));
-        commandMap.put(Commands.REGISTRATION, new Registration(taxPayerService, inspectorService));
-        commandMap.put(Commands.LOGOUT, new Logout());
-        commandMap.put(Commands.ASSIGN_INSPECTOR, new AssignInspector(taxPayerService));
-        commandMap.put(Commands.REQUEST_PAGE, new RequestPage(requestService, inspectorService));
-        commandMap.put(Commands.SEND_REQUEST, new SendRequest(requestService));
-        commandMap.put(Commands.ALL_REQUESTS_PAGE, new AllRequestsPage(requestService, inspectorService));
-        commandMap.put(Commands.ACCEPT_REQUEST, new AcceptRequest(requestService));
-        commandMap.put(Commands.REJECT_REQUEST, new RejectRequest(requestService));
-        commandMap.put(Commands.NEW_REPORT_PAGE, new NewReportPage(inspectorService));
-        commandMap.put(Commands.SEND_REPORT, new SendReport(reportService));
-        commandMap.put(Commands.APPROVE_REPORT, new ApproveReport(reportService));
-        commandMap.put(Commands.REJECT_REPORT, new RejectReport(reportService));
-        commandMap.put(Commands.EDIT_REPORT_PAGE, new EditReportPage(reportService, inspectorService));
-        commandMap.put(Commands.EDIT_REPORT, new EditReport(reportService));
+        commandMap.put(Commands.HOME_PAGE, ac.getBean("homePage", HomePage.class));
+        commandMap.put(Commands.LOGIN_PAGE, ac.getBean("loginPage", LoginPage.class));
+        commandMap.put(Commands.REGISTRATION_PAGE, ac.getBean("registrationPage", RegistrationPage.class));
+        commandMap.put(Commands.CHANGE_LANGUAGE, ac.getBean("changeLanguage", ChangeLanguage.class));
+        commandMap.put(Commands.LOGIN, ac.getBean("login", Login.class));
+        commandMap.put(Commands.ADMIN_PAGE, ac.getBean("adminPage", AdminPage.class));
+        commandMap.put(Commands.TAX_PAYER_PAGE, ac.getBean("taxPayerPage", TaxPayerPage.class));
+        commandMap.put(Commands.INSPECTOR_PAGE, ac.getBean("inspectorPage", InspectorPage.class));
+        commandMap.put(Commands.REGISTRATION, ac.getBean("registration", Registration.class));
+        commandMap.put(Commands.LOGOUT, ac.getBean("logout", Logout.class));
+        commandMap.put(Commands.ASSIGN_INSPECTOR, ac.getBean("assignInspector", AssignInspector.class));
+        commandMap.put(Commands.REQUEST_PAGE, ac.getBean("requestPage", RequestPage.class));
+        commandMap.put(Commands.SEND_REQUEST, ac.getBean("sendRequest", SendRequest.class));
+        commandMap.put(Commands.ALL_REQUESTS_PAGE, ac.getBean("allRequestsPage", AllRequestsPage.class));
+        commandMap.put(Commands.ACCEPT_REQUEST, ac.getBean("acceptRequest", AcceptRequest.class));
+        commandMap.put(Commands.REJECT_REQUEST, ac.getBean("rejectRequest", RejectRequest.class));
+        commandMap.put(Commands.NEW_REPORT_PAGE, ac.getBean("newReportPage", NewReportPage.class));
+        commandMap.put(Commands.SEND_REPORT, ac.getBean("sendReport", SendReport.class));
+        commandMap.put(Commands.APPROVE_REPORT, ac.getBean("approveReport", ApproveReport.class));
+        commandMap.put(Commands.REJECT_REPORT, ac.getBean("rejectReport", RejectReport.class));
+        commandMap.put(Commands.EDIT_REPORT_PAGE, ac.getBean("editReportPage", EditReportPage.class));
+        commandMap.put(Commands.EDIT_REPORT, ac.getBean("editReport", EditReport.class));
     }
 
     @Override

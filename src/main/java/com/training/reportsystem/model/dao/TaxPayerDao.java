@@ -5,9 +5,12 @@ import com.training.reportsystem.model.service.util.Pagination;
 
 import java.util.List;
 
-public interface TaxPayerDao extends UserDao<TaxPayer> {
+public interface TaxPayerDao {
 
-    List<TaxPayer> findAllWithoutInspector(Pagination pagination);
+    void create(TaxPayer taxPayer);
+
+    List<TaxPayer> findAllWithoutInspector();
 
     void assignInspector(Long taxPayer_id, Long inspectorId);
+
 }

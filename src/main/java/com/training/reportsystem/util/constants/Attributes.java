@@ -35,4 +35,5 @@ public interface Attributes {
 
     String PAGES = "pages";
 
+    String TAX_PAYER = "taxpayer";
 }

@@ -34,7 +34,7 @@ public class AcceptRequestTest {
 
     @Before
     public void setUp(){
-        acceptRequest = new AcceptRequest(requestService);
+        acceptRequest = new AcceptRequest();
         requestId = 1L;
         taxPayerId = 1L;
         inspectorId = 1L;

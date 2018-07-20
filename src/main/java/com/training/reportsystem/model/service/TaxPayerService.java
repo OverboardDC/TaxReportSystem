@@ -5,9 +5,11 @@ import com.training.reportsystem.model.service.util.Pagination;
 
 import java.util.List;
 
-public interface TaxPayerService extends UserService<TaxPayer> {
+public interface TaxPayerService {
 
-    List<TaxPayer> findAllWithoutInspector(Pagination pagination);
+    void create(TaxPayer taxPayer);
+
+    List<TaxPayer> findAllWithoutInspector();
 
     void assignInspector(Long taxPayer_id, Long inspectorId);
 }

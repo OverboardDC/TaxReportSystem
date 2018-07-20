@@ -34,7 +34,7 @@ public class RejectReportTest {
 
     @Before
     public void setUp(){
-        rejectReport = new RejectReport(reportService);
+        rejectReport = new RejectReport();
         reportId = 1L;
         rejectReason = "reason";
     }

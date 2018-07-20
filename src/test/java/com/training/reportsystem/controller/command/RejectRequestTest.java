@@ -34,7 +34,7 @@ public class RejectRequestTest {
 
     @Before
     public void setUp(){
-        rejectRequest = new RejectRequest(requestService);
+        rejectRequest = new RejectRequest();
         requestId = 1L;
         rejectReason = "Reason";
     }

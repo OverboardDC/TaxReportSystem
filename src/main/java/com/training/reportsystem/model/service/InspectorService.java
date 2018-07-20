@@ -2,7 +2,11 @@ package com.training.reportsystem.model.service;
 
 import com.training.reportsystem.model.entity.Inspector;
 
-public interface InspectorService extends UserService<Inspector> {
+import java.util.List;
+
+public interface InspectorService {
+
+    List<Inspector> findAll();
 
     Inspector getByUserId(Long userId);
 }

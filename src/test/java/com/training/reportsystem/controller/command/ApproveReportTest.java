@@ -33,7 +33,7 @@ public class ApproveReportTest {
 
     @Before
     public void setUp(){
-        approveReport = new ApproveReport(reportService);
+        approveReport = new ApproveReport();
         reportId = 1L;
     }
 

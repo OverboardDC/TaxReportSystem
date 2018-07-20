@@ -1,11 +1,19 @@
 package com.training.reportsystem.model.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "inspector")
 public class Inspector extends User {
 
+    @OneToMany(mappedBy = "inspector", cascade = CascadeType.ALL)
     private List<TaxPayer> taxPayers;
+
+    @OneToMany(mappedBy = "inspector")
     private List<Report> reports;
+
+    @OneToMany(mappedBy = "inspector")
     private List<Request> requests;
 
     public List<TaxPayer> getTaxPayers() {
@@ -35,9 +43,6 @@ public class Inspector extends User {
     @Override
     public String toString() {
         return "Inspector{" +
-                ", taxPayers=" + taxPayers +
-                ", reports=" + reports +
-                ", requests=" + requests +
                 "} " + super.toString();
     }
 
